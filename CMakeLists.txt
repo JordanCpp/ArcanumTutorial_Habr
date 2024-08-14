@@ -30,5 +30,5 @@ file(GLOB_RECURSE SHARED_SOURCES "Pollux/Shared/*.cpp")
 include_directories("Arcanum/Shared")
 file(GLOB_RECURSE ARCANUM_SOURCES "Arcanum/Shared/*.cpp")
 
-add_executable(Arcanum "main.cpp" ${POLLUX_SOURCES} ${SHARED_SOURCES} ${ARCANUM_SOURCES})
-target_link_libraries(Arcanum ${SDL2_LIBRARIES})
+add_executable(Game "main.cpp" ${POLLUX_SOURCES} ${SHARED_SOURCES} ${ARCANUM_SOURCES})
+target_link_libraries(Game ${SDL2_LIBRARIES})
