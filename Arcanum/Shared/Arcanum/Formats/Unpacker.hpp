@@ -24,31 +24,19 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Arcanum_Game_Engine_hpp
-#define Arcanum_Game_Engine_hpp
+#ifndef Arcanum_Formats_Unpacker_hpp
+#define Arcanum_Formats_Unpacker_hpp
 
-#include <Pollux/Graphics/Canvas.hpp>
-#include <Pollux/Events/EventHandler.hpp>
-#include <Arcanum/Formats/Dat/DatLoader.hpp>
-#include <Arcanum/Managers/DatManager.hpp>
+#include <stddef.h>
 
 namespace Arcanum
 {
-	class Engine
+	class Unpacker
 	{
 	public:
-		Engine();
-		~Engine();
-		void Run();
+		bool Uncompress(unsigned char* dest, size_t destSize, unsigned char* src, size_t srcSize);
 	private:
-		Pollux::Canvas        _Canvas;
-		Pollux::EventHandler  _EventHandler;
-		DatList               _DatList;
-		DatReader             _DatReader;
-		DatLoader             _DatLoader;
-		std::vector<char>     _DatBuffer;
-		DatManager            _DatManager;
 	};
 }
 
-#endif 
+#endif

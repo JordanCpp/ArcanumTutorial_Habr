@@ -40,14 +40,31 @@ file(GLOB ZLIB_SOURCES
 "dependencies/zlib/uncompr.c"
 "dependencies/zlib/zutil.c")
 
-include_directories("Pollux/SDL2")
-file(GLOB_RECURSE POLLUX_SOURCES "Pollux/SDL2/*.cpp")
+add_library(zlib ${ZLIB_SOURCES})
 
+include_directories("Pollux/SDL2")
 include_directories("Pollux/Shared")
-file(GLOB_RECURSE SHARED_SOURCES "Pollux/Shared/*.cpp")
+file(GLOB_RECURSE POLLUX_SOURCES "Pollux/SDL2/*.cpp" "Pollux/Shared/*.cpp")
+add_library(Pollux ${POLLUX_SOURCES})
 
 include_directories("Arcanum/Shared")
 file(GLOB_RECURSE ARCANUM_SOURCES "Arcanum/Shared/*.cpp")
+add_library(Arcanum ${ARCANUM_SOURCES})
 
-add_executable(Game "main.cpp" ${POLLUX_SOURCES} ${SHARED_SOURCES} ${ARCANUM_SOURCES} ${ZLIB_SOURCES})
-target_link_libraries(Game ${SDL2_LIBRARIES})
+add_executable(Game "main.cpp")
+target_link_libraries(Game ${SDL2_LIBRARIES} Pollux Arcanum zlib)
+
+add_executable(DatReaderTest "Tests/DatReaderTest.cpp")
+target_link_libraries(DatReaderTest Arcanum)
+
+if (WIN32)
+    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+        file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/SDL2-2.30.3/lib/x64/SDL2.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+    elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+        file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/SDL2-2.30.3/lib/x86/SDL2.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+    endif()
+endif()
+
+enable_testing()
+
+add_test(NAME DatReaderTest COMMAND DatReaderTest ${CMAKE_CURRENT_BINARY_DIR})

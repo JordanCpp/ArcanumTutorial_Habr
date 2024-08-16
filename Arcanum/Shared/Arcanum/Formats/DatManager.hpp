@@ -24,19 +24,15 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Arcanum_Formats_Dat_DatSource_hpp
-#define Arcanum_Formats_Dat_DatSource_hpp
-
-#include <Arcanum/Formats/Dat/DatLoader.hpp>
+#ifndef Arcanum_Managers_DatManager_hpp
+#define Arcanum_Managers_DatManager_hpp
 
 namespace Arcanum
 {
-    class DatSource
+    class DatManager
     {
     public:
-        DatSource(DatLoader& datLoader);
     private:
-        DatLoader& _DatLoader;
     };
 }
 

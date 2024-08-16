@@ -30,7 +30,9 @@ using namespace Arcanum;
 using namespace Pollux;
 
 Engine::Engine() :
-	_Canvas(Point(800, 600))
+	_Canvas(Point(800, 600)),
+	_DatLoader(_DatReader),
+	_DatManager(_DatBuffer, _DatList)
 {
 }
 
