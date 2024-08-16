@@ -21,6 +21,25 @@ endif()
 
 include_directories(${SDL2_INCLUDE_DIRS})
 
+include_directories("dependencies/zlib")
+
+file(GLOB ZLIB_SOURCES 
+"dependencies/zlib/adler32.c"
+"dependencies/zlib/compress.c"
+"dependencies/zlib/crc32.c"
+"dependencies/zlib/deflate.c"
+"dependencies/zlib/gzclose.c"
+"dependencies/zlib/gzlib.c"
+"dependencies/zlib/gzread.c"
+"dependencies/zlib/gzwrite.c"
+"dependencies/zlib/inflate.c"
+"dependencies/zlib/infback.c"
+"dependencies/zlib/inftrees.c"
+"dependencies/zlib/inffast.c"
+"dependencies/zlib/trees.c"
+"dependencies/zlib/uncompr.c"
+"dependencies/zlib/zutil.c")
+
 include_directories("Pollux/SDL2")
 file(GLOB_RECURSE POLLUX_SOURCES "Pollux/SDL2/*.cpp")
 
@@ -30,5 +49,5 @@ file(GLOB_RECURSE SHARED_SOURCES "Pollux/Shared/*.cpp")
 include_directories("Arcanum/Shared")
 file(GLOB_RECURSE ARCANUM_SOURCES "Arcanum/Shared/*.cpp")
 
-add_executable(Game "main.cpp" ${POLLUX_SOURCES} ${SHARED_SOURCES} ${ARCANUM_SOURCES})
+add_executable(Game "main.cpp" ${POLLUX_SOURCES} ${SHARED_SOURCES} ${ARCANUM_SOURCES} ${ZLIB_SOURCES})
 target_link_libraries(Game ${SDL2_LIBRARIES})

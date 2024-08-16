@@ -3,8 +3,11 @@
 # Arcanum Tutorial
 A guide to creating an isometric 2D game.
 
+# Tutorials
+01 Lesson. https://habr.com/ru/articles/835980/ 
+
 # Install
 1. Git clone
 2. Install SDL2
 3. cmake
-4. Run Arcanum
+4. Run Game

@@ -9,7 +9,24 @@ cl /O2 /GX /MT -FeVC6_SDL1.exe  ^
 ..\Pollux\SDL1\Pollux\Graphics\*.cpp  ^
 ..\Pollux\Shared\Pollux\Graphics\*.cpp  ^
 ..\main.cpp ^
+..\Arcanum\Shared\Arcanum\Formats\Dat\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Game\*.cpp ^
+..\dependencies\zlib\adler32.c ^
+..\dependencies\zlib\compress.c ^
+..\dependencies\zlib\crc32.c ^
+..\dependencies\zlib\deflate.c ^
+..\dependencies\zlib\gzclose.c ^
+..\dependencies\zlib\gzlib.c ^
+..\dependencies\zlib\gzread.c ^
+..\dependencies\zlib\gzwrite.c ^
+..\dependencies\zlib\inflate.c ^
+..\dependencies\zlib\infback.c ^
+..\dependencies\zlib\inftrees.c ^
+..\dependencies\zlib\inffast.c ^
+..\dependencies\zlib\trees.c ^
+..\dependencies\zlib\uncompr.c ^
+..\dependencies\zlib\zutil.c ^
+/I..\dependencies\zlib ^
 /link /LIBPATH:"..\dependencies\SDL-devel-1.2.14-VC6\lib" SDLmain.lib SDL.lib
 
 del *.obj
