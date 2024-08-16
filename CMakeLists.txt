@@ -54,9 +54,6 @@ add_library(Arcanum ${ARCANUM_SOURCES})
 add_executable(Game "main.cpp")
 target_link_libraries(Game ${SDL2_LIBRARIES} Pollux Arcanum zlib)
 
-add_executable(DatReaderTest "Tests/DatReaderTest.cpp")
-target_link_libraries(DatReaderTest Arcanum)
-
 if (WIN32)
     if(CMAKE_SIZEOF_VOID_P EQUAL 8)
         file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/SDL2-2.30.3/lib/x64/SDL2.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
@@ -67,4 +64,4 @@ endif()
 
 enable_testing()
 
-add_test(NAME DatReaderTest COMMAND DatReaderTest ${CMAKE_CURRENT_BINARY_DIR})
+add_subdirectory(Tests)
