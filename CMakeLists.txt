@@ -46,13 +46,15 @@ include_directories("Pollux/SDL2")
 include_directories("Pollux/Shared")
 file(GLOB_RECURSE POLLUX_SOURCES "Pollux/SDL2/*.cpp" "Pollux/Shared/*.cpp")
 add_library(Pollux ${POLLUX_SOURCES})
+target_link_libraries(Pollux ${SDL2_LIBRARIES})
 
 include_directories("Arcanum/Shared")
 file(GLOB_RECURSE ARCANUM_SOURCES "Arcanum/Shared/*.cpp")
 add_library(Arcanum ${ARCANUM_SOURCES})
+target_link_libraries(Arcanum Pollux zlib)
 
 add_executable(Game "main.cpp")
-target_link_libraries(Game ${SDL2_LIBRARIES} Pollux Arcanum zlib)
+target_link_libraries(Game Arcanum)
 
 if (WIN32)
     if(CMAKE_SIZEOF_VOID_P EQUAL 8)
