@@ -24,16 +24,15 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Arcanum_Managers_DatManager_hpp
-#define Arcanum_Managers_DatManager_hpp
+#include <Pollux/TestEqual.hpp>
+#include <iostream>
 
-namespace Arcanum
+using namespace Pollux;
+
+void Pollux::TestEqual(bool condition, const char* description, const char* file, int line)
 {
-    class DatManager
-    {
-    public:
-    private:
-    };
+	if (!condition)
+	{
+		std::cout << "Test fail: " << description << " File: " << file << " Line: " << line << '\n';
+	}
 }
-
-#endif 

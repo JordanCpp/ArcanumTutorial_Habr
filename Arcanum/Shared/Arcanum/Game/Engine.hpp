@@ -46,7 +46,8 @@ namespace Arcanum
 		DatList               _DatList;
 		DatReader             _DatReader;
 		DatLoader             _DatLoader;
-		std::vector<char>     _DatBuffer;
+		std::vector<char>     _Buffer;
+		std::vector<char>     _Result;
 		DatManager            _DatManager;
 	};
 }

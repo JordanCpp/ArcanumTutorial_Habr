@@ -25,5 +25,52 @@ DEALINGS IN THE SOFTWARE.
 */
 
 #include <Arcanum/Managers/DatManager.hpp>
+#include <stdexcept>
+#include <iostream>
 
 using namespace Arcanum;
+
+DatManager::DatManager(std::vector<char>& buffer, std::vector<char>& result, DatList& datList) :
+	_DatList(datList),
+	_Buffer(buffer),
+	_Result(result)
+{
+}
+
+const std::vector<char>& DatManager::GetFile(const std::string& path)
+{
+	_Result.clear();
+
+	DatItem* p = _DatList.Get(path);
+
+	if (p != NULL)
+	{
+		_File.open(p->Archive, std::ios::binary);
+
+		if (_File.is_open())
+		{
+			_File.seekg(p->Offset, std::ios::beg);
+
+			_Result.resize(p->RealSize);
+			_Buffer.resize(p->PackedSize);
+
+			if (p->Type == DatItem::Uncompressed)
+			{
+				_File.read((char*)&_Result[0], p->RealSize);
+			}
+			else if (p->Type == DatItem::Compressed)
+			{
+				_File.read((char*)&_Buffer[0], p->PackedSize);
+
+				if (!_Unpacker.Uncompress((unsigned char*)&_Result[0], p->RealSize, (unsigned char*)&_Buffer[0], p->PackedSize))
+				{
+					throw std::runtime_error("Can't uncompress file: " + path);
+				}
+			}
+
+			_File.close();
+		}
+	}
+
+	return _Result;
+}

@@ -38,6 +38,7 @@ namespace Arcanum
     public:
         DatItem* Get(const std::string& file);
         void Add(const std::string& key, DatItem& file, const std::string& archive);
+        size_t Count();
     private:
         typedef std::map<std::string, DatItem> container;
         container _Files;

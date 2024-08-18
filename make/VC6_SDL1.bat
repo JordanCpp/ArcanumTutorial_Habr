@@ -9,8 +9,10 @@ cl /O2 /GX /MT -FeVC6_SDL1.exe  ^
 ..\Pollux\SDL1\Pollux\Graphics\*.cpp  ^
 ..\Pollux\Shared\Pollux\Graphics\*.cpp  ^
 ..\main.cpp ^
+..\Arcanum\Shared\Arcanum\Formats\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Formats\Dat\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Game\*.cpp ^
+..\Arcanum\Shared\Arcanum\Managers\*.cpp ^
 ..\dependencies\zlib\adler32.c ^
 ..\dependencies\zlib\compress.c ^
 ..\dependencies\zlib\crc32.c ^

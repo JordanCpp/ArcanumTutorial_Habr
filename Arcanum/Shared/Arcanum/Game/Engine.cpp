@@ -25,6 +25,7 @@ DEALINGS IN THE SOFTWARE.
 */
 
 #include <Arcanum/Game/Engine.hpp>
+#include <iostream>
 
 using namespace Arcanum;
 using namespace Pollux;
@@ -32,8 +33,16 @@ using namespace Pollux;
 Engine::Engine() :
 	_Canvas(Point(800, 600)),
 	_DatLoader(_DatReader),
-	_DatManager(_DatBuffer, _DatList)
+	_DatManager(_Buffer, _Result, _DatList)
 {
+	_DatLoader.Load("arcanum1.dat", _DatList);
+
+	const std::vector<char>& data = _DatManager.GetFile("Module template/mes/gamearea.mes");
+
+	if (data.size() > 0)
+	{
+		std::cout << data[0] << '\n';
+	}
 }
 
 Engine::~Engine()

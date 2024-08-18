@@ -27,6 +27,6 @@ DEALINGS IN THE SOFTWARE.
 #ifndef Pollux_Defines_hpp
 #define Pollux_Defines_hpp
 
-#define POLLUX_UNUSED_PARAMETR(x) (void)(x)
+#define POLLUX_UNUSED(x) (void)(x)
 
 #endif

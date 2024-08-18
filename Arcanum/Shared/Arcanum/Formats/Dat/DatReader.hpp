@@ -38,10 +38,10 @@ namespace Arcanum
     public:
         DatReader();
         ~DatReader();
-        bool Reset(const std::string& file);
+        void Close();
+        bool Open(const std::string& file);
         bool Next(DatItem& item);
     private:
-        void Close();
         std::ifstream  _File;
         size_t         _TotalFiles;
         size_t         _CurrentFile;

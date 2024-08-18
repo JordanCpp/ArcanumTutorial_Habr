@@ -24,12 +24,14 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <Arcanum/Managers/DatManager.hpp>
+#ifndef Pollux_TestEqual_hpp
+#define Pollux_TestEqual_hpp
 
-using namespace Arcanum;
-
-DatManager::DatManager(std::vector<char>& buffer, DatList& datList) :
-	_Buffer(buffer),
-	_DatList(datList)
+namespace Pollux
 {
+	void TestEqual(bool condition, const char* description, const char* file, int line);
+
+    #define POLLUX_TEST(x) Pollux::TestEqual(x, #x, __FILE__, __LINE__)
 }
+
+#endif 

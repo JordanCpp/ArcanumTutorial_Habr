@@ -40,10 +40,8 @@ DatReader::~DatReader()
 	Close();
 }
 
-bool DatReader::Reset(const std::string& file)
+bool DatReader::Open(const std::string& file)
 {
-	Close();
-
 	_File.open(file.c_str(), std::ios::binary);
 
 	if (_File.is_open())

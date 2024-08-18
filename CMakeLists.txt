@@ -64,6 +64,6 @@ if (WIN32)
     endif()
 endif()
 
-enable_testing()
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/TestFiles DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Tests)
 
 add_subdirectory(Tests)

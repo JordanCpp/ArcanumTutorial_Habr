@@ -36,7 +36,7 @@ DatLoader::DatLoader(DatReader& datReader) :
 
 bool DatLoader::Load(const std::string& path, DatList& datList)
 {
-	if (_DatReader.Reset(path))
+	if (_DatReader.Open(path))
 	{
 		DatItem item;
 
@@ -44,8 +44,18 @@ bool DatLoader::Load(const std::string& path, DatList& datList)
 		{
 			strcpy(item.Archive, path.c_str());
 
+			for (size_t i = 0; i < DatItem::MaxPath; i++)
+			{
+				if (item.Path[i] == '\\')
+				{
+					item.Path[i] = '/';
+				}
+			}
+
 			datList.Add(item.Path, item, path);
 		}
+
+		_DatReader.Close();
 
 		return true;
 	}

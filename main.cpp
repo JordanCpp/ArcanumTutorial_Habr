@@ -31,8 +31,8 @@ using namespace Arcanum;
 
 int main(int argc, char* argv[])
 {
-	POLLUX_UNUSED_PARAMETR(argc);
-	POLLUX_UNUSED_PARAMETR(argv);
+	POLLUX_UNUSED(argc);
+	POLLUX_UNUSED(argv);
 
 	Engine engine;
 	engine.Run();

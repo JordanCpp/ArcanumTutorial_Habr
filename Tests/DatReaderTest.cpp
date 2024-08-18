@@ -1,17 +1,13 @@
 #include <Arcanum/Formats/Dat/DatReader.hpp>
-#include <cassert>
-#include <iostream>
+#include <Pollux/TestEqual.hpp>
 
 using namespace Arcanum;
 
-int main(int argc, char* argv[])
+int main()
 {
 	DatReader datReader;
 
-	std::string arg = argv[1];
-	std::string name = "/arcanum1.dat";
-	
-	assert(datReader.Reset(arg + name));
+	POLLUX_TEST(datReader.Open("TestFiles/arcanum4.dat"));
 
 	return 0;
 }

@@ -2,4 +2,11 @@
 add_executable(DatReaderTest "DatReaderTest.cpp")
 target_link_libraries(DatReaderTest Arcanum)
 
-add_test(NAME DatReaderTest COMMAND DatReaderTest ${CMAKE_CURRENT_BINARY_DIR})
+add_executable(DatListTest "DatListTest.cpp")
+target_link_libraries(DatListTest Arcanum)
+
+add_executable(DatLoaderTest "DatLoaderTest.cpp")
+target_link_libraries(DatLoaderTest Arcanum)
+
+add_executable(DatManagerTest "DatManagerTest.cpp")
+target_link_libraries(DatManagerTest Arcanum)
