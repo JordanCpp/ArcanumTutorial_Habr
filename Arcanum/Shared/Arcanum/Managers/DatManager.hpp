@@ -43,7 +43,7 @@ namespace Arcanum
         DatList&           _DatList;
         std::vector<char>& _Buffer;
         std::vector<char>& _Result;
-        std::fstream       _File;
+        std::ifstream      _File;
     };
 }
 
