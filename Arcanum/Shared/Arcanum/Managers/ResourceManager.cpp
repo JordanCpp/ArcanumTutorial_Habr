@@ -1,3 +1,5 @@
+#include "ResourceManager.hpp"
+#include "ResourceManager.hpp"
 /*
 Boost Software License - Version 1.0 - August 17th, 2003
 
@@ -24,28 +26,35 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
+#include <stdexcept>
 #include <Arcanum/Managers/ResourceManager.hpp>
 
 using namespace Arcanum;
 
-ResourceManager::ResourceManager(DatManager& datManager, FileManager& fileManager) :
+ResourceManager::ResourceManager(PathManager& pathManager, DatManager& datManager, FileManager& fileManager) :
+	_PathManager(pathManager),
 	_DatManager(datManager),
 	_FileManager(fileManager)
 {
 }
 
-const std::vector<char>& ResourceManager::GetFile(const std::string& path)
+const std::vector<char>& ResourceManager::GetFile(const std::string& dir, const std::string& file)
 {
-	const std::vector<char>& dir = _FileManager.GetFile(path);
+	const std::vector<char>& fromDir = _FileManager.GetFile(_PathManager.GetFileFromDir(dir, file));
 
-	if (dir.size() > 0)
+	if (fromDir.size() > 0)
 	{
-		return dir;
+		return fromDir;
 	}
 	else
 	{
-		const std::vector<char>& dat = _DatManager.GetFile(path);
+		const std::vector<char>& fromDat = _DatManager.GetFile(_PathManager.GetFileFromDat(dir, file));
 
-		return dat;
+		if (fromDat.size() == 0)
+		{
+			throw std::runtime_error("Can't found file: " + dir + file);
+		}
+
+		return fromDat;
 	}
 }

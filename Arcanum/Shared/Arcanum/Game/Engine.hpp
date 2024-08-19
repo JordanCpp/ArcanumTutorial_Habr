@@ -41,6 +41,7 @@ namespace Arcanum
 		~Engine();
 		void Run();
 	private:
+		PathManager           _PathManager;
 		Pollux::Canvas        _Canvas;
 		Pollux::EventHandler  _EventHandler;
 		DatList               _DatList;

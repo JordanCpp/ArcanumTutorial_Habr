@@ -24,38 +24,77 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <Pollux/Loaders/FileLoader.hpp>
-#include <fstream>
-#include <cassert>
+#include <Pollux/Readers/MemoryReader.hpp>
+#include <string.h>
+#include <assert.h>
 
 using namespace Pollux;
 
-FileLoader::FileLoader(std::vector<char>& buffer) :
+MemoryReader::MemoryReader(const std::vector<char>& buffer) :
+	_Offset(0),
 	_Buffer(buffer)
 {
 }
 
-bool FileLoader::Reset(const std::string& path)
+void MemoryReader::Read(void* dst, size_t size)
 {
-	std::ifstream file(path.c_str(), std::ios::in | std::ios::binary);
+	assert(_Offset + size <= _Buffer.size());
 
-	if (!file.is_open() || file.bad())
-	{
-		return false;
-	}
+	memcpy(dst, &_Buffer[_Offset], size);
 
-	file.seekg(0, std::ios::end);
-	size_t fileSize = (size_t)file.tellg();
-	file.seekg(0, std::ios::beg);
-
-	_Buffer.resize(fileSize);
-
-	file.read((char*)&_Buffer[0], fileSize);
-
-	return true;
+	_Offset += size;
 }
 
-const std::vector<char>& FileLoader::Content()
+unsigned char MemoryReader::u8()
 {
-	return _Buffer;
+	unsigned char result = 0;
+
+	Read(&result, sizeof(unsigned char));
+
+	return result;
+}
+
+signed char MemoryReader::i8()
+{
+	signed char result = 0;
+
+	Read(&result, sizeof(signed char));
+
+	return result;
+}
+
+unsigned short MemoryReader::u16()
+{
+	unsigned short result = 0;
+
+	Read(&result, sizeof(unsigned short));
+
+	return result;
+}
+
+signed short MemoryReader::i16()
+{
+	signed short result = 0;
+
+	Read(&result, sizeof(signed short));
+
+	return result;
+}
+
+unsigned int MemoryReader::u32()
+{
+	unsigned int result = 0;
+
+	Read(&result, sizeof(unsigned int));
+
+	return result;
+}
+
+signed int MemoryReader::i32()
+{
+	signed int result = 0;
+
+	Read(&result, sizeof(signed int));
+
+	return result;
 }

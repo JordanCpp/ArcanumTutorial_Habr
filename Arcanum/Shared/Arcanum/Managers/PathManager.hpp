@@ -24,38 +24,25 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <Pollux/Loaders/FileLoader.hpp>
-#include <fstream>
-#include <cassert>
+#ifndef Arcanum_Managers_PathManager_hpp
+#define Arcanum_Managers_PathManager_hpp
 
-using namespace Pollux;
+#include <string>
 
-FileLoader::FileLoader(std::vector<char>& buffer) :
-	_Buffer(buffer)
+namespace Arcanum
 {
+    class PathManager
+    {
+    public:
+        PathManager(const std::string& shortPath, const std::string& dataPath, const std::string& modulePath);
+        const std::string& GetFileFromDir(const std::string& dir, const std::string& file);
+        const std::string& GetFileFromDat(const std::string& dir, const std::string& file);
+    private:
+        std::string _ShortPath;
+        std::string _DataPath;
+        std::string _ModulePath;
+        std::string _ResultPath;
+    };
 }
 
-bool FileLoader::Reset(const std::string& path)
-{
-	std::ifstream file(path.c_str(), std::ios::in | std::ios::binary);
-
-	if (!file.is_open() || file.bad())
-	{
-		return false;
-	}
-
-	file.seekg(0, std::ios::end);
-	size_t fileSize = (size_t)file.tellg();
-	file.seekg(0, std::ios::beg);
-
-	_Buffer.resize(fileSize);
-
-	file.read((char*)&_Buffer[0], fileSize);
-
-	return true;
-}
-
-const std::vector<char>& FileLoader::Content()
-{
-	return _Buffer;
-}
+#endif 

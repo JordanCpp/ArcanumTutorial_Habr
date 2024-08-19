@@ -31,16 +31,19 @@ using namespace Arcanum;
 using namespace Pollux;
 
 Engine::Engine() :
+	_PathManager("", "data/", "Arcanum/"),
 	_Canvas(Point(800, 600)),
 	_DatLoader(_DatReader),
 	_FileLoader(_Buffer),
 	_DatManager(_Buffer, _Result, _DatList),
 	_FileManager(_FileLoader),
-	_ResourceManager(_DatManager, _FileManager)
+	_ResourceManager(_PathManager, _DatManager, _FileManager)
 {
 	_DatLoader.Load("arcanum1.dat", _DatList);
+	_DatLoader.Load("arcanum2.dat", _DatList);
+	_DatLoader.Load("arcanum3.dat", _DatList);
 
-	const std::vector<char>& data = _DatManager.GetFile("Module template/mes/gamearea.mes");
+	const std::vector<char>& data = _ResourceManager.GetFile("art/item/", "P_tesla_gun.ART");
 
 	if (data.size() > 0)
 	{

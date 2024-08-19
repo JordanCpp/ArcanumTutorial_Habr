@@ -27,6 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef Arcanum_Managers_ResourceManager_hpp
 #define Arcanum_Managers_ResourceManager_hpp
 
+#include <Arcanum/Managers/PathManager.hpp>
 #include <Arcanum/Managers/DatManager.hpp>
 #include <Arcanum/Managers/FileManager.hpp>
 
@@ -35,9 +36,10 @@ namespace Arcanum
     class ResourceManager
     {
     public:
-        ResourceManager(DatManager& datManager, FileManager& fileManager);
-        const std::vector<char>& GetFile(const std::string& path);
+        ResourceManager(PathManager& pathManager, DatManager& datManager, FileManager& fileManager);
+        const std::vector<char>& GetFile(const std::string& dir, const std::string& file);
     private:
+        PathManager& _PathManager;
         DatManager&  _DatManager;
         FileManager& _FileManager;
     };

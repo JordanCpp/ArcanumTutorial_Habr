@@ -9,6 +9,7 @@ cl /O2 /GX /MT -FeVC6_SDL1.exe  ^
 ..\Pollux\SDL1\Pollux\Graphics\*.cpp  ^
 ..\Pollux\Shared\Pollux\Graphics\*.cpp  ^
 ..\Pollux\Shared\Pollux\Loaders\*.cpp  ^
+..\Pollux\Shared\Pollux\Readers\*.cpp  ^
 ..\main.cpp ^
 ..\Arcanum\Shared\Arcanum\Formats\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Formats\Art\*.cpp ^
