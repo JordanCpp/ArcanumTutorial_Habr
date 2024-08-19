@@ -30,7 +30,7 @@ DEALINGS IN THE SOFTWARE.
 #include <Pollux/Graphics/Canvas.hpp>
 #include <Pollux/Events/EventHandler.hpp>
 #include <Arcanum/Formats/Dat/DatLoader.hpp>
-#include <Arcanum/Managers/DatManager.hpp>
+#include <Arcanum/Managers/ResourceManager.hpp>
 
 namespace Arcanum
 {
@@ -48,7 +48,10 @@ namespace Arcanum
 		DatLoader             _DatLoader;
 		std::vector<char>     _Buffer;
 		std::vector<char>     _Result;
+		Pollux::FileLoader    _FileLoader;
 		DatManager            _DatManager;
+		FileManager           _FileManager;
+		ResourceManager       _ResourceManager;
 	};
 }
 

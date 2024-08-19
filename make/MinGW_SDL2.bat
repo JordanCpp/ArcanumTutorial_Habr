@@ -9,8 +9,10 @@ g++ -Wall -Wextra -pedantic -O2 -std=c++11 -static -s -o MinGW_SDL2 ^
 ..\Pollux\SDL2\Pollux\Events\*.cpp ^
 ..\Pollux\SDL2\Pollux\Graphics\*.cpp  ^
 ..\Pollux\Shared\Pollux\Graphics\*.cpp  ^
+..\Pollux\Shared\Pollux\Loaders\*.cpp  ^
 ..\main.cpp ^
 ..\Arcanum\Shared\Arcanum\Formats\*.cpp ^
+..\Arcanum\Shared\Arcanum\Formats\Art\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Formats\Dat\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Game\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Managers\*.cpp ^

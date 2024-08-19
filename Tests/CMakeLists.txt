@@ -10,3 +10,6 @@ target_link_libraries(DatLoaderTest Arcanum)
 
 add_executable(DatManagerTest "DatManagerTest.cpp")
 target_link_libraries(DatManagerTest Arcanum)
+
+add_executable(FileLoaderTest "FileLoaderTest.cpp")
+target_link_libraries(FileLoaderTest Arcanum)

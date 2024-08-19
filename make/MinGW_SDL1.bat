@@ -8,8 +8,10 @@
 ..\Pollux\SDL1\Pollux\Events\*.cpp ^
 ..\Pollux\SDL1\Pollux\Graphics\*.cpp  ^
 ..\Pollux\Shared\Pollux\Graphics\*.cpp  ^
+..\Pollux\Shared\Pollux\Loaders\*.cpp  ^
 ..\main.cpp ^
 ..\Arcanum\Shared\Arcanum\Formats\*.cpp ^
+..\Arcanum\Shared\Arcanum\Formats\Art\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Formats\Dat\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Game\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Managers\*.cpp ^

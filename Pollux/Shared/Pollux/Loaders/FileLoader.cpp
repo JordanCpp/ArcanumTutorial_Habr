@@ -24,45 +24,40 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <Arcanum/Game/Engine.hpp>
-#include <iostream>
+#include <Pollux/Loaders/FileLoader.hpp>
+#include <fstream>
+#include <cassert>
 
-using namespace Arcanum;
 using namespace Pollux;
 
-Engine::Engine() :
-	_Canvas(Point(800, 600)),
-	_DatLoader(_DatReader),
-	_FileLoader(_Buffer),
-	_DatManager(_Buffer, _Result, _DatList),
-	_FileManager(_FileLoader),
-	_ResourceManager(_DatManager, _FileManager)
-{
-	_DatLoader.Load("arcanum1.dat", _DatList);
-
-	const std::vector<char>& data = _DatManager.GetFile("Module template/mes/gamearea.mes");
-
-	if (data.size() > 0)
-	{
-		std::cout << data[0] << '\n';
-	}
-}
-
-Engine::~Engine()
+FileLoader::FileLoader(std::vector<char>& buffer) :
+	_Buffer(buffer)
 {
 }
 
-void Engine::Run()
+bool FileLoader::Reset(const std::string& path)
 {
-	Event report;
+	std::ifstream file(path.c_str(), std::ios::in | std::ios::binary);
 
-	while (_EventHandler.GetEvent(report))
+	if (!file.is_open() || file.bad())
 	{
-		if (report.Type == IsEventQuit)
-		{
-			_EventHandler.StopEvent();
-		}
-
-		_Canvas.Present();
+		return false;
 	}
+
+	file.seekg(0, std::ios::end);
+	size_t fileSize = (size_t)file.tellg();
+	file.seekg(0, std::ios::beg);
+
+	assert(fileSize <= _Buffer.capacity());
+
+	_Buffer.resize(fileSize);
+
+	file.read((char*)&_Buffer[0], fileSize);
+
+	return true;
+}
+
+const std::vector<char>& FileLoader::Content()
+{
+	return _Buffer;
 }

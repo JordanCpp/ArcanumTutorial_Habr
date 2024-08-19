@@ -24,45 +24,18 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <Arcanum/Game/Engine.hpp>
-#include <iostream>
+#include <Arcanum/Formats/Art/Art.hpp>
 
 using namespace Arcanum;
-using namespace Pollux;
 
-Engine::Engine() :
-	_Canvas(Point(800, 600)),
-	_DatLoader(_DatReader),
-	_FileLoader(_Buffer),
-	_DatManager(_Buffer, _Result, _DatList),
-	_FileManager(_FileLoader),
-	_ResourceManager(_DatManager, _FileManager)
-{
-	_DatLoader.Load("arcanum1.dat", _DatList);
-
-	const std::vector<char>& data = _DatManager.GetFile("Module template/mes/gamearea.mes");
-
-	if (data.size() > 0)
-	{
-		std::cout << data[0] << '\n';
-	}
-}
-
-Engine::~Engine()
+ArtColor::ArtColor() :
+	b(0),
+	g(0),
+	r(0),
+	a(0)
 {
 }
 
-void Engine::Run()
+ArtTable::ArtTable()
 {
-	Event report;
-
-	while (_EventHandler.GetEvent(report))
-	{
-		if (report.Type == IsEventQuit)
-		{
-			_EventHandler.StopEvent();
-		}
-
-		_Canvas.Present();
-	}
 }

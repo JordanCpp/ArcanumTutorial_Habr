@@ -24,45 +24,19 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <Arcanum/Game/Engine.hpp>
-#include <iostream>
+#include <Arcanum/Managers/FileManager.hpp>
 
 using namespace Arcanum;
 using namespace Pollux;
 
-Engine::Engine() :
-	_Canvas(Point(800, 600)),
-	_DatLoader(_DatReader),
-	_FileLoader(_Buffer),
-	_DatManager(_Buffer, _Result, _DatList),
-	_FileManager(_FileLoader),
-	_ResourceManager(_DatManager, _FileManager)
-{
-	_DatLoader.Load("arcanum1.dat", _DatList);
-
-	const std::vector<char>& data = _DatManager.GetFile("Module template/mes/gamearea.mes");
-
-	if (data.size() > 0)
-	{
-		std::cout << data[0] << '\n';
-	}
-}
-
-Engine::~Engine()
+FileManager::FileManager(FileLoader& fileLoader) :
+	_FileLoader(fileLoader)
 {
 }
 
-void Engine::Run()
+const std::vector<char>& FileManager::GetFile(const std::string& path)
 {
-	Event report;
+	_FileLoader.Reset(path);
 
-	while (_EventHandler.GetEvent(report))
-	{
-		if (report.Type == IsEventQuit)
-		{
-			_EventHandler.StopEvent();
-		}
-
-		_Canvas.Present();
-	}
+	return _FileLoader.Content();
 }

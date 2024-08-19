@@ -24,45 +24,28 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <Arcanum/Game/Engine.hpp>
-#include <iostream>
+#include <Arcanum/Managers/ResourceManager.hpp>
 
 using namespace Arcanum;
-using namespace Pollux;
 
-Engine::Engine() :
-	_Canvas(Point(800, 600)),
-	_DatLoader(_DatReader),
-	_FileLoader(_Buffer),
-	_DatManager(_Buffer, _Result, _DatList),
-	_FileManager(_FileLoader),
-	_ResourceManager(_DatManager, _FileManager)
+ResourceManager::ResourceManager(DatManager& datManager, FileManager& fileManager) :
+	_DatManager(datManager),
+	_FileManager(fileManager)
 {
-	_DatLoader.Load("arcanum1.dat", _DatList);
+}
 
-	const std::vector<char>& data = _DatManager.GetFile("Module template/mes/gamearea.mes");
+const std::vector<char>& ResourceManager::GetFile(const std::string& path)
+{
+	const std::vector<char>& dir = _FileManager.GetFile(path);
 
-	if (data.size() > 0)
+	if (dir.size() > 0)
 	{
-		std::cout << data[0] << '\n';
+		return dir;
 	}
-}
-
-Engine::~Engine()
-{
-}
-
-void Engine::Run()
-{
-	Event report;
-
-	while (_EventHandler.GetEvent(report))
+	else
 	{
-		if (report.Type == IsEventQuit)
-		{
-			_EventHandler.StopEvent();
-		}
+		const std::vector<char>& dat = _DatManager.GetFile(path);
 
-		_Canvas.Present();
+		return dat;
 	}
 }
