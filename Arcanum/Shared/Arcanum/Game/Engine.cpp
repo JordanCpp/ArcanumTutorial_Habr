@@ -31,6 +31,8 @@ using namespace Arcanum;
 using namespace Pollux;
 
 Engine::Engine() :
+	_Buffer(BufferMax),
+	_Result(BufferMax),
 	_PathManager("", "data/", "Arcanum/"),
 	_Canvas(Point(800, 600)),
 	_DatLoader(_DatReader),

@@ -37,18 +37,23 @@ namespace Arcanum
 	class Engine
 	{
 	public:
+		enum
+		{
+			BufferMax = 1024 * 1024 * 1
+		};
+
 		Engine();
 		~Engine();
 		void Run();
 	private:
+		std::vector<char>     _Buffer;
+		std::vector<char>     _Result;
 		PathManager           _PathManager;
 		Pollux::Canvas        _Canvas;
 		Pollux::EventHandler  _EventHandler;
 		DatList               _DatList;
 		DatReader             _DatReader;
 		DatLoader             _DatLoader;
-		std::vector<char>     _Buffer;
-		std::vector<char>     _Result;
 		Pollux::FileLoader    _FileLoader;
 		DatManager            _DatManager;
 		FileManager           _FileManager;
