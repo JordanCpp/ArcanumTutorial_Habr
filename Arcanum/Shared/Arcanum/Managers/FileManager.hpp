@@ -35,7 +35,7 @@ namespace Arcanum
     {
     public:
         FileManager(Pollux::FileLoader& fileLoader);
-        const std::vector<char>& GetFile(const std::string& path);
+        const std::vector<unsigned char>& GetFile(const std::string& path);
     private:
         Pollux::FileLoader& _FileLoader;
     };

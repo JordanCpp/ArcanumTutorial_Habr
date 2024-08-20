@@ -1,3 +1,4 @@
+#include "PathManager.hpp"
 /*
 Boost Software License - Version 1.0 - August 17th, 2003
 
@@ -49,6 +50,15 @@ const std::string& PathManager::GetFileFromDir(const std::string& dir, const std
 const std::string& PathManager::GetFileFromDat(const std::string& dir, const std::string& file)
 {
 	_ResultPath = dir;
+	_ResultPath += file;
+
+	return _ResultPath;
+}
+
+const std::string& PathManager::GetDat(const std::string& file)
+{
+	_ResultPath = _ShortPath;
+
 	_ResultPath += file;
 
 	return _ResultPath;

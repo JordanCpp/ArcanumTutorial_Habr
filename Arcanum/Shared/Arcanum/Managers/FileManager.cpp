@@ -34,7 +34,7 @@ FileManager::FileManager(FileLoader& fileLoader) :
 {
 }
 
-const std::vector<char>& FileManager::GetFile(const std::string& path)
+const std::vector<unsigned char>& FileManager::GetFile(const std::string& path)
 {
 	_FileLoader.Reset(path);
 

@@ -35,17 +35,15 @@ namespace Pollux
 	class MemoryReader
 	{
 	public:
-		MemoryReader(const std::vector<char>& buffer);
+		MemoryReader();
+		void Reset(const std::vector<unsigned char>* buffer);
+		const std::vector<unsigned char>* Buffer();
 		void Read(void* dst, size_t size);
-		unsigned char u8();
-		signed char i8();
-		unsigned short u16();
-		signed short i16();
-		unsigned int u32();
-		signed int i32();
+		size_t Offset();
+		void Offset(size_t pos);
 	private:
 		size_t                   _Offset;
-		const std::vector<char>& _Buffer;
+		const std::vector<unsigned char>* _Buffer;
 	};
 }
 

@@ -39,3 +39,7 @@ ArtColor::ArtColor() :
 ArtTable::ArtTable()
 {
 }
+
+ArtFrameHeader::ArtFrameHeader()
+{
+}

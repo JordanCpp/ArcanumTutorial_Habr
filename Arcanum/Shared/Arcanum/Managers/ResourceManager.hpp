@@ -30,6 +30,7 @@ DEALINGS IN THE SOFTWARE.
 #include <Arcanum/Managers/PathManager.hpp>
 #include <Arcanum/Managers/DatManager.hpp>
 #include <Arcanum/Managers/FileManager.hpp>
+#include <Pollux/Readers/MemoryReader.hpp>
 
 namespace Arcanum
 {
@@ -37,11 +38,13 @@ namespace Arcanum
     {
     public:
         ResourceManager(PathManager& pathManager, DatManager& datManager, FileManager& fileManager);
-        const std::vector<char>& GetFile(const std::string& dir, const std::string& file);
+        Pollux::MemoryReader* GetData(const std::string& dir, const std::string& file);
     private:
-        PathManager& _PathManager;
-        DatManager&  _DatManager;
-        FileManager& _FileManager;
+        const std::vector<unsigned char>& GetFile(const std::string& dir, const std::string& file);
+        Pollux::MemoryReader _MemoryReader;
+        PathManager&         _PathManager;
+        DatManager&          _DatManager;
+        FileManager&         _FileManager;
     };
 }
 

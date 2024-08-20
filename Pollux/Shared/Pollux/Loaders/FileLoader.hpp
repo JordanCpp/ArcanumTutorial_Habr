@@ -36,11 +36,11 @@ namespace Pollux
 	class FileLoader
 	{
 	public:
-		FileLoader(std::vector<char>& buffer);
+		FileLoader(std::vector<unsigned char>& buffer);
 		bool Reset(const std::string& path);
-		const std::vector<char>& Content();
+		const std::vector<unsigned char>& Content();
 	private:
-		std::vector<char>& _Buffer;
+		std::vector<unsigned char>& _Buffer;
 	};
 }
 

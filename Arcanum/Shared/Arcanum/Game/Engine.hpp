@@ -46,18 +46,18 @@ namespace Arcanum
 		~Engine();
 		void Run();
 	private:
-		std::vector<char>     _Buffer;
-		std::vector<char>     _Result;
-		PathManager           _PathManager;
-		Pollux::Canvas        _Canvas;
-		Pollux::EventHandler  _EventHandler;
-		DatList               _DatList;
-		DatReader             _DatReader;
-		DatLoader             _DatLoader;
-		Pollux::FileLoader    _FileLoader;
-		DatManager            _DatManager;
-		FileManager           _FileManager;
-		ResourceManager       _ResourceManager;
+		std::vector<unsigned char>     _Buffer;
+		std::vector<unsigned char>     _Result;
+		PathManager                    _PathManager;
+		Pollux::Canvas                 _Canvas;
+		Pollux::EventHandler           _EventHandler;
+		DatList                        _DatList;
+		DatReader                      _DatReader;
+		DatLoader                      _DatLoader;
+		Pollux::FileLoader             _FileLoader;
+		DatManager                     _DatManager;
+		FileManager                    _FileManager;
+		ResourceManager                _ResourceManager;
 	};
 }
 

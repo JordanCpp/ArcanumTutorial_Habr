@@ -6,8 +6,8 @@ using namespace Arcanum;
 
 int main()
 {
-	std::vector<char> buffer;
-	std::vector<char> result;
+	std::vector<unsigned char> buffer;
+	std::vector<unsigned char> result;
 
 	DatList    datList;
 	DatReader  datReader;
@@ -16,7 +16,7 @@ int main()
 
 	POLLUX_TEST(datLoader.Load("TestFiles/arcanum4.dat", datList) == true);
 	
-	const std::vector<char>& data = datManager.GetFile("dlg/01040Ristezze.dlg");
+	const std::vector<unsigned char>& data = datManager.GetFile("dlg/01040Ristezze.dlg");
 
 	POLLUX_TEST(data.size() == 46606);
 

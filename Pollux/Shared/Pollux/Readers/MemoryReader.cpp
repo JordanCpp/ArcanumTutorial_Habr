@@ -1,3 +1,5 @@
+#include "MemoryReader.hpp"
+#include "MemoryReader.hpp"
 /*
 Boost Software License - Version 1.0 - August 17th, 2003
 
@@ -30,71 +32,39 @@ DEALINGS IN THE SOFTWARE.
 
 using namespace Pollux;
 
-MemoryReader::MemoryReader(const std::vector<char>& buffer) :
+MemoryReader::MemoryReader() :
 	_Offset(0),
-	_Buffer(buffer)
+	_Buffer(NULL)
 {
+}
+
+void MemoryReader::Reset(const std::vector<unsigned char>* buffer)
+{
+	_Offset = 0;
+	_Buffer = buffer;
+}
+
+const std::vector<unsigned char>* MemoryReader::Buffer()
+{
+	return _Buffer;
 }
 
 void MemoryReader::Read(void* dst, size_t size)
 {
-	assert(_Offset + size <= _Buffer.size());
+	assert(dst != NULL);
+	assert(_Offset + size <= _Buffer->size());
 
-	memcpy(dst, &_Buffer[_Offset], size);
+	memcpy(dst, &_Buffer->at(_Offset), size);
 
 	_Offset += size;
 }
 
-unsigned char MemoryReader::u8()
+size_t Pollux::MemoryReader::Offset()
 {
-	unsigned char result = 0;
-
-	Read(&result, sizeof(unsigned char));
-
-	return result;
+	return _Offset;
 }
 
-signed char MemoryReader::i8()
+void MemoryReader::Offset(size_t pos)
 {
-	signed char result = 0;
-
-	Read(&result, sizeof(signed char));
-
-	return result;
-}
-
-unsigned short MemoryReader::u16()
-{
-	unsigned short result = 0;
-
-	Read(&result, sizeof(unsigned short));
-
-	return result;
-}
-
-signed short MemoryReader::i16()
-{
-	signed short result = 0;
-
-	Read(&result, sizeof(signed short));
-
-	return result;
-}
-
-unsigned int MemoryReader::u32()
-{
-	unsigned int result = 0;
-
-	Read(&result, sizeof(unsigned int));
-
-	return result;
-}
-
-signed int MemoryReader::i32()
-{
-	signed int result = 0;
-
-	Read(&result, sizeof(signed int));
-
-	return result;
+	_Offset = pos;
 }

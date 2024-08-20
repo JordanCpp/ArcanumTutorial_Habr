@@ -36,13 +36,13 @@ namespace Arcanum
     class DatManager
     {
     public:
-        DatManager(std::vector<char>& buffer, std::vector<char>& result, DatList& datList);
-        const std::vector<char>& GetFile(const std::string& path);
+        DatManager(std::vector<unsigned char>& buffer, std::vector<unsigned char>& result, DatList& datList);
+        const std::vector<unsigned char>& GetFile(const std::string& path);
     private:
         Unpacker           _Unpacker;
         DatList&           _DatList;
-        std::vector<char>& _Buffer;
-        std::vector<char>& _Result;
+        std::vector<unsigned char>& _Buffer;
+        std::vector<unsigned char>& _Result;
         std::ifstream      _File;
     };
 }

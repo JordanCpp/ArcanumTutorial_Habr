@@ -19,3 +19,12 @@ target_link_libraries(PathManagerTest Arcanum)
 
 add_executable(ResourceManagerTest "ResourceManagerTest.cpp")
 target_link_libraries(ResourceManagerTest Arcanum)
+
+add_executable(FileManagerTest "FileManagerTest.cpp")
+target_link_libraries(FileManagerTest Arcanum)
+
+add_executable(ArtReaderTest "ArtReaderTest.cpp")
+target_link_libraries(ArtReaderTest Arcanum)
+
+add_executable(MemoryReaderTest "MemoryReaderTest.cpp")
+target_link_libraries(MemoryReaderTest Arcanum)

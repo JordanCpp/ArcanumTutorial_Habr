@@ -5,7 +5,7 @@ using namespace Pollux;
 
 int main()
 {
-	std::vector<char> buffer(1024 * 1024 * 5);
+	std::vector<unsigned char> buffer(1024 * 1024 * 5);
 
 	FileLoader fileLoader(buffer);
 

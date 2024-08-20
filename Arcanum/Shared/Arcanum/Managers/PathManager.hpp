@@ -37,6 +37,7 @@ namespace Arcanum
         PathManager(const std::string& shortPath, const std::string& dataPath, const std::string& modulePath);
         const std::string& GetFileFromDir(const std::string& dir, const std::string& file);
         const std::string& GetFileFromDat(const std::string& dir, const std::string& file);
+        const std::string& GetDat(const std::string& file);
     private:
         std::string _ShortPath;
         std::string _DataPath;

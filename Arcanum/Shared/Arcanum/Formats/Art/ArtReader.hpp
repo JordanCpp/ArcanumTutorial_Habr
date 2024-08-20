@@ -28,13 +28,25 @@ DEALINGS IN THE SOFTWARE.
 #define Arcanum_Formats_Art_ArtReader_hpp
 
 #include <Arcanum/Formats/Art/Art.hpp>
+#include <Pollux/Readers/MemoryReader.hpp>
 
 namespace Arcanum
 {
     class ArtReader
     {
     public:
+        ArtReader();
+        void Reset(Pollux::MemoryReader* reader);
+        size_t Frames();
+        void Frame(size_t index, std::vector<unsigned char>& data);
     private:
+        void LoadHeader();
+        Pollux::MemoryReader*       _Reader;
+        ArtHeader                   _ArtHeader;
+        ArtTable                    _Pallete[3];
+        size_t                      _Frames;
+        std::vector<ArtFrameHeader> _FrameHeader;
+        std::vector<size_t>         _FrameOffset;
     };
 }
 

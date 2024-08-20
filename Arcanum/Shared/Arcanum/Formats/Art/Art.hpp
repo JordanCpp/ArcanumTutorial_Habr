@@ -29,9 +29,8 @@ DEALINGS IN THE SOFTWARE.
 
 namespace Arcanum
 {
-	class ArtColor
+	struct ArtColor
 	{
-	public:
 		ArtColor();
 		unsigned char b;
 		unsigned char g;
@@ -39,9 +38,8 @@ namespace Arcanum
 		unsigned char a;
 	};
 
-	class ArtTable
+	struct ArtTable
 	{
-	public:
 		enum
 		{
 			Max = 256
@@ -49,6 +47,34 @@ namespace Arcanum
 
 		ArtTable();
 		ArtColor colors[Max];
+	};
+
+	struct ArtHeader
+	{
+		enum
+		{
+			PaletteMax = 4
+		};
+
+		unsigned int h0[3];
+		ArtColor stupid_color[PaletteMax];
+		unsigned int frame_num_low;
+		unsigned int frame_num;
+		ArtColor palette_data1[8];
+		ArtColor palette_data2[8];
+		ArtColor palette_data3[8];
+	};
+
+	struct ArtFrameHeader
+	{
+		ArtFrameHeader();
+		unsigned int width;
+		unsigned int height;
+		unsigned int size;
+		int c_x;
+		int c_y;
+		int d_x;
+		int d_y;
 	};
 }
 

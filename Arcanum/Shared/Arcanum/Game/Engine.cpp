@@ -41,16 +41,9 @@ Engine::Engine() :
 	_FileManager(_FileLoader),
 	_ResourceManager(_PathManager, _DatManager, _FileManager)
 {
-	_DatLoader.Load("arcanum1.dat", _DatList);
-	_DatLoader.Load("arcanum2.dat", _DatList);
-	_DatLoader.Load("arcanum3.dat", _DatList);
-
-	const std::vector<char>& data = _ResourceManager.GetFile("art/item/", "P_tesla_gun.ART");
-
-	if (data.size() > 0)
-	{
-		std::cout << data[0] << '\n';
-	}
+	_DatLoader.Load(_PathManager.GetDat("arcanum1.dat"), _DatList);
+	_DatLoader.Load(_PathManager.GetDat("arcanum2.dat"), _DatList);
+	_DatLoader.Load(_PathManager.GetDat("arcanum3.dat"), _DatList);
 }
 
 Engine::~Engine()

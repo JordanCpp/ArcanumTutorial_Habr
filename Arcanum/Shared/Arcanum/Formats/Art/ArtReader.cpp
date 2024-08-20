@@ -25,5 +25,103 @@ DEALINGS IN THE SOFTWARE.
 */
 
 #include <Arcanum/Formats/Art/ArtReader.hpp>
+#include <assert.h>
 
 using namespace Arcanum;
+using namespace Pollux;
+
+ArtReader::ArtReader() :
+	_Reader(NULL),
+	_Frames(0)
+{
+}
+
+void ArtReader::Reset(MemoryReader* reader)
+{
+	assert(reader != NULL);
+
+	_Reader = reader;
+
+	LoadHeader();
+}
+
+size_t ArtReader::Frames()
+{
+	return _Frames;
+}
+
+void ArtReader::Frame(size_t index, std::vector<unsigned char>& data)
+{
+	size_t offset = _FrameOffset.at(index);
+	size_t size   = _FrameHeader.at(index).size;
+	
+	_Reader->Offset(offset);
+
+	data.resize(size);
+	_Reader->Read(&data[0], size);
+}
+
+void ArtReader::LoadHeader()
+{
+	_Reader->Read(&_ArtHeader, sizeof(ArtHeader));
+
+	_Frames = _ArtHeader.frame_num;
+
+	int palettes = 0;
+	
+	for (size_t i = 0; i < ArtHeader::PaletteMax; i++)
+	{
+		ArtColor color = _ArtHeader.stupid_color[i];
+
+		if ((color.a | color.b | color.g | color.r) != 0)
+		{
+			palettes++;
+		}	
+	}
+
+	if (palettes > 0)
+	{
+		_Reader->Read(&_Pallete[0], sizeof(ArtTable));
+	}
+
+	if (palettes > 1)
+	{
+		_Reader->Read(&_Pallete[1], sizeof(ArtTable));
+	}
+
+	if (palettes > 2)
+	{
+		_Reader->Read(&_Pallete[2], sizeof(ArtTable));
+	}
+
+	bool animated = ((_ArtHeader.h0[0] & 0x1) == 0);
+
+	if (animated)
+	{
+		_Frames *= 8;
+	}
+
+	_FrameHeader.clear();
+
+	for (size_t j = 0; j < _Frames; j++)
+	{
+		ArtFrameHeader frameHeader;
+
+		_Reader->Read(&frameHeader, sizeof(ArtFrameHeader));
+
+		_FrameHeader.push_back(frameHeader);
+	}
+
+	_FrameOffset.clear();
+
+	size_t offset = _Reader->Offset();
+
+	_FrameOffset.push_back(offset);
+
+	for (size_t k = 1; k < _FrameHeader.size(); k++)
+	{
+		offset += _FrameHeader.at(k).size;
+
+		_FrameOffset.push_back(offset);
+	}
+}

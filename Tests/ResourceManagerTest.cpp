@@ -3,11 +3,12 @@
 #include <Pollux/TestEqual.hpp>
 
 using namespace Arcanum;
+using namespace Pollux;
 
 int main()
 {
-	std::vector<char> buffer;
-	std::vector<char> result;
+	std::vector<unsigned char> buffer;
+	std::vector<unsigned char> result;
 
 	DatList            datList;
 	DatReader          datReader;
@@ -20,9 +21,11 @@ int main()
 
 	datLoader.Load("TestFiles/arcanum4.dat", datList);
 
-	const std::vector<char>& data = resourceManager.GetFile("art/item/", "P_tesla_gun.ART");
+	MemoryReader* data = resourceManager.GetData("art/item/", "P_tesla_gun.ART");
 
-	POLLUX_TEST(data.size() == 6195);
+	POLLUX_TEST(data                   != NULL);
+	POLLUX_TEST(data->Buffer()         != NULL);
+	POLLUX_TEST(data->Buffer()->size() == 6195);
 
 	return 0;
 }

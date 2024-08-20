@@ -1,5 +1,4 @@
 #include "ResourceManager.hpp"
-#include "ResourceManager.hpp"
 /*
 Boost Software License - Version 1.0 - August 17th, 2003
 
@@ -30,6 +29,7 @@ DEALINGS IN THE SOFTWARE.
 #include <Arcanum/Managers/ResourceManager.hpp>
 
 using namespace Arcanum;
+using namespace Pollux;
 
 ResourceManager::ResourceManager(PathManager& pathManager, DatManager& datManager, FileManager& fileManager) :
 	_PathManager(pathManager),
@@ -38,9 +38,9 @@ ResourceManager::ResourceManager(PathManager& pathManager, DatManager& datManage
 {
 }
 
-const std::vector<char>& ResourceManager::GetFile(const std::string& dir, const std::string& file)
+const std::vector<unsigned char>& ResourceManager::GetFile(const std::string& dir, const std::string& file)
 {
-	const std::vector<char>& fromDir = _FileManager.GetFile(_PathManager.GetFileFromDir(dir, file));
+	const std::vector<unsigned char>& fromDir = _FileManager.GetFile(_PathManager.GetFileFromDir(dir, file));
 
 	if (fromDir.size() > 0)
 	{
@@ -48,7 +48,7 @@ const std::vector<char>& ResourceManager::GetFile(const std::string& dir, const 
 	}
 	else
 	{
-		const std::vector<char>& fromDat = _DatManager.GetFile(_PathManager.GetFileFromDat(dir, file));
+		const std::vector<unsigned char>& fromDat = _DatManager.GetFile(_PathManager.GetFileFromDat(dir, file));
 
 		if (fromDat.size() == 0)
 		{
@@ -57,4 +57,13 @@ const std::vector<char>& ResourceManager::GetFile(const std::string& dir, const 
 
 		return fromDat;
 	}
+}
+
+MemoryReader* ResourceManager::GetData(const std::string& dir, const std::string& file)
+{
+	const std::vector<unsigned char>& result = GetFile(dir, file);
+
+	_MemoryReader.Reset(&result);
+
+	return &_MemoryReader;
 }
