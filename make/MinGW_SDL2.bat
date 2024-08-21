@@ -4,8 +4,10 @@ g++ -Wall -Wextra -pedantic -O2 -std=c++11 -static -s -o MinGW_SDL2 ^
 -I..\Arcanum\Shared ^
 -I..\Pollux\Shared  ^
 -I..\Pollux\SDL2  ^
+-I..\Pollux\Platforms\Windows ^
 -I..\dependencies\SDL2-2.30.3\include ^
 -L..\dependencies\SDL2-2.30.3\lib\x86 ^
+..\Pollux\Platforms\Windows\Pollux\Common\*.cpp ^
 ..\Pollux\SDL2\Pollux\Events\*.cpp ^
 ..\Pollux\SDL2\Pollux\Graphics\*.cpp  ^
 ..\Pollux\Shared\Pollux\Graphics\*.cpp  ^

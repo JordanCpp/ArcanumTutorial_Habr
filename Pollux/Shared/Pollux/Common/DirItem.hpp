@@ -24,54 +24,18 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <stdexcept>
-#include <Arcanum/Managers/ResourceManager.hpp>
+#ifndef Pollux_Pollux_DirItem_hpp
+#define Pollux_Pollux_DirItem_hpp
 
-using namespace Arcanum;
-using namespace Pollux;
+#include <string>
 
-ResourceManager::ResourceManager(PathManager& pathManager, DatManager& datManager, FileManager& fileManager) :
-	_PathManager(pathManager),
-	_DatManager(datManager),
-	_FileManager(fileManager)
+namespace Pollux
 {
-}
-
-const std::vector<unsigned char>& ResourceManager::GetFile(const std::string& dir, const std::string& file)
-{
-	const std::vector<unsigned char>& fromDir = _FileManager.GetFile(_PathManager.GetFileFromDir(dir, file));
-
-	if (fromDir.size() > 0)
+	class DirItem
 	{
-		return fromDir;
-	}
-	else
-	{
-		const std::vector<unsigned char>& fromModule = _FileManager.GetFile(_PathManager.GetFileFromModuleDir(dir, file));
-
-		if (fromModule.size() > 0)
-		{
-			return fromModule;
-		}
-		else
-		{
-			const std::vector<unsigned char>& fromDat = _DatManager.GetFile(_PathManager.GetFileFromDat(dir, file));
-
-			if (fromDat.size() == 0)
-			{
-				throw std::runtime_error("Can't found file: " + dir + file);
-			}
-
-			return fromDat;
-		}
-	}
+	public:
+		std::string Path;
+	};
 }
 
-MemoryReader* ResourceManager::GetData(const std::string& dir, const std::string& file)
-{
-	const std::vector<unsigned char>& result = GetFile(dir, file);
-
-	_MemoryReader.Reset(&result);
-
-	return &_MemoryReader;
-}
+#endif 

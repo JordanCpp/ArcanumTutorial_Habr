@@ -1,3 +1,6 @@
+#include "PathManager.hpp"
+#include "PathManager.hpp"
+#include "PathManager.hpp"
 /*
 Boost Software License - Version 1.0 - August 17th, 2003
 
@@ -28,9 +31,10 @@ DEALINGS IN THE SOFTWARE.
 
 using namespace Arcanum;
 
-PathManager::PathManager(const std::string& shortPath, const std::string& dataPath, const std::string& modulePath) :
+PathManager::PathManager(const std::string& shortPath, const std::string& dataPath, const std::string& modulesPath, const std::string& modulePath) :
 	_ShortPath(shortPath),
 	_DataPath(dataPath),
+	_ModulesPath(modulesPath),
 	_ModulePath(modulePath)
 {
 }
@@ -54,6 +58,20 @@ const std::string& PathManager::GetFileFromDat(const std::string& dir, const std
 	return _ResultPath;
 }
 
+const std::string& PathManager::GetFileFromModuleDir(const std::string& dir, const std::string& file)
+{
+	_ResultPath = _ShortPath;
+
+	_ResultPath += _DataPath;
+	_ResultPath += _ModulesPath;
+	_ResultPath += _ModulePath;
+	_ResultPath += "/";
+	_ResultPath += dir;
+	_ResultPath += file;
+
+	return _ResultPath;
+}
+
 const std::string& PathManager::GetDat(const std::string& file)
 {
 	_ResultPath = _ShortPath;
@@ -61,4 +79,19 @@ const std::string& PathManager::GetDat(const std::string& file)
 	_ResultPath += file;
 
 	return _ResultPath;
+}
+
+const std::string& PathManager::GetModules(const std::string& file)
+{
+	_ResultPath = _ShortPath;
+
+	_ResultPath += _ModulesPath;
+	_ResultPath += file;
+
+	return _ResultPath;
+}
+
+const std::string& PathManager::GetModule()
+{
+	return _ModulePath;
 }

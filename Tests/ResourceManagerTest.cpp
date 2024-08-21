@@ -16,7 +16,7 @@ int main()
 	DatManager         datManager(buffer, result, datList);
 	Pollux::FileLoader fileLoader(buffer);
 	FileManager        fileManager(fileLoader);
-	PathManager        pathManager("", "data/", "Arcanum/");
+	PathManager        pathManager("", "data/", "modules/", "Arcanum/");
 	ResourceManager    resourceManager(pathManager, datManager, fileManager);
 
 	datLoader.Load("TestFiles/arcanum4.dat", datList);

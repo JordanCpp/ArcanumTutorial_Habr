@@ -3,8 +3,10 @@
 -I..\Arcanum\Shared ^
 -I..\Pollux\Shared  ^
 -I..\Pollux\SDL1  ^
+-I..\Pollux\Platforms\Windows ^
 -I..\dependencies\SDL-1.2.15\include ^
 -L..\dependencies\SDL-1.2.15\lib\x86 ^
+..\Pollux\Platforms\Windows\Pollux\Common\*.cpp ^
 ..\Pollux\SDL1\Pollux\Events\*.cpp ^
 ..\Pollux\SDL1\Pollux\Graphics\*.cpp  ^
 ..\Pollux\Shared\Pollux\Graphics\*.cpp  ^

@@ -24,54 +24,28 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <stdexcept>
-#include <Arcanum/Managers/ResourceManager.hpp>
+#ifndef Pollux_Common_DirReader_hpp
+#define Pollux_Common_DirReader_hpp
 
-using namespace Arcanum;
-using namespace Pollux;
+#include <Pollux/Common/DirItem.hpp>
+#include <Windows.h>
 
-ResourceManager::ResourceManager(PathManager& pathManager, DatManager& datManager, FileManager& fileManager) :
-	_PathManager(pathManager),
-	_DatManager(datManager),
-	_FileManager(fileManager)
+namespace Pollux
 {
-}
-
-const std::vector<unsigned char>& ResourceManager::GetFile(const std::string& dir, const std::string& file)
-{
-	const std::vector<unsigned char>& fromDir = _FileManager.GetFile(_PathManager.GetFileFromDir(dir, file));
-
-	if (fromDir.size() > 0)
+	class DirReader
 	{
-		return fromDir;
-	}
-	else
-	{
-		const std::vector<unsigned char>& fromModule = _FileManager.GetFile(_PathManager.GetFileFromModuleDir(dir, file));
-
-		if (fromModule.size() > 0)
-		{
-			return fromModule;
-		}
-		else
-		{
-			const std::vector<unsigned char>& fromDat = _DatManager.GetFile(_PathManager.GetFileFromDat(dir, file));
-
-			if (fromDat.size() == 0)
-			{
-				throw std::runtime_error("Can't found file: " + dir + file);
-			}
-
-			return fromDat;
-		}
-	}
+	public:
+		DirReader();
+		~DirReader();
+		bool Reset(const std::string& path);
+		void Close();
+		bool Next(DirItem& item);
+		const std::string& All();
+	private:
+		HANDLE           _File;
+		WIN32_FIND_DATAA _Data;
+		std::string      _All;
+	};
 }
 
-MemoryReader* ResourceManager::GetData(const std::string& dir, const std::string& file)
-{
-	const std::vector<unsigned char>& result = GetFile(dir, file);
-
-	_MemoryReader.Reset(&result);
-
-	return &_MemoryReader;
-}
+#endif 

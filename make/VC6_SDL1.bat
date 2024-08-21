@@ -4,7 +4,9 @@ cl /O2 /GX /MT -FeVC6_SDL1.exe  ^
 /I..\Arcanum\Shared ^
 /I..\Pollux\Shared  ^
 /I..\Pollux\SDL1  ^
+/I..\Pollux\Platforms\Windows ^
 /I..\dependencies\SDL-devel-1.2.14-VC6\include ^
+..\Pollux\Platforms\Windows\Pollux\Common\*.cpp ^
 ..\Pollux\SDL1\Pollux\Events\*.cpp ^
 ..\Pollux\SDL1\Pollux\Graphics\*.cpp  ^
 ..\Pollux\Shared\Pollux\Graphics\*.cpp  ^

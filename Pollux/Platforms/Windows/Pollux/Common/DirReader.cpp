@@ -24,54 +24,58 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <stdexcept>
-#include <Arcanum/Managers/ResourceManager.hpp>
+#include <Pollux/Common/DirReader.hpp>
+#include <string.h>
 
-using namespace Arcanum;
 using namespace Pollux;
 
-ResourceManager::ResourceManager(PathManager& pathManager, DatManager& datManager, FileManager& fileManager) :
-	_PathManager(pathManager),
-	_DatManager(datManager),
-	_FileManager(fileManager)
+DirReader::DirReader() :
+	_File(NULL),
+	_All("*.*")
 {
+	memset(&_Data, 0, sizeof(WIN32_FIND_DATAA));
 }
 
-const std::vector<unsigned char>& ResourceManager::GetFile(const std::string& dir, const std::string& file)
+DirReader::~DirReader()
 {
-	const std::vector<unsigned char>& fromDir = _FileManager.GetFile(_PathManager.GetFileFromDir(dir, file));
+	Close();
+}
 
-	if (fromDir.size() > 0)
+bool DirReader::Reset(const std::string& path)
+{
+	Close();
+
+	_File = FindFirstFile(path.c_str(), &_Data);
+
+	if (_File == INVALID_HANDLE_VALUE)
 	{
-		return fromDir;
+		return false;
 	}
-	else
+
+	return true;
+}
+
+void DirReader::Close()
+{
+	if (_File != NULL)
 	{
-		const std::vector<unsigned char>& fromModule = _FileManager.GetFile(_PathManager.GetFileFromModuleDir(dir, file));
-
-		if (fromModule.size() > 0)
-		{
-			return fromModule;
-		}
-		else
-		{
-			const std::vector<unsigned char>& fromDat = _DatManager.GetFile(_PathManager.GetFileFromDat(dir, file));
-
-			if (fromDat.size() == 0)
-			{
-				throw std::runtime_error("Can't found file: " + dir + file);
-			}
-
-			return fromDat;
-		}
+		FindClose(_File);
 	}
 }
 
-MemoryReader* ResourceManager::GetData(const std::string& dir, const std::string& file)
+bool DirReader::Next(DirItem& item)
 {
-	const std::vector<unsigned char>& result = GetFile(dir, file);
+	if (FindNextFile(_File, &_Data))
+	{
+		item.Path = _Data.cFileName;
 
-	_MemoryReader.Reset(&result);
+		return true;
+	}
 
-	return &_MemoryReader;
+	return false;
+}
+
+const std::string& DirReader::All()
+{
+	return _All;
 }

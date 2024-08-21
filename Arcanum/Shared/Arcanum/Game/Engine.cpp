@@ -25,7 +25,7 @@ DEALINGS IN THE SOFTWARE.
 */
 
 #include <Arcanum/Game/Engine.hpp>
-#include <iostream>
+#include <Pollux/Common/DirReader.hpp>
 
 using namespace Arcanum;
 using namespace Pollux;
@@ -33,7 +33,7 @@ using namespace Pollux;
 Engine::Engine() :
 	_Buffer(BufferMax),
 	_Result(BufferMax),
-	_PathManager("", "data/", "Arcanum/"),
+	_PathManager("", "data/", "modules/", "Arcanum"),
 	_Canvas(Point(800, 600)),
 	_DatLoader(_DatReader),
 	_FileLoader(_Buffer),
@@ -41,9 +41,30 @@ Engine::Engine() :
 	_FileManager(_FileLoader),
 	_ResourceManager(_PathManager, _DatManager, _FileManager)
 {
-	_DatLoader.Load(_PathManager.GetDat("arcanum1.dat"), _DatList);
-	_DatLoader.Load(_PathManager.GetDat("arcanum2.dat"), _DatList);
-	_DatLoader.Load(_PathManager.GetDat("arcanum3.dat"), _DatList);
+	DirItem   dirItem;
+	DirReader dirReader;
+
+	if (dirReader.Reset(_PathManager.GetDat(dirReader.All())))
+	{
+		while (dirReader.Next(dirItem))
+		{
+			if (dirItem.Path.find(".dat") != std::string::npos)
+			{
+				_DatLoader.Load(_PathManager.GetDat(dirItem.Path), _DatList);
+			}
+		}
+	}
+
+	if (dirReader.Reset(_PathManager.GetModules(dirReader.All())))
+	{
+		while (dirReader.Next(dirItem))
+		{
+			if (dirItem.Path.find(_PathManager.GetModule() + ".dat") != std::string::npos)
+			{
+				_DatLoader.Load(_PathManager.GetModules(dirItem.Path), _DatList);
+			}
+		}
+	}
 }
 
 Engine::~Engine()

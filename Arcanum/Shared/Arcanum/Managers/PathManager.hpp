@@ -34,13 +34,17 @@ namespace Arcanum
     class PathManager
     {
     public:
-        PathManager(const std::string& shortPath, const std::string& dataPath, const std::string& modulePath);
+        PathManager(const std::string& shortPath, const std::string& dataPath, const std::string& modulesPath, const std::string& modulePath);
         const std::string& GetFileFromDir(const std::string& dir, const std::string& file);
         const std::string& GetFileFromDat(const std::string& dir, const std::string& file);
+        const std::string& GetFileFromModuleDir(const std::string& dir, const std::string& file);
         const std::string& GetDat(const std::string& file);
+        const std::string& GetModules(const std::string& file);
+        const std::string& GetModule();
     private:
         std::string _ShortPath;
         std::string _DataPath;
+        std::string _ModulesPath;
         std::string _ModulePath;
         std::string _ResultPath;
     };

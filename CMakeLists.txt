@@ -44,7 +44,16 @@ add_library(zlib ${ZLIB_SOURCES})
 
 include_directories("Pollux/SDL2")
 include_directories("Pollux/Shared")
-file(GLOB_RECURSE POLLUX_SOURCES "Pollux/SDL2/*.cpp" "Pollux/Shared/*.cpp")
+
+if (WIN32)
+    include_directories("Pollux/Platforms/Windows")
+    file(GLOB_RECURSE POLLUX_PLATFORM_SOURCES "Pollux/Platforms/Windows/*.cpp")
+else()
+    include_directories("Pollux/Platforms/Linux")
+    file(GLOB_RECURSE POLLUX_PLATFORM_SOURCES "Pollux/Platforms/Linux/*.cpp")
+endif()
+
+file(GLOB_RECURSE POLLUX_SOURCES "Pollux/SDL2/*.cpp" "Pollux/Shared/*.cpp" ${POLLUX_PLATFORM_SOURCES})
 add_library(Pollux ${POLLUX_SOURCES})
 target_link_libraries(Pollux ${SDL2_LIBRARIES})
 
