@@ -29,10 +29,9 @@ DEALINGS IN THE SOFTWARE.
 using namespace Pollux;
 
 DirReader::DirReader() :
-	_File(NULL),
+	_Directory(NULL),
 	_All("./")
 {
-	memset(&_Data, 0, sizeof(WIN32_FIND_DATAA));
 }
 
 DirReader::~DirReader()
