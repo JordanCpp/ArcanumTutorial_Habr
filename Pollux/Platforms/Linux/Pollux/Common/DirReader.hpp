@@ -24,57 +24,27 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <Pollux/Common/DirReader.hpp>
+#ifndef Pollux_Common_DirReader_hpp
+#define Pollux_Common_DirReader_hpp
 
-using namespace Pollux;
+#include <Pollux/Common/DirItem.hpp>
+#include <dirent.h>
 
-DirReader::DirReader() :
-	_File(NULL),
-	_All("*.*")
+namespace Pollux
 {
-	memset(&_Data, 0, sizeof(WIN32_FIND_DATAA));
-}
-
-DirReader::~DirReader()
-{
-	Close();
-}
-
-bool DirReader::Reset(const std::string& path)
-{
-	Close();
-
-	_File = FindFirstFile(path.c_str(), &_Data);
-
-	if (_File == INVALID_HANDLE_VALUE)
+	class DirReader
 	{
-		return false;
-	}
-
-	return true;
+	public:
+		DirReader();
+		~DirReader();
+		bool Reset(const std::string& path);
+		void Close();
+		bool Next(DirItem& item);
+		const std::string& All();
+	private:
+		DIR*         _Directory;
+		std::string  _All;
+	};
 }
 
-void DirReader::Close()
-{
-	if (_File != NULL)
-	{
-		FindClose(_File);
-	}
-}
-
-bool DirReader::Next(DirItem& item)
-{
-	if (FindNextFile(_File, &_Data))
-	{
-		item.Path = _Data.cFileName;
-
-		return true;
-	}
-
-	return false;
-}
-
-const std::string& DirReader::All()
-{
-	return _All;
-}
+#endif 

@@ -30,7 +30,7 @@ using namespace Pollux;
 
 DirReader::DirReader() :
 	_File(NULL),
-	_All("*.*")
+	_All("./")
 {
 	memset(&_Data, 0, sizeof(WIN32_FIND_DATAA));
 }
@@ -44,34 +44,33 @@ bool DirReader::Reset(const std::string& path)
 {
 	Close();
 
-	_File = FindFirstFile(path.c_str(), &_Data);
+	_Directory = opendir(path.c_str());
 
-	if (_File == INVALID_HANDLE_VALUE)
-	{
-		return false;
-	}
-
-	return true;
+	return _Directory != NULL;
 }
 
 void DirReader::Close()
 {
-	if (_File != NULL)
+	if (_Directory != NULL)
 	{
-		FindClose(_File);
+		closedir(_Directory);
 	}
 }
 
 bool DirReader::Next(DirItem& item)
 {
-	if (FindNextFile(_File, &_Data))
+	dirent* entry = readdir(_Directory);
+
+	if (entry == NULL)
 	{
-		item.Path = _Data.cFileName;
+		return false;
+	}
+	else
+	{
+		item.Path = entry->d_name;
 
 		return true;
 	}
-
-	return false;
 }
 
 const std::string& DirReader::All()
