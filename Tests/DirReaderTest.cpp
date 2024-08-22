@@ -1,6 +1,7 @@
 #include <Pollux/TestEqual.hpp>
 #include <Pollux/Common/DirReader.hpp>
 #include <vector>
+#include <algorithm>
 
 using namespace Pollux;
 

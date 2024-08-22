@@ -1,7 +1,6 @@
 #include <Arcanum/Formats/Art/ArtReader.hpp>
 #include <Arcanum/Managers/FileManager.hpp>
 #include <Pollux/TestEqual.hpp>
-#include <algorithm>
 
 using namespace Arcanum;
 using namespace Pollux;
