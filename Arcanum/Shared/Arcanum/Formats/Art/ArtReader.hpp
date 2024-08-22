@@ -38,7 +38,11 @@ namespace Arcanum
         ArtReader();
         void Reset(Pollux::MemoryReader* reader);
         size_t Frames();
-        void Frame(size_t index, std::vector<unsigned char>& data);
+        void Frame(size_t index, std::vector<unsigned char>& artBuffer, std::vector<unsigned char>& rgbBuffer);
+        int Width(size_t index);
+        int Height(size_t index);
+        int Size(size_t index);
+        const ArtTable& Palette();
     private:
         void LoadHeader();
         Pollux::MemoryReader*       _Reader;

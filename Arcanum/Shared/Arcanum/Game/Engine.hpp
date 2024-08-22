@@ -28,9 +28,11 @@ DEALINGS IN THE SOFTWARE.
 #define Arcanum_Game_Engine_hpp
 
 #include <Pollux/Graphics/Canvas.hpp>
+#include <Pollux/Graphics/Texture.hpp>
 #include <Pollux/Events/EventHandler.hpp>
 #include <Arcanum/Formats/Dat/DatLoader.hpp>
 #include <Arcanum/Managers/ResourceManager.hpp>
+#include <Arcanum/Formats/Art/ArtReader.hpp>
 
 namespace Arcanum
 {
@@ -58,6 +60,7 @@ namespace Arcanum
 		DatManager                     _DatManager;
 		FileManager                    _FileManager;
 		ResourceManager                _ResourceManager;
+		Pollux::Texture* _Texture;
 	};
 }
 

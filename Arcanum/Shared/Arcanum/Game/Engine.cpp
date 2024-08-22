@@ -65,6 +65,22 @@ Engine::Engine() :
 			}
 		}
 	}
+
+	Pollux::MemoryReader * mem = _ResourceManager.GetData("art/scenery/", "engine.ART");
+
+	ArtReader artReader;
+
+	artReader.Reset(mem);
+
+	std::vector<unsigned char> artBuffer;
+	std::vector<unsigned char> rgbBuffer;
+
+	artReader.Frame(0, artBuffer, rgbBuffer);
+
+	int w = artReader.Width(0);
+	int h = artReader.Height(0);
+
+	_Texture = new Texture(_Canvas, Point(w, h), 4, &rgbBuffer[0]);
 }
 
 Engine::~Engine()
@@ -81,6 +97,8 @@ void Engine::Run()
 		{
 			_EventHandler.StopEvent();
 		}
+
+		_Canvas.Draw(_Texture, Point(35, 65));
 
 		_Canvas.Present();
 	}

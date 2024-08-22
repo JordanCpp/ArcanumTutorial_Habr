@@ -1,3 +1,7 @@
+#include "ArtReader.hpp"
+#include "ArtReader.hpp"
+#include "ArtReader.hpp"
+#include "ArtReader.hpp"
 /*
 Boost Software License - Version 1.0 - August 17th, 2003
 
@@ -50,15 +54,131 @@ size_t ArtReader::Frames()
 	return _Frames;
 }
 
-void ArtReader::Frame(size_t index, std::vector<unsigned char>& data)
+void ArtReader::Frame(size_t index, std::vector<unsigned char>& artBuffer, std::vector<unsigned char>& rgbBuffer)
 {
 	size_t offset = _FrameOffset.at(index);
 	size_t size   = _FrameHeader.at(index).size;
-	
+	size_t width  = _FrameHeader.at(index).width;
+	size_t height = _FrameHeader.at(index).height;
+
 	_Reader->Offset(offset);
 
-	data.resize(size);
-	_Reader->Read(&data[0], size);
+	artBuffer.resize(size);
+
+	_Reader->Read(&artBuffer[0], size);
+
+	rgbBuffer.resize(width * height * 4);
+
+	size_t j = 0;
+
+	if ((width * height) == size)
+	{
+		for (size_t i = 0; i < size; i++)
+		{
+			unsigned char src = artBuffer.at(i);
+
+			if (src != 0)
+			{
+				rgbBuffer.at(j + 0) = _Pallete[0].colors[src].r;
+				rgbBuffer.at(j + 1) = _Pallete[0].colors[src].g;
+				rgbBuffer.at(j + 2) = _Pallete[0].colors[src].b;
+				rgbBuffer.at(j + 3) = 255;
+			}
+			else
+			{
+				rgbBuffer.at(j + 0) = 0;
+				rgbBuffer.at(j + 1) = 0;
+				rgbBuffer.at(j + 2) = 0;
+				rgbBuffer.at(j + 3) = 0;
+			}
+
+			j += 4;
+		}
+	}
+	else
+	{
+		for (size_t i = 0; i < size; i++)
+		{
+			unsigned char ch = artBuffer.at(i);
+
+			if (ch & 0x80)
+			{
+				int to_copy = ch & (0x7F);
+				
+				while (to_copy--)
+				{
+					i++;
+
+					unsigned char src = artBuffer.at(i);
+
+					if (src != 0)
+					{
+						rgbBuffer.at(j + 0) = _Pallete[0].colors[src].r;
+						rgbBuffer.at(j + 1) = _Pallete[0].colors[src].g;
+						rgbBuffer.at(j + 2) = _Pallete[0].colors[src].b;
+						rgbBuffer.at(j + 3) = 255;
+					}
+					else
+					{
+						rgbBuffer.at(j + 0) = 0;
+						rgbBuffer.at(j + 1) = 0;
+						rgbBuffer.at(j + 2) = 0;
+						rgbBuffer.at(j + 3) = 0;
+					}
+
+					j += 4;
+				}
+			}
+			else
+			{
+				int to_clone = ch & (0x7F);
+
+				i++;
+
+				unsigned char src = artBuffer.at(i);
+
+				while (to_clone--)
+				{
+					if (src != 0)
+					{
+						rgbBuffer.at(j + 0) = _Pallete[0].colors[src].r;
+						rgbBuffer.at(j + 1) = _Pallete[0].colors[src].g;
+						rgbBuffer.at(j + 2) = _Pallete[0].colors[src].b;
+						rgbBuffer.at(j + 3) = 255;
+					}
+					else
+					{
+						rgbBuffer.at(j + 0) = 0;
+						rgbBuffer.at(j + 1) = 0;
+						rgbBuffer.at(j + 2) = 0;
+						rgbBuffer.at(j + 3) = 0;
+					}
+
+					j += 4;
+				}
+			}
+		}
+	}
+}
+
+int ArtReader::Width(size_t index)
+{
+	return _FrameHeader.at(index).width;
+}
+
+int ArtReader::Height(size_t index)
+{
+	return _FrameHeader.at(index).height;
+}
+
+int ArtReader::Size(size_t index)
+{
+	return _FrameHeader.at(index).size;
+}
+
+const ArtTable& ArtReader::Palette()
+{
+	return _Pallete[0];
 }
 
 void ArtReader::LoadHeader()

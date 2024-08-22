@@ -24,38 +24,14 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <Pollux/Loaders/FileLoader.hpp>
-#include <fstream>
-#include <cassert>
+#include <Pollux/Graphics/Color.hpp>
 
 using namespace Pollux;
 
-FileLoader::FileLoader(std::vector<unsigned char>& buffer) :
-	_Buffer(buffer)
+Color::Color(unsigned char r, unsigned char g, unsigned char b, unsigned char a) :
+	r(r),
+	g(g),
+	b(b),
+	a(a)
 {
-}
-
-bool FileLoader::Reset(const std::string& path)
-{
-	std::ifstream file(path.c_str(), std::ios::in | std::ios::binary);
-
-	if (!file.is_open() || file.bad())
-	{
-		return false;
-	}
-
-	file.seekg(0, std::ios::end);
-	std::streampos fileSize = (size_t)file.tellg();
-	file.seekg(0, std::ios::beg);
-
-	_Buffer.resize((size_t)fileSize);
-
-	file.read((char*)&_Buffer[0], fileSize);
-
-	return true;
-}
-
-const std::vector<unsigned char>& FileLoader::Content()
-{
-	return _Buffer;
 }

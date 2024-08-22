@@ -24,38 +24,30 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <Pollux/Loaders/FileLoader.hpp>
-#include <fstream>
-#include <cassert>
+#ifndef Pollux_Graphics_Texture_hpp
+#define Pollux_Graphics_Texture_hpp
 
-using namespace Pollux;
+#include <SDL.h>
+#include <Pollux/Graphics/Texture.hpp>
+#include <Pollux/Graphics/Canvas.hpp>
+#include <Pollux/Graphics/Color.hpp>
 
-FileLoader::FileLoader(std::vector<unsigned char>& buffer) :
-	_Buffer(buffer)
+namespace Pollux
 {
-}
+	class Canvas;
 
-bool FileLoader::Reset(const std::string& path)
-{
-	std::ifstream file(path.c_str(), std::ios::in | std::ios::binary);
-
-	if (!file.is_open() || file.bad())
+	class Texture
 	{
-		return false;
-	}
-
-	file.seekg(0, std::ios::end);
-	std::streampos fileSize = (size_t)file.tellg();
-	file.seekg(0, std::ios::beg);
-
-	_Buffer.resize((size_t)fileSize);
-
-	file.read((char*)&_Buffer[0], fileSize);
-
-	return true;
+	public:
+		Texture(Canvas& canvas, const Point& size, unsigned char bpp, unsigned char* pixels);
+		Texture(Canvas& canvas, const Point& size, unsigned char bpp, unsigned char* pixels, const Color& key);
+		~Texture();
+		SDL_Texture* GetTextureImpl();
+		const Point& Size() const;
+	private:
+		SDL_Texture* _Texture;
+		Point        _Size;
+	};
 }
 
-const std::vector<unsigned char>& FileLoader::Content()
-{
-	return _Buffer;
-}
+#endif

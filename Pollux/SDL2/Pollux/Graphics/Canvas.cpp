@@ -25,7 +25,9 @@ DEALINGS IN THE SOFTWARE.
 */
 
 #include <Pollux/Graphics/Canvas.hpp>
+#include <Pollux/Graphics/Texture.hpp>
 #include <stdexcept>
+#include <assert.h>
 
 using namespace Pollux;
 
@@ -68,4 +70,29 @@ void Canvas::Present()
 SDL_Renderer* Canvas::GetRenderImpl()
 {
 	return _Render;
+}
+
+void Canvas::Draw(const Texture* texture, const Point& dstPos, const Point& dstSize, const Point& srcPos, const Point& srcSize)
+{
+	assert(texture != NULL);
+	assert(dstPos.x >= 0);
+	assert(dstPos.y >= 0);
+	assert(dstSize.x > 0);
+	assert(dstSize.y > 0);
+	assert(srcPos.x >= 0);
+	assert(srcPos.y >= 0);
+	assert(srcSize.x > 0);
+	assert(srcSize.y > 0);
+
+	SDL_Rect dstRect = { dstPos.x ,dstPos.y, dstSize.x, dstSize.y };
+	SDL_Rect srcRect = { srcPos.x ,srcPos.y, srcSize.x, srcSize.y };
+
+	Texture* impl = (Texture*)texture;
+
+	SDL_RenderCopy(_Render, impl->GetTextureImpl(), &srcRect, &dstRect);
+}
+
+void Canvas::Draw(const Texture* texture, const Point& dstPos)
+{
+	Draw(texture, dstPos, texture->Size(), Point(0, 0), texture->Size());
 }

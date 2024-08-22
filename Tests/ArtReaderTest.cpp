@@ -10,7 +10,7 @@ int main()
 	std::vector<unsigned char> buffer;
 
 	FileLoader fileLoader(buffer);
-	fileLoader.Reset("TestFiles/data/art/item/P_tesla_gun.ART");
+	fileLoader.Reset("TestFiles/data/art/scenery/engine.ART");
 	
 	MemoryReader memoryReader;
 	memoryReader.Reset(&fileLoader.Content());
@@ -18,11 +18,14 @@ int main()
 	ArtReader artReader;
 	artReader.Reset(&memoryReader);
 
-	std::vector<unsigned char> data;
+	POLLUX_TEST(artReader.Frames() == 10);
 
-	artReader.Frame(0, data);
+	std::vector<unsigned char> artBuffer;
+	std::vector<unsigned char> rgbBuffer;
 
-	POLLUX_TEST(data.size() == 5011);
+	artReader.Frame(0, artBuffer, rgbBuffer);
+	POLLUX_TEST(artBuffer.size() == 35651);
+	POLLUX_TEST(rgbBuffer.size() == 223344);
 
 	return 0;
 }
