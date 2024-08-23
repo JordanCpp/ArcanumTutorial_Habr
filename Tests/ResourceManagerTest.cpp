@@ -1,6 +1,6 @@
 #include <Arcanum/Formats/Dat/DatLoader.hpp>
 #include <Arcanum/Managers/ResourceManager.hpp>
-#include <Pollux/TestEqual.hpp>
+#include <Pollux/Common/TestEqual.hpp>
 
 using namespace Arcanum;
 using namespace Pollux;

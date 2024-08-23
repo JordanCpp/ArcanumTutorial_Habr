@@ -1,5 +1,5 @@
 #include <Arcanum/Formats/Dat/DatList.hpp>
-#include <Pollux/TestEqual.hpp>
+#include <Pollux/Common/TestEqual.hpp>
 #include <string.h>
 
 using namespace Arcanum;

@@ -34,7 +34,7 @@ namespace Pollux
 	class DirItem
 	{
 	public:
-		std::string Path;
+		std::string Name;
 	};
 }
 

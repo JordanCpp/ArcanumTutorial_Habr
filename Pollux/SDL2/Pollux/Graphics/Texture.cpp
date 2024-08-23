@@ -25,8 +25,8 @@ DEALINGS IN THE SOFTWARE.
 */
 
 #include <Pollux/Graphics/Texture.hpp>
+#include <Pollux/Common/Assert.hpp>
 #include <stdexcept>
-#include <assert.h>
 
 using namespace Pollux;
 
@@ -48,9 +48,9 @@ Texture::Texture(Canvas& canvas, const Point& size, uint8_t bpp, uint8_t* pixels
     _Texture(NULL),
     _Size(size)
 {
-    assert(size.x > 0);
-    assert(size.y > 0);
-    assert(pixels != NULL);
+    POLLUX_ASSERT(size.x > 0);
+    POLLUX_ASSERT(size.y > 0);
+    POLLUX_ASSERT(pixels != NULL);
 
 	SDL_Surface* surface = SDL_CreateRGBSurfaceFrom(pixels, size.x, size.y, bitSize * bpp, size.x * bpp, R_MASK, G_MASK, B_MASK, A_MASK);
 
@@ -71,9 +71,9 @@ Texture::Texture(Canvas& canvas, const Point& size, unsigned char bpp, unsigned 
     _Texture(NULL),
     _Size(size)
 {
-    assert(size.x > 0);
-    assert(size.y > 0);
-    assert(pixels != NULL);
+    POLLUX_ASSERT(size.x > 0);
+    POLLUX_ASSERT(size.y > 0);
+    POLLUX_ASSERT(pixels != NULL);
 
     SDL_Surface* surface = SDL_CreateRGBSurfaceFrom(pixels, size.x, size.y, bitSize * bpp, size.x * bpp, R_MASK, G_MASK, B_MASK, A_MASK);
     

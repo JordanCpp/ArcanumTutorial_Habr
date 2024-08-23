@@ -1,6 +1,6 @@
 #include <Pollux/Loaders/FileLoader.hpp>
 #include <Pollux/Readers/MemoryReader.hpp>
-#include <Pollux/TestEqual.hpp>
+#include <Pollux/Common/TestEqual.hpp>
 
 using namespace Pollux;
 

@@ -29,7 +29,7 @@ DEALINGS IN THE SOFTWARE.
 */
 
 #include <Arcanum/Formats/Art/ArtReader.hpp>
-#include <assert.h>
+#include <Pollux/Common/Assert.hpp>
 
 using namespace Arcanum;
 using namespace Pollux;
@@ -42,7 +42,7 @@ ArtReader::ArtReader() :
 
 void ArtReader::Reset(MemoryReader* reader)
 {
-	assert(reader != NULL);
+	POLLUX_ASSERT(reader != NULL);
 
 	_Reader = reader;
 

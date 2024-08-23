@@ -66,7 +66,7 @@ bool DirReader::Next(DirItem& item)
 {
 	if (FindNextFile(_File, &_Data))
 	{
-		item.Path = _Data.cFileName;
+		item.Name = _Data.cFileName;
 
 		return true;
 	}

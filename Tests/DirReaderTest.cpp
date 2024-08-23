@@ -1,4 +1,4 @@
-#include <Pollux/TestEqual.hpp>
+#include <Pollux/Common/TestEqual.hpp>
 #include <Pollux/Common/DirReader.hpp>
 #include <vector>
 #include <algorithm>
@@ -17,7 +17,7 @@ int main()
 
 		while (dirReader.Next(dirItem))
 		{
-			list.push_back(dirItem.Path);
+			list.push_back(dirItem.Name);
 		}
 	}
 

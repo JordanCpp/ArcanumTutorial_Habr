@@ -24,45 +24,15 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <Pollux/Readers/MemoryReader.hpp>
-#include <Pollux/Common/Assert.hpp>
-#include <string.h>
+#include <Pollux/Common/TestEqual.hpp>
+#include <iostream>
 
 using namespace Pollux;
 
-MemoryReader::MemoryReader() :
-	_Offset(0),
-	_Buffer(NULL)
+void Pollux::TestEqual(bool condition, const char* description, const char* file, int line)
 {
-}
-
-void MemoryReader::Reset(const std::vector<unsigned char>* buffer)
-{
-	_Offset = 0;
-	_Buffer = buffer;
-}
-
-const std::vector<unsigned char>* MemoryReader::Buffer()
-{
-	return _Buffer;
-}
-
-void MemoryReader::Read(void* dst, size_t size)
-{
-	POLLUX_ASSERT(dst != NULL);
-	POLLUX_ASSERT(_Offset + size <= _Buffer->size());
-
-	memcpy(dst, &_Buffer->at(_Offset), size);
-
-	_Offset += size;
-}
-
-size_t Pollux::MemoryReader::Offset()
-{
-	return _Offset;
-}
-
-void MemoryReader::Offset(size_t pos)
-{
-	_Offset = pos;
+	if (!condition)
+	{
+		std::cout << "Test fail: " << description << " File: " << file << " Line: " << line << '\n';
+	}
 }

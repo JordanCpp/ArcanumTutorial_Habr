@@ -49,9 +49,9 @@ Engine::Engine() :
 	{
 		while (dirReader.Next(dirItem))
 		{
-			if (dirItem.Path.find(".dat") != std::string::npos)
+			if (dirItem.Name.find(".dat") != std::string::npos)
 			{
-				_DatLoader.Load(_PathManager.GetDat(dirItem.Path), _DatList);
+				_DatLoader.Load(_PathManager.GetDat(dirItem.Name), _DatList);
 			}
 		}
 	}
@@ -60,9 +60,9 @@ Engine::Engine() :
 	{
 		while (dirReader.Next(dirItem))
 		{
-			if (dirItem.Path.find(_PathManager.GetModule() + ".dat") != std::string::npos)
+			if (dirItem.Name.find(_PathManager.GetModule() + ".dat") != std::string::npos)
 			{
-				_DatLoader.Load(_PathManager.GetModules(dirItem.Path), _DatList);
+				_DatLoader.Load(_PathManager.GetModules(dirItem.Name), _DatList);
 			}
 		}
 	}

@@ -24,15 +24,17 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <Pollux/TestEqual.hpp>
+#include <Pollux/Common/Assert.hpp>
+#include <stdlib.h>
 #include <iostream>
 
 using namespace Pollux;
 
-void Pollux::TestEqual(bool condition, const char* description, const char* file, int line)
+void Pollux::Assert(bool condition, const char* description, const char* file, int line)
 {
 	if (!condition)
 	{
-		std::cout << "Test fail: " << description << " File: " << file << " Line: " << line << '\n';
+		std::cout << "Assert: " << description << " File: " << file << " Line: " << line << '\n';
+		abort();
 	}
 }

@@ -25,7 +25,8 @@ DEALINGS IN THE SOFTWARE.
 */
 
 #include <Pollux/Graphics/Canvas.hpp>
-#include <Pollux/Graphics/Texture.hpp> 
+#include <Pollux/Graphics/Texture.hpp>
+#include <Pollux/Common/Assert.hpp>
 #include <stdexcept>
 #include <cassert>
 
@@ -71,15 +72,15 @@ void Canvas::Present()
 
 void Canvas::Draw(const Texture* texture, const Point& dstPos, const Point& dstSize, const Point& srcPos, const Point& srcSize)
 {
-	assert(texture != NULL);
-	assert(dstPos.x >= 0);
-	assert(dstPos.y >= 0);
-	assert(dstSize.x > 0);
-	assert(dstSize.y > 0);
-	assert(srcPos.x >= 0);
-	assert(srcPos.y >= 0);
-	assert(srcSize.x > 0);
-	assert(srcSize.y > 0);
+	POLLUX_ASSERT(texture != NULL);
+	POLLUX_ASSERT(dstPos.x >= 0);
+	POLLUX_ASSERT(dstPos.y >= 0);
+	POLLUX_ASSERT(dstSize.x > 0);
+	POLLUX_ASSERT(dstSize.y > 0);
+	POLLUX_ASSERT(srcPos.x >= 0);
+	POLLUX_ASSERT(srcPos.y >= 0);
+	POLLUX_ASSERT(srcSize.x > 0);
+	POLLUX_ASSERT(srcSize.y > 0);
 
 	SDL_Rect dstRect = { (Sint16)dstPos.x, (Sint16)dstPos.y, (Uint16)dstSize.x, (Uint16)dstSize.y };
 	SDL_Rect srcRect = { (Sint16)srcPos.x, (Sint16)srcPos.y, (Uint16)srcSize.x, (Uint16)srcSize.y };
