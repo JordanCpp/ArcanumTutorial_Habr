@@ -31,15 +31,16 @@ using namespace Arcanum;
 using namespace Pollux;
 
 Engine::Engine() :
-	_Buffer(BufferMax),
-	_Result(BufferMax),
+	_DatBuffer(DatBufferMax),
+	_ResultBuffer(ResultBufferMax),
 	_PathManager("", "data/", "modules/", "Arcanum"),
 	_Canvas(Point(800, 600)),
 	_DatLoader(_DatReader),
-	_FileLoader(_Buffer),
-	_DatManager(_Buffer, _Result, _DatList),
+	_FileLoader(_DatBuffer),
+	_DatManager(_DatBuffer, _ResultBuffer, _DatList),
 	_FileManager(_FileLoader),
-	_ResourceManager(_PathManager, _DatManager, _FileManager)
+	_ResourceManager(_PathManager, _DatManager, _FileManager),
+	_Texture(NULL)
 {
 	DirItem   dirItem;
 	DirReader dirReader;
@@ -66,25 +67,29 @@ Engine::Engine() :
 		}
 	}
 
-	Pollux::MemoryReader * mem = _ResourceManager.GetData("art/scenery/", "engine.ART");
+	MemoryReader* mem = _ResourceManager.GetData("art/scenery/", "engine.ART");
 
 	ArtReader artReader;
 
 	artReader.Reset(mem);
 
-	std::vector<unsigned char> artBuffer;
-	std::vector<unsigned char> rgbBuffer;
+	if (artReader.Frames() > 0)
+	{
+		std::vector<unsigned char> artBuffer;
+		std::vector<unsigned char> rgbBuffer;
 
-	artReader.Frame(0, artBuffer, rgbBuffer);
+		artReader.Frame(0, artBuffer, rgbBuffer);
 
-	int w = artReader.Width(0);
-	int h = artReader.Height(0);
+		int w = artReader.Width(0);
+		int h = artReader.Height(0);
 
-	_Texture = new Texture(_Canvas, Point(w, h), 4, &rgbBuffer[0]);
+		_Texture = new Texture(_Canvas, Point(w, h), 4, &rgbBuffer[0]);
+	}
 }
 
 Engine::~Engine()
 {
+	delete _Texture;
 }
 
 void Engine::Run()
@@ -98,7 +103,7 @@ void Engine::Run()
 			_EventHandler.StopEvent();
 		}
 
-		_Canvas.Draw(_Texture, Point(35, 65));
+		_Canvas.Draw(_Texture, Point(150, 150));
 
 		_Canvas.Present();
 	}

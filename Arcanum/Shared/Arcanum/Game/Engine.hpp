@@ -41,26 +41,28 @@ namespace Arcanum
 	public:
 		enum
 		{
-			BufferMax = 1024 * 1024 * 1
+			Mb              = 1024 * 1024,
+			DatBufferMax    = Mb * 2,
+			ResultBufferMax = Mb * 4
 		};
 
 		Engine();
 		~Engine();
 		void Run();
 	private:
-		std::vector<unsigned char>     _Buffer;
-		std::vector<unsigned char>     _Result;
-		PathManager                    _PathManager;
-		Pollux::Canvas                 _Canvas;
-		Pollux::EventHandler           _EventHandler;
-		DatList                        _DatList;
-		DatReader                      _DatReader;
-		DatLoader                      _DatLoader;
-		Pollux::FileLoader             _FileLoader;
-		DatManager                     _DatManager;
-		FileManager                    _FileManager;
-		ResourceManager                _ResourceManager;
-		Pollux::Texture* _Texture;
+		std::vector<unsigned char> _DatBuffer;
+		std::vector<unsigned char> _ResultBuffer;
+		PathManager                _PathManager;
+		Pollux::Canvas             _Canvas;
+		Pollux::EventHandler       _EventHandler;
+		DatList                    _DatList;
+		DatReader                  _DatReader;
+		DatLoader                  _DatLoader;
+		Pollux::FileLoader         _FileLoader;
+		DatManager                 _DatManager;
+		FileManager                _FileManager;
+		ResourceManager            _ResourceManager;
+		Pollux::Texture*           _Texture;
 	};
 }
 
