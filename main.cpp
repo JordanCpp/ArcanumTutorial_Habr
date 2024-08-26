@@ -25,11 +25,15 @@ DEALINGS IN THE SOFTWARE.
 */
 
 #include <Arcanum/Game/Engine.hpp>
+#include <Pollux/Defines.hpp>
 
 using namespace Arcanum;
 
 int main(int argc, char* argv[])
 {
+	POLLUX_UNUSED(argc);
+	POLLUX_UNUSED(argv);
+
 	Engine engine;
 	engine.Run();
 

@@ -34,6 +34,8 @@ DEALINGS IN THE SOFTWARE.
 
 namespace Pollux
 {
+	class Texture;
+
 	class Canvas
 	{
 	public:
@@ -41,6 +43,8 @@ namespace Pollux
 		~Canvas();
 		const Point& Size() const;
 		void Present();
+		void Draw(const Texture* texture, const Point& dstPos, const Point& dstSize, const Point& srcPos, const Point& srcSize);
+		void Draw(const Texture* texture, const Point& dstPos);
 	private:
 		SDL_Surface* _Screen;
 		Point        _Size;

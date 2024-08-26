@@ -25,17 +25,71 @@ DEALINGS IN THE SOFTWARE.
 */
 
 #include <Arcanum/Game/Engine.hpp>
+#include <Pollux/Common/DirReader.hpp>
 
 using namespace Arcanum;
 using namespace Pollux;
 
 Engine::Engine() :
-	_Canvas(Point(800, 600))
+	_DatBuffer(DatBufferMax),
+	_ResultBuffer(ResultBufferMax),
+	_PathManager("", "data/", "modules/", "Arcanum"),
+	_Canvas(Point(800, 600)),
+	_DatLoader(_DatReader),
+	_FileLoader(_DatBuffer),
+	_DatManager(_DatBuffer, _ResultBuffer, _DatList),
+	_FileManager(_FileLoader),
+	_ResourceManager(_PathManager, _DatManager, _FileManager),
+	_Texture(NULL)
 {
+	DirItem   dirItem;
+	DirReader dirReader;
+
+	if (dirReader.Reset(_PathManager.GetDat(dirReader.All())))
+	{
+		while (dirReader.Next(dirItem))
+		{
+			if (dirItem.Name.find(".dat") != std::string::npos)
+			{
+				_DatLoader.Load(_PathManager.GetDat(dirItem.Name), _DatList);
+			}
+		}
+	}
+
+	if (dirReader.Reset(_PathManager.GetModules(dirReader.All())))
+	{
+		while (dirReader.Next(dirItem))
+		{
+			if (dirItem.Name.find(_PathManager.GetModule() + ".dat") != std::string::npos)
+			{
+				_DatLoader.Load(_PathManager.GetModules(dirItem.Name), _DatList);
+			}
+		}
+	}
+
+	MemoryReader* mem = _ResourceManager.GetData("art/scenery/", "engine.ART");
+
+	ArtReader artReader;
+
+	artReader.Reset(mem);
+
+	if (artReader.Frames() > 0)
+	{
+		std::vector<unsigned char> artBuffer;
+		std::vector<unsigned char> rgbBuffer;
+
+		artReader.Frame(0, artBuffer, rgbBuffer);
+
+		int w = artReader.Width(0);
+		int h = artReader.Height(0);
+
+		_Texture = new Texture(_Canvas, Point(w, h), 4, &rgbBuffer[0]);
+	}
 }
 
 Engine::~Engine()
 {
+	delete _Texture;
 }
 
 void Engine::Run()
@@ -48,6 +102,8 @@ void Engine::Run()
 		{
 			_EventHandler.StopEvent();
 		}
+
+		_Canvas.Draw(_Texture, Point(150, 150));
 
 		_Canvas.Present();
 	}

@@ -28,19 +28,41 @@ DEALINGS IN THE SOFTWARE.
 #define Arcanum_Game_Engine_hpp
 
 #include <Pollux/Graphics/Canvas.hpp>
+#include <Pollux/Graphics/Texture.hpp>
 #include <Pollux/Events/EventHandler.hpp>
+#include <Arcanum/Formats/Dat/DatLoader.hpp>
+#include <Arcanum/Managers/ResourceManager.hpp>
+#include <Arcanum/Formats/Art/ArtReader.hpp>
 
 namespace Arcanum
 {
 	class Engine
 	{
 	public:
+		enum
+		{
+			Mb              = 1024 * 1024,
+			DatBufferMax    = Mb * 2,
+			ResultBufferMax = Mb * 4
+		};
+
 		Engine();
 		~Engine();
 		void Run();
 	private:
-		Pollux::Canvas        _Canvas;
-		Pollux::EventHandler  _EventHandler;
+		std::vector<unsigned char> _DatBuffer;
+		std::vector<unsigned char> _ResultBuffer;
+		PathManager                _PathManager;
+		Pollux::Canvas             _Canvas;
+		Pollux::EventHandler       _EventHandler;
+		DatList                    _DatList;
+		DatReader                  _DatReader;
+		DatLoader                  _DatLoader;
+		Pollux::FileLoader         _FileLoader;
+		DatManager                 _DatManager;
+		FileManager                _FileManager;
+		ResourceManager            _ResourceManager;
+		Pollux::Texture*           _Texture;
 	};
 }
 
