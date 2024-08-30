@@ -31,3 +31,6 @@ target_link_libraries(MemoryReaderTest Arcanum)
 
 add_executable(DirReaderTest "DirReaderTest.cpp")
 target_link_libraries(DirReaderTest Arcanum)
+
+add_executable(HashMapTest "HashMapTest.cpp")
+target_link_libraries(HashMapTest Arcanum)

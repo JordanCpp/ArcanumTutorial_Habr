@@ -24,26 +24,30 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Pollux_Allocators_Allocator_hpp
-#define Pollux_Allocators_Allocator_hpp
+#ifndef Pollux_Allocators_LinearAllocator_hpp
+#define Pollux_Allocators_LinearAllocator_hpp
 
-#include <stddef.h>
+#include <vector>
+#include <Pollux/Allocators/Allocator.hpp>
 
 namespace Pollux
 {
-    class Allocator
-    {
-    public:
-        enum
-        {
-            Kb = 1024,
-            Mb = Kb * 1024,
-            Gb = Mb * 1024
-        };
-
-        virtual void* Allocate(size_t bytes) = 0;
-        virtual void Deallocate(void* ptr) = 0;
-    };
+	class LinearAllocator : public Allocator
+	{
+	public:
+		LinearAllocator(size_t bytes, Allocator* allocator = NULL);
+		~LinearAllocator();
+		void* Allocate(size_t bytes);
+		void Deallocate(void* ptr);
+		void Reset();
+		size_t Capacity();
+		size_t Size();
+	private:
+		size_t         _Capacity;
+		size_t         _Position;
+		Allocator*     _Allocator;
+		unsigned char* _Content;
+	};
 }
 
 #endif

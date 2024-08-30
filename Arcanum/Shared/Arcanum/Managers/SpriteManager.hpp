@@ -24,26 +24,27 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Pollux_Allocators_Allocator_hpp
-#define Pollux_Allocators_Allocator_hpp
+#ifndef Arcanum_Managers_SpriteManager_hpp
+#define Arcanum_Managers_SpriteManager_hpp
 
-#include <stddef.h>
+#include <map>
+#include <Arcanum/Graphics/Sprite.hpp>
+#include <Arcanum/Formats/Art/ArtReader.hpp>
+#include <Arcanum/Managers/ResourceManager.hpp>
 
-namespace Pollux
+namespace Arcanum
 {
-    class Allocator
+    class SpriteManager
     {
     public:
-        enum
-        {
-            Kb = 1024,
-            Mb = Kb * 1024,
-            Gb = Mb * 1024
-        };
-
-        virtual void* Allocate(size_t bytes) = 0;
-        virtual void Deallocate(void* ptr) = 0;
+        SpriteManager(ResourceManager& resourceManager, ArtReader& artReader);
+        Sprite* GetSprite(const std::string& dir, const std::string& file);
+    private:
+        typedef std::map<std::string, Sprite*> container;
+        container        _Sprites;
+        ResourceManager& _ResourceManager;
+        ArtReader&       _ArtReader;
     };
 }
 
-#endif
+#endif 

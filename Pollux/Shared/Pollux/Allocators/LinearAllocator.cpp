@@ -24,26 +24,58 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Pollux_Allocators_Allocator_hpp
-#define Pollux_Allocators_Allocator_hpp
+#include <Pollux/Allocators/LinearAllocator.hpp>
+#include <assert.h>
 
-#include <stddef.h>
+using namespace Pollux;
 
-namespace Pollux
+LinearAllocator::LinearAllocator(size_t bytes, Allocator* allocator) :
+	_Capacity(bytes),
+	_Position(0),
+	_Content(NULL),
+	_Allocator(allocator)
 {
-    class Allocator
-    {
-    public:
-        enum
-        {
-            Kb = 1024,
-            Mb = Kb * 1024,
-            Gb = Mb * 1024
-        };
-
-        virtual void* Allocate(size_t bytes) = 0;
-        virtual void Deallocate(void* ptr) = 0;
-    };
+	if (_Allocator)
+		_Content = (unsigned char*)_Allocator->Allocate(_Capacity);
+	else
+		_Content = new unsigned char[_Capacity];
 }
 
-#endif
+LinearAllocator::~LinearAllocator()
+{
+	if (_Allocator)
+		_Allocator->Deallocate(_Content);
+	else
+		delete[] _Content;
+}
+
+void* LinearAllocator::Allocate(size_t bytes)
+{
+	assert(bytes > 0);
+	assert(_Position + bytes <= _Capacity);
+
+	void* result = _Content + _Position;
+
+	_Position += bytes;
+
+	return result;
+}
+
+void LinearAllocator::Deallocate(void* ptr)
+{
+}
+
+void LinearAllocator::Reset()
+{
+	_Position = 0;
+}
+
+size_t LinearAllocator::Capacity()
+{
+	return _Capacity;
+}
+
+size_t LinearAllocator::Size()
+{
+	return _Position;
+}
