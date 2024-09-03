@@ -14,6 +14,8 @@
 ..\Pollux\Shared\Pollux\Loaders\*.cpp  ^
 ..\Pollux\Shared\Pollux\Readers\*.cpp  ^
 ..\main.cpp ^
+..\Arcanum\Shared\Arcanum\Common\*.cpp ^
+..\Arcanum\Shared\Arcanum\Graphics\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Formats\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Formats\Art\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Formats\Dat\*.cpp ^
