@@ -35,7 +35,7 @@ namespace Arcanum
     {
     public:
         Image(Pollux::Texture* texture, const Pollux::Point& offset, const Pollux::Point& delta);
-        const Pollux::Texture* GetTexture();
+        const Pollux::Texture* GetTexture() const;
         const Pollux::Point& Offset();
         const Pollux::Point& Delta();
     private:

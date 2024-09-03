@@ -29,15 +29,49 @@ DEALINGS IN THE SOFTWARE.
 using namespace Arcanum;
 using namespace Pollux;
 
-SpriteManager::SpriteManager(ResourceManager& resourceManager, ArtReader& artReader) :
+SpriteManager::SpriteManager(Pollux::Canvas& canvas, ResourceManager& resourceManager, ArtReader& artReader, std::vector<unsigned char>& artBuffer, std::vector<unsigned char>& rgbBuffer) :
+	_Canvas(canvas),
 	_ResourceManager(resourceManager),
-	_ArtReader(artReader)
+	_ArtReader(artReader),
+	_ArtBuffer(artBuffer),
+	_RgbBuffer(rgbBuffer)
 {
 }
 
 Sprite* SpriteManager::GetSprite(const std::string& dir, const std::string& file)
 {
-	MemoryReader* reader = _ResourceManager.GetData(dir, file);
+	_Path = dir + file;
 
-	return NULL;
+	container::iterator i = _Sprites.find(_Path);
+
+	if (i == _Sprites.end())
+	{
+		MemoryReader* reader = _ResourceManager.GetData(dir, file);
+
+		_ArtReader.Reset(reader);
+
+		Sprite* result = NULL;
+
+		if (_ArtReader.Frames() > 0)
+		{
+			_ArtReader.Frame(0, _ArtBuffer, _RgbBuffer);
+
+			int w = _ArtReader.Width(0);
+			int h = _ArtReader.Height(0);
+
+			Texture* texture = new Texture(_Canvas, Point(w, h), 4, &_RgbBuffer[0]);
+			Image* image = new Image(texture, Point(0, 0), Point(0, 0));
+
+			_Images.push_back(image);
+			result = new Sprite(_Images);
+
+			_Sprites.insert(std::make_pair(_Path, result));
+		}
+
+		return result;
+	}
+	else
+	{
+		return i->second;
+	}
 }

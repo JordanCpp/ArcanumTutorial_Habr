@@ -10,14 +10,16 @@ int main()
 	std::vector<unsigned char> buffer;
 	std::vector<unsigned char> result;
 
-	DatList            datList;
-	DatReader          datReader;
-	DatLoader          datLoader(datReader);
-	DatManager         datManager(buffer, result, datList);
-	Pollux::FileLoader fileLoader(buffer);
-	FileManager        fileManager(fileLoader);
-	PathManager        pathManager("", "data/", "modules/", "Arcanum/");
-	ResourceManager    resourceManager(pathManager, datManager, fileManager);
+	DatList         datList;
+	DatReader       datReader;
+	ExtFileManager  extFileManager;
+	PathNormalizer  pathNormalizer;
+	DatLoader       datLoader(datReader, extFileManager, pathNormalizer);
+	DatManager      datManager(buffer, result, datList);
+	FileLoader      fileLoader(buffer);
+	FileManager     fileManager(fileLoader);
+	PathManager     pathManager("", "data/", "modules/", "Arcanum/");
+	ResourceManager resourceManager(pathManager, datManager, fileManager);
 
 	datLoader.Load("TestFiles/arcanum4.dat", datList);
 

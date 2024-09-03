@@ -30,9 +30,7 @@ DEALINGS IN THE SOFTWARE.
 #include <Pollux/Graphics/Canvas.hpp>
 #include <Pollux/Graphics/Texture.hpp>
 #include <Pollux/Events/EventHandler.hpp>
-#include <Arcanum/Formats/Dat/DatLoader.hpp>
-#include <Arcanum/Managers/ResourceManager.hpp>
-#include <Arcanum/Formats/Art/ArtReader.hpp>
+#include <Arcanum/Managers/SpriteManager.hpp>
 
 namespace Arcanum
 {
@@ -52,6 +50,11 @@ namespace Arcanum
 	private:
 		std::vector<unsigned char> _DatBuffer;
 		std::vector<unsigned char> _ResultBuffer;
+		std::vector<unsigned char> _ArtBuffer;
+		std::vector<unsigned char> _RgbBuffer;
+		ArtReader                  _ArtReader;
+		PathNormalizer             _PathNormalizer;
+		ExtFileManager             _ExtFileManager;
 		PathManager                _PathManager;
 		Pollux::Canvas             _Canvas;
 		Pollux::EventHandler       _EventHandler;
@@ -62,7 +65,8 @@ namespace Arcanum
 		DatManager                 _DatManager;
 		FileManager                _FileManager;
 		ResourceManager            _ResourceManager;
-		Pollux::Texture*           _Texture;
+		SpriteManager              _SpriteManager;
+		Sprite*                    _Sprite;
 	};
 }
 

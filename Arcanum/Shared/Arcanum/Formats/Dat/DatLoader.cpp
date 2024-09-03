@@ -29,8 +29,10 @@ DEALINGS IN THE SOFTWARE.
 
 using namespace Arcanum;
 
-DatLoader::DatLoader(DatReader& datReader) :
-	_DatReader(datReader)
+DatLoader::DatLoader(DatReader& datReader, ExtFileManager& extFileManager, PathNormalizer& pathNormalizer) :
+	_DatReader(datReader),
+	_ExtFileManager(extFileManager),
+	_PathNormalizer(pathNormalizer)
 {
 }
 
@@ -42,17 +44,14 @@ bool DatLoader::Load(const std::string& path, DatList& datList)
 
 		while (_DatReader.Next(item))
 		{
-			strcpy(item.Archive, path.c_str());
-
-			for (size_t i = 0; i < DatItem::MaxPath; i++)
+			if (_ExtFileManager.Allowed(item.Path))
 			{
-				if (item.Path[i] == '\\')
-				{
-					item.Path[i] = '/';
-				}
-			}
+				strcpy(item.Archive, path.c_str());
 
-			datList.Add(item.Path, item, path);
+				_PathNormalizer.Normalize(item.Path);
+
+				datList.Add(item.Path, item, path);
+			}
 		}
 
 		_DatReader.Close();

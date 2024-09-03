@@ -5,9 +5,11 @@ using namespace Arcanum;
 
 int main()
 {
-	DatList   datList;
-	DatReader datReader;
-	DatLoader datLoader(datReader);
+	DatList        datList;
+	DatReader      datReader;
+	ExtFileManager extFileManager;
+	PathNormalizer pathNormalizer;
+	DatLoader      datLoader(datReader, extFileManager, pathNormalizer);
 
 	POLLUX_TEST(datLoader.Load("TestFiles/arcanum4.dat", datList) == true);
 	POLLUX_TEST(datList.Count()                                   == 1037);

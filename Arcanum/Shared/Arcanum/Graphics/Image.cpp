@@ -36,7 +36,7 @@ Image::Image(Pollux::Texture* texture, const Point& offset, const Point& delta) 
 {
 }
 
-const Texture* Image::GetTexture()
+const Texture* Image::GetTexture() const
 {
 	return _Texture;
 }

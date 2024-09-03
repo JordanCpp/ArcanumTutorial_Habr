@@ -28,6 +28,7 @@ DEALINGS IN THE SOFTWARE.
 #define Arcanum_Managers_SpriteManager_hpp
 
 #include <map>
+#include <Pollux/Graphics/Canvas.hpp>
 #include <Arcanum/Graphics/Sprite.hpp>
 #include <Arcanum/Formats/Art/ArtReader.hpp>
 #include <Arcanum/Managers/ResourceManager.hpp>
@@ -37,13 +38,18 @@ namespace Arcanum
     class SpriteManager
     {
     public:
-        SpriteManager(ResourceManager& resourceManager, ArtReader& artReader);
+        SpriteManager(Pollux::Canvas& canvas, ResourceManager& resourceManager, ArtReader& artReader, std::vector<unsigned char>& artBuffer, std::vector<unsigned char>& rgbBuffer);
         Sprite* GetSprite(const std::string& dir, const std::string& file);
     private:
+        Pollux::Canvas&            _Canvas;
         typedef std::map<std::string, Sprite*> container;
-        container        _Sprites;
-        ResourceManager& _ResourceManager;
-        ArtReader&       _ArtReader;
+        container                  _Sprites;
+        ResourceManager&           _ResourceManager;
+        ArtReader&                 _ArtReader;
+        std::vector<unsigned char> _ArtBuffer;
+        std::vector<unsigned char> _RgbBuffer;
+        std::vector<Image*>        _Images;
+        std::string                _Path;
     };
 }
 

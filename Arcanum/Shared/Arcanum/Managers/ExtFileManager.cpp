@@ -24,26 +24,28 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Arcanum_Formats_Dat_DatLoader_hpp
-#define Arcanum_Formats_Dat_DatLoader_hpp
-
-#include <Arcanum/Formats/Dat/DatReader.hpp>
 #include <Arcanum/Managers/ExtFileManager.hpp>
-#include <Arcanum/Common/PathNormalizer.hpp>
-#include <Arcanum/Formats/Dat/DatList.hpp>
 
-namespace Arcanum
+using namespace Arcanum;
+
+ExtFileManager::ExtFileManager()
 {
-    class DatLoader
-    {
-    public:
-        DatLoader(DatReader& datReader, ExtFileManager& extFileManager, PathNormalizer& pathNormalizer);
-        bool Load(const std::string& path, DatList& datList);
-    private:
-        DatReader&      _DatReader;
-        ExtFileManager& _ExtFileManager;
-        PathNormalizer& _PathNormalizer;
-    };
+	_ExtFiles.insert(".ART");
 }
 
-#endif 
+bool ExtFileManager::Allowed(const std::string& path)
+{
+	const size_t extMax = 4;
+
+	if (path.size() >= extMax)
+	{
+		_ExtFile = path.substr(path.size() - extMax, extMax);
+
+		if (_ExtFiles.count(_ExtFile) > 0)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}

@@ -9,10 +9,12 @@ int main()
 	std::vector<unsigned char> buffer;
 	std::vector<unsigned char> result;
 
-	DatList    datList;
-	DatReader  datReader;
-	DatLoader  datLoader(datReader);
-	DatManager datManager(buffer, result, datList);
+	DatList        datList;
+	DatReader      datReader;
+	ExtFileManager extFileManager;
+	PathNormalizer pathNormalizer;
+	DatLoader      datLoader(datReader, extFileManager, pathNormalizer);
+	DatManager     datManager(buffer, result, datList);
 
 	POLLUX_TEST(datLoader.Load("TestFiles/arcanum4.dat", datList) == true);
 	

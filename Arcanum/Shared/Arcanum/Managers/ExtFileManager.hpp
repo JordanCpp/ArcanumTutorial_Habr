@@ -24,25 +24,23 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Arcanum_Formats_Dat_DatLoader_hpp
-#define Arcanum_Formats_Dat_DatLoader_hpp
+#ifndef Arcanum_Managers_ExtFileManager_hpp
+#define Arcanum_Managers_ExtFileManager_hpp
 
-#include <Arcanum/Formats/Dat/DatReader.hpp>
-#include <Arcanum/Managers/ExtFileManager.hpp>
-#include <Arcanum/Common/PathNormalizer.hpp>
-#include <Arcanum/Formats/Dat/DatList.hpp>
+#include <set>
+#include <string>
 
 namespace Arcanum
 {
-    class DatLoader
+    class ExtFileManager
     {
     public:
-        DatLoader(DatReader& datReader, ExtFileManager& extFileManager, PathNormalizer& pathNormalizer);
-        bool Load(const std::string& path, DatList& datList);
+        ExtFileManager();
+        bool Allowed(const std::string& path);
     private:
-        DatReader&      _DatReader;
-        ExtFileManager& _ExtFileManager;
-        PathNormalizer& _PathNormalizer;
+        typedef std::set<std::string> container;
+        container   _ExtFiles;
+        std::string _ExtFile;
     };
 }
 
