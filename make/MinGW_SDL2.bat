@@ -14,6 +14,7 @@ g++ -Wall -Wextra -pedantic -O2 -std=c++11 -static -s -o MinGW_SDL2 ^
 ..\Pollux\Shared\Pollux\Loaders\*.cpp  ^
 ..\Pollux\Shared\Pollux\Readers\*.cpp  ^
 ..\Pollux\Shared\Pollux\Common\*.cpp  ^
+..\Pollux\Shared\Pollux\LiteCpp\*.cpp  ^
 ..\main.cpp ^
 ..\Arcanum\Shared\Arcanum\Common\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Graphics\*.cpp ^

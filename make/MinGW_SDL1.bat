@@ -13,6 +13,7 @@
 ..\Pollux\Shared\Pollux\Graphics\*.cpp  ^
 ..\Pollux\Shared\Pollux\Loaders\*.cpp  ^
 ..\Pollux\Shared\Pollux\Readers\*.cpp  ^
+..\Pollux\Shared\Pollux\LiteCpp\*.cpp  ^
 ..\main.cpp ^
 ..\Arcanum\Shared\Arcanum\Common\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Graphics\*.cpp ^
