@@ -30,14 +30,14 @@ DEALINGS IN THE SOFTWARE.
 
 using namespace Arcanum;
 
-DatManager::DatManager(std::vector<unsigned char>& buffer, std::vector<unsigned char>& result, DatList& datList) :
+DatManager::DatManager(std::pmr::vector<unsigned char>& buffer, std::pmr::vector<unsigned char>& result, DatList& datList) :
 	_DatList(datList),
 	_Buffer(buffer),
 	_Result(result)
 {
 }
 
-const std::vector<unsigned char>& DatManager::GetFile(const std::string& path)
+const std::pmr::vector<unsigned char>& DatManager::GetFile(const std::string& path)
 {
 	_Result.clear();
 

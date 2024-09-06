@@ -4,10 +4,14 @@
 
 using namespace Arcanum;
 
+const size_t bytesMax = 1024 * 1024 * 4;
+
 int main()
 {
-	std::vector<unsigned char> buffer;
-	std::vector<unsigned char> result;
+	std::pmr::monotonic_buffer_resource bufferResource(new unsigned char[bytesMax], bytesMax);
+	std::pmr::monotonic_buffer_resource resultResource(new unsigned char[bytesMax], bytesMax);
+	std::pmr::vector<unsigned char> buffer(&bufferResource);
+	std::pmr::vector<unsigned char> result(&resultResource);
 
 	DatList        datList;
 	DatReader      datReader;
@@ -18,7 +22,7 @@ int main()
 
 	POLLUX_TEST(datLoader.Load("TestFiles/arcanum4.dat", datList) == true);
 	
-	const std::vector<unsigned char>& data = datManager.GetFile("dlg/01040Ristezze.dlg");
+	const std::pmr::vector<unsigned char>& data = datManager.GetFile("art/item/g_helmet.ART");
 
 	POLLUX_TEST(data.size() == 46606);
 

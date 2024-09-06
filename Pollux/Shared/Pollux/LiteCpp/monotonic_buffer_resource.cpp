@@ -73,9 +73,4 @@ void monotonic_buffer_resource::deallocate(void* p, size_t bytes)
 void monotonic_buffer_resource::release()
 {
 	_Position = 0;
-
-	if (_Upstream != NULL)
-	{
-		_Upstream->release();
-	}
 }

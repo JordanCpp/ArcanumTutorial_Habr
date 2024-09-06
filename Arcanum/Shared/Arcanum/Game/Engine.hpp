@@ -31,6 +31,7 @@ DEALINGS IN THE SOFTWARE.
 #include <Pollux/Graphics/Texture.hpp>
 #include <Pollux/Events/EventHandler.hpp>
 #include <Arcanum/Managers/SpriteManager.hpp>
+#include <Pollux/LiteCpp/LiteCpp.hpp>
 
 namespace Arcanum
 {
@@ -48,8 +49,11 @@ namespace Arcanum
 		~Engine();
 		void Run();
 	private:
-		std::vector<unsigned char> _DatBuffer;
-		std::vector<unsigned char> _ResultBuffer;
+		std::pmr::monotonic_buffer_resource _GlobalBuffer;
+		std::pmr::monotonic_buffer_resource _DatBufferResource;
+		std::pmr::monotonic_buffer_resource _ResultBufferResource;
+		std::pmr::vector<unsigned char> _DatBuffer;
+		std::pmr::vector<unsigned char> _ResultBuffer;
 		std::vector<unsigned char> _ArtBuffer;
 		std::vector<unsigned char> _RgbBuffer;
 		ArtReader                  _ArtReader;

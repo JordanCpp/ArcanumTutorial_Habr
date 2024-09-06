@@ -30,17 +30,18 @@ DEALINGS IN THE SOFTWARE.
 #include <vector>
 #include <string>
 #include <stddef.h>
+#include <Pollux/LiteCpp/LiteCpp.hpp>
 
 namespace Pollux
 {
 	class FileLoader
 	{
 	public:
-		FileLoader(std::vector<unsigned char>& buffer);
+		FileLoader(std::pmr::vector<unsigned char>& buffer);
 		bool Reset(const std::string& path);
-		const std::vector<unsigned char>& Content();
+		const std::pmr::vector<unsigned char>& Content();
 	private:
-		std::vector<unsigned char>& _Buffer;
+		std::pmr::vector<unsigned char>& _Buffer;
 	};
 }
 

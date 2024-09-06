@@ -29,6 +29,7 @@ DEALINGS IN THE SOFTWARE.
 
 #include <stddef.h>
 #include <vector>
+#include <Pollux/LiteCpp/LiteCpp.hpp>
 
 namespace Pollux
 {
@@ -36,14 +37,14 @@ namespace Pollux
 	{
 	public:
 		MemoryReader();
-		void Reset(const std::vector<unsigned char>* buffer);
-		const std::vector<unsigned char>* Buffer();
+		void Reset(const std::pmr::vector<unsigned char>* buffer);
+		const std::pmr::vector<unsigned char>* Buffer();
 		void Read(void* dst, size_t size);
 		size_t Offset();
 		void Offset(size_t pos);
 	private:
 		size_t                   _Offset;
-		const std::vector<unsigned char>* _Buffer;
+		const std::pmr::vector<unsigned char>* _Buffer;
 	};
 }
 

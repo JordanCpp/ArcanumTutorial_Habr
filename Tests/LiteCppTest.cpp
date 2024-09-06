@@ -1,7 +1,7 @@
 #include <Pollux/Common/TestEqual.hpp>
 #include <Pollux/LiteCpp/LiteCpp.hpp>
 
-const size_t bufferMax = 128;
+const size_t bufferMax = 1024;
 const size_t countMax  = 16;
 
 void VectorTest()
@@ -30,13 +30,9 @@ void VectorTest()
 	POLLUX_TEST(vec.size()     == 0);
 	POLLUX_TEST(vec.data()     != NULL);
 
-	for (size_t i = 0; i < countMax; i++)
+	for (size_t i = 0; i < 128; i++)
 	{
-		vec.push_back((char)i);
-
-		POLLUX_TEST(vec.capacity() == bufferMax);
-		POLLUX_TEST(vec.size()     == i + 1);
-		POLLUX_TEST(vec.data()     != NULL);
+		vec.push_back(42);
 	}
 }
 

@@ -5,9 +5,12 @@
 using namespace Arcanum;
 using namespace Pollux;
 
+const size_t bytesMax = 1024 * 1024 * 4;
+
 int main()
 {
-	std::vector<unsigned char> buffer;
+	std::pmr::monotonic_buffer_resource bufferResource(new unsigned char[bytesMax], bytesMax);
+	std::pmr::vector<unsigned char> buffer(&bufferResource);
 
 	FileLoader fileLoader(buffer);
 	fileLoader.Reset("TestFiles/data/art/scenery/engine.ART");

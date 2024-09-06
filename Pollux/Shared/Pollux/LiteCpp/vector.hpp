@@ -46,17 +46,23 @@ namespace std
 			{
 			}
 
-			size_t capacity()
+			~vector()
+			{
+				_Content = NULL;
+				_Memory  = NULL;
+			}
+
+			size_t capacity() const
 			{
 				return _Capacity;
 			}
 
-			size_t size()
+			size_t size() const
 			{
 				return _Position;
 			}
 
-			const T* data()
+			const T* data() const
 			{
 				return _Content;
 			}
@@ -67,7 +73,7 @@ namespace std
 				{
 					void* ptr = _Memory->allocate(count * sizeof(T));
 
-					T* p = new (ptr)[count];
+					T* p = new (ptr) T[count];
 
 					for (size_t i = 0; i < _Position; i++)
 					{
@@ -115,12 +121,27 @@ namespace std
 				_Position++;
 			}
 
-			const T& operator[] (size_t index) 
+			const T& at(size_t index) const
+			{
+				POLLUX_ASSERT(index <= _Position);
+
+				return _Content[index];
+			}
+
+			const T& operator[] (size_t index) const
 			{ 
 				POLLUX_ASSERT(index <= _Position);
 
 				return _Content[index];
 			}
+
+			T& operator[] (size_t index)
+			{
+				POLLUX_ASSERT(index <= _Position);
+
+				return _Content[index];
+			}
+
 		private:
 			size_t           _Capacity;
 			size_t           _Position;

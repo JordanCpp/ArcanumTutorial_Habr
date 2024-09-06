@@ -28,6 +28,7 @@ DEALINGS IN THE SOFTWARE.
 #define Arcanum_Managers_FileManager_hpp
 
 #include <Pollux/Loaders/FileLoader.hpp>
+#include <Pollux/LiteCpp/LiteCpp.hpp>
 
 namespace Arcanum
 {
@@ -35,7 +36,7 @@ namespace Arcanum
     {
     public:
         FileManager(Pollux::FileLoader& fileLoader);
-        const std::vector<unsigned char>& GetFile(const std::string& path);
+        const std::pmr::vector<unsigned char>& GetFile(const std::string& path);
     private:
         Pollux::FileLoader& _FileLoader;
     };

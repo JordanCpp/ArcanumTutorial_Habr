@@ -36,13 +36,13 @@ MemoryReader::MemoryReader() :
 {
 }
 
-void MemoryReader::Reset(const std::vector<unsigned char>* buffer)
+void MemoryReader::Reset(const std::pmr::vector<unsigned char>* buffer)
 {
 	_Offset = 0;
 	_Buffer = buffer;
 }
 
-const std::vector<unsigned char>* MemoryReader::Buffer()
+const std::pmr::vector<unsigned char>* MemoryReader::Buffer()
 {
 	return _Buffer;
 }

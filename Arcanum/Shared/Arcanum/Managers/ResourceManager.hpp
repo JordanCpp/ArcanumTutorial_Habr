@@ -40,7 +40,7 @@ namespace Arcanum
         ResourceManager(PathManager& pathManager, DatManager& datManager, FileManager& fileManager);
         Pollux::MemoryReader* GetData(const std::string& dir, const std::string& file);
     private:
-        const std::vector<unsigned char>& GetFile(const std::string& dir, const std::string& file);
+        const std::pmr::vector<unsigned char>& GetFile(const std::string& dir, const std::string& file);
         Pollux::MemoryReader _MemoryReader;
         PathManager&         _PathManager;
         DatManager&          _DatManager;

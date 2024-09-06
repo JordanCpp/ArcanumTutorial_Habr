@@ -30,9 +30,14 @@ DEALINGS IN THE SOFTWARE.
 using namespace Arcanum;
 using namespace Pollux;
 
+const size_t globalMemoryMax = 1024 * 1024 * 32;
+
 Engine::Engine() :
-	_DatBuffer(DatBufferMax),
-	_ResultBuffer(ResultBufferMax),
+	_GlobalBuffer(new unsigned char[globalMemoryMax], globalMemoryMax),
+	_DatBufferResource(DatBufferMax, &_GlobalBuffer),
+	_ResultBufferResource(ResultBufferMax, &_GlobalBuffer),
+	_DatBuffer(&_DatBufferResource),
+	_ResultBuffer(&_ResultBufferResource),
 	_PathManager("", "data/", "modules/", "Arcanum"),
 	_Canvas(Point(800, 600)),
 	_DatLoader(_DatReader, _ExtFileManager, _PathNormalizer),

@@ -5,10 +5,14 @@
 using namespace Arcanum;
 using namespace Pollux;
 
+const size_t bytesMax = 1024 * 1024 * 4;
+
 int main()
 {
-	std::vector<unsigned char> buffer;
-	std::vector<unsigned char> result;
+	std::pmr::monotonic_buffer_resource bufferResource(new unsigned char[bytesMax], bytesMax);
+	std::pmr::monotonic_buffer_resource resultResource(new unsigned char[bytesMax], bytesMax);
+	std::pmr::vector<unsigned char> buffer(&bufferResource);
+	std::pmr::vector<unsigned char> result(&resultResource);
 
 	DatList         datList;
 	DatReader       datReader;
