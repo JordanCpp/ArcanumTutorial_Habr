@@ -71,9 +71,12 @@ namespace std
 			{
 				if (count > _Capacity)
 				{
-					void* ptr = _Memory->allocate(count * sizeof(T));
+					size_t allocatedSize = count * sizeof(T);
 
-					T* p = new (ptr) T[count];
+					void* ptr1 = _Memory->allocate(allocatedSize);
+					void* ptr2 = malloc(allocatedSize);
+
+					T* p = new (ptr1) T[count];
 
 					for (size_t i = 0; i < _Position; i++)
 					{
