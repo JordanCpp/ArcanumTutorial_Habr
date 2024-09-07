@@ -109,9 +109,9 @@ namespace std
 			{
 				if (_Capacity == 0)
 				{
-					reserve(8);
+					reserve(2);
 				}
-				else if (_Position == _Capacity)
+				else if (_Position + 1 >= _Capacity)
 				{
 					reserve(_Capacity * 2);
 				}
