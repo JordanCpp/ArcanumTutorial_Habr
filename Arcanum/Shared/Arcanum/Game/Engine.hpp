@@ -42,14 +42,16 @@ namespace Arcanum
 		{
 			Mb              = 1024 * 1024,
 			DatBufferMax    = Mb * 2,
-			ResultBufferMax = Mb * 4
+			ResultBufferMax = Mb * 4,
+			GlobalBufferMax = Mb * 32
 		};
 
 		Engine();
 		~Engine();
 		void Run();
 	private:
-		std::pmr::monotonic_buffer_resource _GlobalBuffer;
+		std::vector<unsigned char>          _GlobalBuffer;
+		std::pmr::monotonic_buffer_resource _GlobalResource;
 		std::pmr::monotonic_buffer_resource _DatBufferResource;
 		std::pmr::monotonic_buffer_resource _ResultBufferResource;
 		std::pmr::vector<unsigned char> _DatBuffer;
