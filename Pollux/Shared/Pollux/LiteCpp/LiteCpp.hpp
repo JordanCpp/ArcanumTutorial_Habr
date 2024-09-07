@@ -31,10 +31,12 @@ DEALINGS IN THE SOFTWARE.
 
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
     #include <memory_resource>
+    #include <unordered_map>
 #else
     #include <Pollux/LiteCpp/memory_resource.hpp>
     #include <Pollux/LiteCpp/monotonic_buffer_resource.hpp>
     #include <Pollux/LiteCpp/vector.hpp>
+    #include <Pollux/LiteCpp/unordered_map.hpp>
 #endif
 
 #endif 
