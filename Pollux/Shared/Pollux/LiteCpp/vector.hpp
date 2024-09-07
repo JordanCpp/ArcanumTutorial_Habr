@@ -67,16 +67,20 @@ namespace std
 				return _Content;
 			}
 
+			T* data()
+			{
+				return _Content;
+			}
+
 			void reserve(size_t count)
 			{
 				if (count > _Capacity)
 				{
 					size_t allocatedSize = count * sizeof(T);
 
-					void* ptr1 = _Memory->allocate(allocatedSize);
-					void* ptr2 = malloc(allocatedSize);
+					void* allocatedPtr = _Memory->allocate(allocatedSize);
 
-					T* p = new (ptr1) T[count];
+					T* p = new (allocatedPtr) T[count];
 
 					for (size_t i = 0; i < _Position; i++)
 					{

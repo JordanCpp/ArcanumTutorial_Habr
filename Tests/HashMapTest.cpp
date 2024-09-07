@@ -1,16 +1,19 @@
 #include <Pollux/Containers/HashMap.hpp>
-#include <Pollux/Allocators/LinearAllocator.hpp>
 #include <Pollux/Common/TestEqual.hpp>
 
 using namespace Pollux;
 
+const size_t bytesMax = 4096;
+
 int main()
 {
+	char buffer[bytesMax];
+
+	std::pmr::monotonic_buffer_resource pool(buffer, sizeof(buffer));
+
 	const char key[] = "limpopo!";
 
-	LinearAllocator alloc(LinearAllocator::Mb * 1);
-
-	HashMap<int> map(&alloc, 1024);
+	HashMap<int> map(&pool, 128);
 
 	POLLUX_TEST(map.Get(key) == NULL);
 

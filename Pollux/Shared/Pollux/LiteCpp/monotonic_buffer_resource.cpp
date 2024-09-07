@@ -33,7 +33,7 @@ using namespace pmr;
 monotonic_buffer_resource::monotonic_buffer_resource(void* buffer, size_t buffer_size) :
 	_Capacity(buffer_size),
 	_Position(0),
-	_Content(buffer),
+	_Content((unsigned char*)buffer),
 	_Upstream(NULL)
 {
 }
@@ -44,7 +44,7 @@ monotonic_buffer_resource::monotonic_buffer_resource(size_t initial_size, memory
 	_Content(NULL),
 	_Upstream(upstream)
 {
-	_Content = _Upstream->allocate(_Capacity);
+	_Content = (unsigned char*)_Upstream->allocate(_Capacity);
 }
 
 monotonic_buffer_resource::~monotonic_buffer_resource()
@@ -57,7 +57,7 @@ void* monotonic_buffer_resource::allocate(size_t bytes)
 	POLLUX_ASSERT(bytes > 0);
 	POLLUX_ASSERT(_Position + bytes <= _Capacity);
 
-	void* result = &_Content + _Position;
+	void* result = _Content + _Position;
 
 	_Position += bytes;
 

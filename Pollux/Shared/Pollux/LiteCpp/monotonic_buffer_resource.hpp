@@ -45,7 +45,7 @@ namespace std
 		private:
 			size_t           _Capacity;
 			size_t           _Position;
-			void*            _Content;
+			unsigned char*   _Content;
 			memory_resource* _Upstream;
 		};
 	}

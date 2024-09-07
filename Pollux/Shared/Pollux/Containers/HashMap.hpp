@@ -28,7 +28,7 @@ DEALINGS IN THE SOFTWARE.
 #define Pollux_Containers_HashMap_hpp
 
 #include <string.h>
-#include <Pollux/Allocators/Allocator.hpp>
+#include <Pollux/LiteCpp/LiteCpp.hpp>
 
 namespace Pollux
 {
@@ -87,21 +87,20 @@ namespace Pollux
     class HashMap
     {
     public:
-        HashMap(Allocator* allocator, size_t capacity) :
+        HashMap(std::pmr::memory_resource* allocator, size_t capacity) :
             _Allocator(allocator),
             _Capacity(capacity),
             _Table(NULL)
         {
             size_t elementSize   = sizeof(HashMapList<T>);
             size_t allocatedSize = elementSize * _Capacity;
-            void* allocatedPtr   = _Allocator->Allocate(allocatedSize);
+            void* allocatedPtr   = _Allocator->allocate(allocatedSize);
 
             _Table = new (allocatedPtr) HashMapList<T>[capacity];
         }
 
         ~HashMap()
         {
-            _Allocator->Deallocate(_Table);
         }
 
         size_t HashLy(const char* str)
@@ -133,7 +132,7 @@ namespace Pollux
         {
             if (Get(key) == NULL)
             {
-                HashMapNode<T>* p = new (_Allocator->Allocate(sizeof(HashMapNode<T>))) HashMapNode<T>;
+                HashMapNode<T>* p = new (_Allocator->allocate(sizeof(HashMapNode<T>))) HashMapNode<T>;
 
                 strcpy(p->Key, key);
                 p->Content = element;
@@ -144,9 +143,9 @@ namespace Pollux
             }
         }
     private:
-        Allocator*      _Allocator;
-        size_t          _Capacity;
-        HashMapList<T>* _Table;
+        std::pmr::memory_resource* _Allocator;
+        size_t           _Capacity;
+        HashMapList<T>*  _Table;
     };
 }
 

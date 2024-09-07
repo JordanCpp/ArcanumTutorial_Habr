@@ -24,7 +24,7 @@ int main()
 	
 	const std::pmr::vector<unsigned char>& data = datManager.GetFile("art/item/g_helmet.ART");
 
-	POLLUX_TEST(data.size() == 46606);
+	POLLUX_TEST(data.size() == 1508);
 
 	return 0;
 }

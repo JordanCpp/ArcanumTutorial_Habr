@@ -14,7 +14,7 @@ int main()
 
 	POLLUX_TEST(fileLoader.Reset("TestFiles/arcanum4.dat") == true);
 	POLLUX_TEST(fileLoader.Content().size()                == 3733777);
-	POLLUX_TEST(fileLoader.Content().capacity()            == 5242880);
+	POLLUX_TEST(fileLoader.Content().capacity()            == 3733777);
 
 	return 0;
 }

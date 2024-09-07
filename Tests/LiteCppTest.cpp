@@ -1,5 +1,6 @@
 #include <Pollux/Common/TestEqual.hpp>
 #include <Pollux/LiteCpp/LiteCpp.hpp>
+#include <iostream>
 
 const size_t bufferMax = 1024;
 const size_t countMax  = 16;

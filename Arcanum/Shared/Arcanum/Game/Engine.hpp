@@ -43,7 +43,7 @@ namespace Arcanum
 			Mb              = 1024 * 1024,
 			DatBufferMax    = Mb * 2,
 			ResultBufferMax = Mb * 4,
-			GlobalBufferMax = Mb * 32
+			GlobalBufferMax = Mb * 16
 		};
 
 		Engine();
