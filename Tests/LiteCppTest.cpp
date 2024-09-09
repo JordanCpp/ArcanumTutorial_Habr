@@ -7,6 +7,12 @@ const size_t countMax  = 16;
 
 void UnorderedMap()
 {
+	std::array<int, 1024> arr;
+	
+	for (std::array<int, 1024>::iterator i = arr.begin(); i != arr.end(); ++i)
+	{
+	}
+
 	char buffer[bufferMax];
 
 	std::pmr::monotonic_buffer_resource pool(buffer, sizeof(buffer));

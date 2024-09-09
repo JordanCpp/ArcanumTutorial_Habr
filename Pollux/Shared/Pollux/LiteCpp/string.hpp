@@ -24,21 +24,27 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Pollux_LiteCpp_hpp
-#define Pollux_LiteCpp_hpp
+#ifndef Pollux_LiteCpp_string_hpp
+#define Pollux_LiteCpp_string_hpp
 
-#include <vector>
+#include <Pollux/LiteCpp/memory_resource.hpp>
+#include <Pollux/Common/Assert.hpp>
 
-#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
-    #include <memory_resource>
-    #include <unordered_map>
-    #include <array>
-#else
-    #include <Pollux/LiteCpp/memory_resource.hpp>
-    #include <Pollux/LiteCpp/monotonic_buffer_resource.hpp>
-    #include <Pollux/LiteCpp/vector.hpp>
-    #include <Pollux/LiteCpp/unordered_map.hpp>
-    #include <Pollux/LiteCpp/array.hpp>
-#endif
+namespace std
+{
+	namespace pmr
+	{
+		template <typename T>
+		class string
+		{
+		public:
+		private:
+			size_t           _Capacity;
+			size_t           _Position;
+			T*               _Content;
+			memory_resource* _Memory;
+		};
+	}
+}
 
 #endif 

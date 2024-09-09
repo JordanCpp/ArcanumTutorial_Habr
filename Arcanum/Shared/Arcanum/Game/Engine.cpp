@@ -47,11 +47,6 @@ Engine::Engine() :
 	_SpriteManager(_Canvas, _ResourceManager, _ArtReader, _ArtBuffer, _RgbBuffer),
 	_Sprite(NULL)
 {
-	std::pmr::monotonic_buffer_resource pools(DatBufferMax, &_GlobalResource);
-	std::pmr::unordered_map<std::string, int> map(&pools);
-	std::pmr::unordered_map<std::string, int>::iterator i;
-	map.emplace("hello", 42);
-
 	DirItem   dirItem;
 	DirReader dirReader;
 

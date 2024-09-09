@@ -118,8 +118,25 @@ namespace std
 				_table[0].append(node);
 			}
 			
-			typedef list_node_iterator<K, T> iterator;
+			typedef list_node<K, T>* iterator;
 
+			list_node<K, T>* end()
+			{
+				return NULL;
+			}
+
+			list_node<K, T>* find(const K& key)
+			{
+				for (list_node<K, T>* i = _table[0].head; i != NULL; i = i->next)
+				{
+					if (i->first == key)
+					{
+						return i;
+					}
+				}
+
+				return NULL;
+			}
 		private:
 			list<K, T>*      _table;
 			memory_resource* _memory;

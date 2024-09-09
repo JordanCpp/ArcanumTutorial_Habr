@@ -24,21 +24,36 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Pollux_LiteCpp_hpp
-#define Pollux_LiteCpp_hpp
+#ifndef Pollux_LiteCpp_array_hpp
+#define Pollux_LiteCpp_array_hpp
 
-#include <vector>
+#include <Pollux/Common/Assert.hpp>
 
-#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
-    #include <memory_resource>
-    #include <unordered_map>
-    #include <array>
-#else
-    #include <Pollux/LiteCpp/memory_resource.hpp>
-    #include <Pollux/LiteCpp/monotonic_buffer_resource.hpp>
-    #include <Pollux/LiteCpp/vector.hpp>
-    #include <Pollux/LiteCpp/unordered_map.hpp>
-    #include <Pollux/LiteCpp/array.hpp>
-#endif
+namespace std
+{
+	template <typename T, size_t N>
+	class array
+	{
+	public:
+		struct iterator 
+		{
+			T* _current;
+			iterator(T* ptr_ = 0) : _current(ptr_) {}
+			T& operator*() { return *_current; }
+			T* operator->() { return _current; }
+			T* operator++() { return ++_current; }
+			T* operator++(T) { return _current++; }
+			T* operator--() { return --_current; }
+			bool operator==(const iterator& other) const { return _current == other._current; }
+			bool operator!=(const iterator& other) const { return !(*this == other); }
+		};
+
+		size_t size() const { return N; }
+		iterator begin() { return _content; }
+		iterator end() { return _content + N; }
+	private:
+		T _content[N];
+	};
+}
 
 #endif 
