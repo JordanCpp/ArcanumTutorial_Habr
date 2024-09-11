@@ -35,6 +35,7 @@ Engine::Engine() :
 	_GlobalResource(&_GlobalBuffer[0], _GlobalBuffer.capacity()),
 	_DatBufferResource(DatBufferMax, &_GlobalResource),
 	_ResultBufferResource(ResultBufferMax, &_GlobalResource),
+	_SptiteBufferResource(SptiteBufferMax, &_GlobalResource),
 	_DatBuffer(&_DatBufferResource),
 	_ResultBuffer(&_ResultBufferResource),
 	_PathManager("", "data/", "modules/", "Arcanum"),
@@ -44,8 +45,7 @@ Engine::Engine() :
 	_DatManager(_DatBuffer, _ResultBuffer, _DatList),
 	_FileManager(_FileLoader),
 	_ResourceManager(_PathManager, _DatManager, _FileManager),
-	_SpriteManager(_Canvas, _ResourceManager, _ArtReader, _ArtBuffer, _RgbBuffer),
-	_Sprite(NULL)
+	_SpriteManager(&_SptiteBufferResource, _Canvas, _ResourceManager, _ArtReader, _ArtBuffer, _RgbBuffer)
 {
 	DirItem   dirItem;
 	DirReader dirReader;
@@ -71,13 +71,10 @@ Engine::Engine() :
 			}
 		}
 	}
-
-	_Sprite = _SpriteManager.GetSprite("art/scenery/", "engine.ART");
 }
 
 Engine::~Engine()
 {
-	delete _Sprite;
 }
 
 void Engine::Run()
@@ -91,7 +88,8 @@ void Engine::Run()
 			_EventHandler.StopEvent();
 		}
 
-		_Canvas.Draw(_Sprite->GetImage(0)->GetTexture(), Point(150, 150));
+		_Canvas.Draw(_SpriteManager.GetSprite("art/item/", "P_tesla_gun.ART")->GetImage(0)->GetTexture(), Point(50, 50));
+		_Canvas.Draw(_SpriteManager.GetSprite("art/scenery/", "engine.ART")->GetImage(0)->GetTexture(), Point(250, 250));
 
 		_Canvas.Present();
 	}

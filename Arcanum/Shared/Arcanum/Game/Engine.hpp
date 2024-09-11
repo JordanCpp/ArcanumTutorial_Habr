@@ -43,6 +43,7 @@ namespace Arcanum
 			Mb              = 1024 * 1024,
 			DatBufferMax    = Mb * 2,
 			ResultBufferMax = Mb * 4,
+			SptiteBufferMax = Mb * 2,
 			GlobalBufferMax = Mb * 16
 		};
 
@@ -54,25 +55,25 @@ namespace Arcanum
 		std::pmr::monotonic_buffer_resource _GlobalResource;
 		std::pmr::monotonic_buffer_resource _DatBufferResource;
 		std::pmr::monotonic_buffer_resource _ResultBufferResource;
-		std::pmr::vector<unsigned char> _DatBuffer;
-		std::pmr::vector<unsigned char> _ResultBuffer;
-		std::vector<unsigned char> _ArtBuffer;
-		std::vector<unsigned char> _RgbBuffer;
-		ArtReader                  _ArtReader;
-		PathNormalizer             _PathNormalizer;
-		ExtFileManager             _ExtFileManager;
-		PathManager                _PathManager;
-		Pollux::Canvas             _Canvas;
-		Pollux::EventHandler       _EventHandler;
-		DatList                    _DatList;
-		DatReader                  _DatReader;
-		DatLoader                  _DatLoader;
-		Pollux::FileLoader         _FileLoader;
-		DatManager                 _DatManager;
-		FileManager                _FileManager;
-		ResourceManager            _ResourceManager;
-		SpriteManager              _SpriteManager;
-		Sprite*                    _Sprite;
+		std::pmr::monotonic_buffer_resource _SptiteBufferResource;
+		std::pmr::vector<unsigned char>     _DatBuffer;
+		std::pmr::vector<unsigned char>     _ResultBuffer;
+		std::vector<unsigned char>          _ArtBuffer;
+		std::vector<unsigned char>          _RgbBuffer;
+		ArtReader                           _ArtReader;
+		PathNormalizer                      _PathNormalizer;
+		ExtFileManager                      _ExtFileManager;
+		PathManager                         _PathManager;
+		Pollux::Canvas                      _Canvas;
+		Pollux::EventHandler                _EventHandler;
+		DatList                             _DatList;
+		DatReader                           _DatReader;
+		DatLoader                           _DatLoader;
+		Pollux::FileLoader                  _FileLoader;
+		DatManager                          _DatManager;
+		FileManager                         _FileManager;
+		ResourceManager                     _ResourceManager;
+		SpriteManager                       _SpriteManager;
 	};
 }
 

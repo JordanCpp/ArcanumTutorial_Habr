@@ -38,11 +38,12 @@ namespace Arcanum
     class SpriteManager
     {
     public:
-        SpriteManager(Pollux::Canvas& canvas, ResourceManager& resourceManager, ArtReader& artReader, std::vector<unsigned char>& artBuffer, std::vector<unsigned char>& rgbBuffer);
+        SpriteManager(std::pmr::memory_resource* resource, Pollux::Canvas& canvas, ResourceManager& resourceManager, ArtReader& artReader, std::vector<unsigned char>& artBuffer, std::vector<unsigned char>& rgbBuffer);
         Sprite* GetSprite(const std::string& dir, const std::string& file);
     private:
+        std::pmr::memory_resource* _Resource;
         Pollux::Canvas&            _Canvas;
-        typedef std::map<std::string, Sprite*> container;
+        typedef std::pmr::unordered_map<std::string, Sprite*> container;
         container                  _Sprites;
         ResourceManager&           _ResourceManager;
         ArtReader&                 _ArtReader;
