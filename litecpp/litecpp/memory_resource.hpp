@@ -24,32 +24,23 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Pollux_LiteCpp_string_hpp
-#define Pollux_LiteCpp_string_hpp
+#ifndef litecpp_memory_resource_hpp
+#define litecpp_memory_resource_hpp
 
-#include <Pollux/LiteCpp/memory_resource.hpp>
-#include <Pollux/Common/Assert.hpp>
+#include <stddef.h>
 
 namespace std
 {
 	namespace pmr
 	{
-		template <typename T>
-		class string
+		class memory_resource
 		{
 		public:
-			string(memory_resource* resource) :
-				_Capacity(0),
-				_Position(0),
-				_Content(NULL),
-				_Memory(resource)
-			{
-			}
+			virtual ~memory_resource() {};
+			virtual void* allocate(size_t bytes) = 0;
+			virtual void deallocate(void* p, size_t bytes) = 0;
+			virtual void release() = 0;
 		private:
-			size_t           _Capacity;
-			size_t           _Position;
-			T*               _Content;
-			memory_resource* _Memory;
 		};
 	}
 }

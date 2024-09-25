@@ -1,12 +1,14 @@
 call "C:\Downloads\codeblocks-12.11mingw-setup\MinGW\mingwvars.bat"
 
 g++ -Wall -Wextra -pedantic -O2 -std=c++11 -static -s -o MinGW_SDL2 ^
+-I..\litecpp ^
 -I..\Arcanum\Shared ^
 -I..\Pollux\Shared  ^
 -I..\Pollux\SDL2  ^
 -I..\Pollux\Platforms\Windows ^
 -I..\dependencies\SDL2-2.30.3\include ^
 -L..\dependencies\SDL2-2.30.3\lib\x86 ^
+..\litecpp\source\*.cpp  ^
 ..\Pollux\Platforms\Windows\Pollux\Common\*.cpp ^
 ..\Pollux\SDL2\Pollux\Events\*.cpp ^
 ..\Pollux\SDL2\Pollux\Graphics\*.cpp  ^
@@ -14,7 +16,6 @@ g++ -Wall -Wextra -pedantic -O2 -std=c++11 -static -s -o MinGW_SDL2 ^
 ..\Pollux\Shared\Pollux\Loaders\*.cpp  ^
 ..\Pollux\Shared\Pollux\Readers\*.cpp  ^
 ..\Pollux\Shared\Pollux\Common\*.cpp  ^
-..\Pollux\Shared\Pollux\LiteCpp\*.cpp  ^
 ..\main.cpp ^
 ..\Arcanum\Shared\Arcanum\Common\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Graphics\*.cpp ^

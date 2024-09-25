@@ -1,11 +1,13 @@
 call "C:\VC6\Microsoft Visual Studio\VC98\Bin\VCVARS32.BAT"
 
 cl /O2 /GX /MT -FeVC6_SDL1.exe  ^
+/I..\litecpp ^
 /I..\Arcanum\Shared ^
 /I..\Pollux\Shared  ^
 /I..\Pollux\SDL1  ^
 /I..\Pollux\Platforms\Windows ^
 /I..\dependencies\SDL-devel-1.2.14-VC6\include ^
+..\litecpp\source\*.cpp  ^
 ..\Pollux\Platforms\Windows\Pollux\Common\*.cpp ^
 ..\Pollux\SDL1\Pollux\Events\*.cpp ^
 ..\Pollux\SDL1\Pollux\Graphics\*.cpp  ^
@@ -13,7 +15,6 @@ cl /O2 /GX /MT -FeVC6_SDL1.exe  ^
 ..\Pollux\Shared\Pollux\Loaders\*.cpp  ^
 ..\Pollux\Shared\Pollux\Readers\*.cpp  ^
 ..\Pollux\Shared\Pollux\Common\*.cpp  ^
-..\Pollux\Shared\Pollux\LiteCpp\*.cpp  ^
 ..\main.cpp ^
 ..\Arcanum\Shared\Arcanum\Common\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Graphics\*.cpp ^

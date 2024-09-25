@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef Pollux_Pollux_DirItem_hpp
 #define Pollux_Pollux_DirItem_hpp
 
-#include <string>
+#include <litecpp/litecpp.hpp>
 
 namespace Pollux
 {

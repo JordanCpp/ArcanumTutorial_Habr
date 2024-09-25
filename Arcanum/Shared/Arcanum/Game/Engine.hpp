@@ -31,7 +31,7 @@ DEALINGS IN THE SOFTWARE.
 #include <Pollux/Graphics/Texture.hpp>
 #include <Pollux/Events/EventHandler.hpp>
 #include <Arcanum/Managers/SpriteManager.hpp>
-#include <Pollux/LiteCpp/LiteCpp.hpp>
+#include <litecpp/litecpp.hpp>
 
 namespace Arcanum
 {

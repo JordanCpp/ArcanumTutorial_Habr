@@ -44,6 +44,10 @@ file(GLOB ZLIB_SOURCES
 
 add_library(zlib ${ZLIB_SOURCES})
 
+include_directories("litecpp")
+file(GLOB_RECURSE LITECPP_SOURCES "litecpp/source/*.cpp" ${LITECPP_SOURCES})
+add_library(litecpp ${LITECPP_SOURCES})
+
 include_directories("Pollux/SDL2")
 include_directories("Pollux/Shared")
 
@@ -62,7 +66,7 @@ target_link_libraries(Pollux ${SDL2_LIBRARIES})
 include_directories("Arcanum/Shared")
 file(GLOB_RECURSE ARCANUM_SOURCES "Arcanum/Shared/*.cpp")
 add_library(Arcanum ${ARCANUM_SOURCES})
-target_link_libraries(Arcanum Pollux zlib)
+target_link_libraries(Arcanum Pollux zlib litecpp)
 
 add_executable(Game "main.cpp")
 target_link_libraries(Game Arcanum)

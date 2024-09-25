@@ -24,6 +24,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
+#include <litecpp/litecpp.hpp>
 #include <Pollux/Graphics/Canvas.hpp>
 #include <Pollux/Graphics/Texture.hpp>
 #include <Pollux/Common/Assert.hpp>
@@ -33,7 +34,7 @@ DEALINGS IN THE SOFTWARE.
 using namespace Pollux;
 
 Canvas::Canvas(const Point& size) :
-	_Screen(NULL),
+	_Screen(nullptr),
 	_Size(size)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -48,7 +49,7 @@ Canvas::Canvas(const Point& size) :
 		throw std::runtime_error(SDL_GetError());
 	}
 
-	SDL_WM_SetCaption("", NULL);
+	SDL_WM_SetCaption("", nullptr);
 }
 
 Canvas::~Canvas()
@@ -72,7 +73,7 @@ void Canvas::Present()
 
 void Canvas::Draw(const Texture* texture, const Point& dstPos, const Point& dstSize, const Point& srcPos, const Point& srcSize)
 {
-	POLLUX_ASSERT(texture != NULL);
+	POLLUX_ASSERT(texture != nullptr);
 	POLLUX_ASSERT(dstPos.x >= 0);
 	POLLUX_ASSERT(dstPos.y >= 0);
 	POLLUX_ASSERT(dstSize.x > 0);

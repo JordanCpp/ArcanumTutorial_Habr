@@ -28,7 +28,7 @@ DEALINGS IN THE SOFTWARE.
 #define Arcanum_Managers_FileManager_hpp
 
 #include <Pollux/Loaders/FileLoader.hpp>
-#include <Pollux/LiteCpp/LiteCpp.hpp>
+#include <litecpp/litecpp.hpp>
 
 namespace Arcanum
 {

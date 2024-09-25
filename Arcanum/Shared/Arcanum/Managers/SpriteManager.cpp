@@ -52,7 +52,7 @@ Sprite* SpriteManager::GetSprite(const std::string& dir, const std::string& file
 
 		_ArtReader.Reset(reader);
 
-		Sprite* result = NULL;
+		Sprite* result = nullptr;
 
 		if (_ArtReader.Frames() > 0)
 		{

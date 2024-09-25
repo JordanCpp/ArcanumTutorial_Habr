@@ -24,31 +24,26 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Pollux_LiteCpp_monotonic_buffer_resource_hpp
-#define Pollux_LiteCpp_monotonic_buffer_resource_hpp
+#ifndef litecpp_hpp
+#define litecpp_hpp
 
-#include <Pollux/LiteCpp/memory_resource.hpp>
+#include <string>
 
-namespace std
-{
-	namespace pmr
-	{
-		class monotonic_buffer_resource : public memory_resource
-		{
-		public:
-			monotonic_buffer_resource(void* buffer, size_t buffer_size);
-			monotonic_buffer_resource(size_t initial_size, memory_resource* upstream);
-			~monotonic_buffer_resource();
-			void* allocate(size_t bytes);
-			void deallocate(void* p, size_t bytes);
-			void release();
-		private:
-			size_t           _Capacity;
-			size_t           _Position;
-			unsigned char*   _Content;
-			memory_resource* _Upstream;
-		};
-	}
-}
+#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201103L) || __cplusplus >= 201103L)
+    #include <array>
+#else
+    #include <litecpp/array.hpp>
+    #define nullptr NULL
+#endif
+
+#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
+    #include <memory_resource>
+    #include <unordered_map>
+#else
+    #include <litecpp/memory_resource.hpp>
+    #include <litecpp/monotonic_buffer_resource.hpp>
+    #include <litecpp/vector.hpp>
+    #include <litecpp/unordered_map.hpp>
+#endif
 
 #endif 

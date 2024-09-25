@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef Arcanum_Graphics_Sprite_hpp
 #define Arcanum_Graphics_Sprite_hpp
 
-#include <vector>
+#include <litecpp/litecpp.hpp>
 #include <Arcanum/Graphics/Image.hpp>
 
 namespace Arcanum

@@ -24,6 +24,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
+#include <litecpp/litecpp.hpp>
 #include <Pollux/Graphics/Texture.hpp>
 #include <Pollux/Common/Assert.hpp>
 #include <Pollux/Defines.hpp>
@@ -46,14 +47,14 @@ const uint32_t A_MASK = 0xff000000;
 const uint8_t bitSize = 8;
 
 Texture::Texture(Canvas& canvas, const Point& size, unsigned char bpp, unsigned char* pixels) :
-    _Texture(NULL),
+    _Texture(nullptr),
     _Size(size)
 {
     POLLUX_UNUSED(canvas);
 
     POLLUX_ASSERT(size.x > 0);
     POLLUX_ASSERT(size.y > 0);
-    POLLUX_ASSERT(pixels != NULL);
+    POLLUX_ASSERT(pixels != nullptr);
     
    _Texture = SDL_CreateRGBSurfaceFrom(pixels, size.x, size.y, bitSize * bpp, size.x * bpp, R_MASK, G_MASK, B_MASK, 0);
 
@@ -62,14 +63,14 @@ Texture::Texture(Canvas& canvas, const Point& size, unsigned char bpp, unsigned 
 }
 
 Texture::Texture(Canvas& canvas, const Point& size, unsigned char bpp, unsigned char* pixels, const Color& key) :
-    _Texture(NULL),
+    _Texture(nullptr),
     _Size(size)
 {
     POLLUX_UNUSED(canvas);
 
     POLLUX_ASSERT(size.x > 0);
     POLLUX_ASSERT(size.y > 0);
-    POLLUX_ASSERT(pixels != NULL);
+    POLLUX_ASSERT(pixels != nullptr);
 
     _Texture = SDL_CreateRGBSurfaceFrom(pixels, size.x, size.y, bitSize * bpp, size.x * bpp, R_MASK, G_MASK, B_MASK, 0);
 

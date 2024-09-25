@@ -24,8 +24,8 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <Pollux/LiteCpp/monotonic_buffer_resource.hpp>
-#include <Pollux/Common/Assert.hpp>
+#include <litecpp/monotonic_buffer_resource.hpp>
+#include <assert.h>
 
 using namespace std;
 using namespace pmr;
@@ -54,8 +54,8 @@ monotonic_buffer_resource::~monotonic_buffer_resource()
 
 void* monotonic_buffer_resource::allocate(size_t bytes)
 {
-	POLLUX_ASSERT(bytes > 0);
-	POLLUX_ASSERT(_Position + bytes <= _Capacity);
+	assert(bytes > 0);
+	assert(_Position + bytes <= _Capacity);
 
 	void* result = _Content + _Position;
 
@@ -66,8 +66,8 @@ void* monotonic_buffer_resource::allocate(size_t bytes)
 
 void monotonic_buffer_resource::deallocate(void* p, size_t bytes)
 {
-	POLLUX_ASSERT(p != NULL);
-	POLLUX_ASSERT(bytes > 0);
+	assert(p != NULL);
+	assert(bytes > 0);
 }
 
 void monotonic_buffer_resource::release()

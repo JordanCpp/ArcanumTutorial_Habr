@@ -1,5 +1,5 @@
 #include <Pollux/Common/TestEqual.hpp>
-#include <Pollux/LiteCpp/LiteCpp.hpp>
+#include <litecpp/litecpp.hpp>
 
 const size_t bufferMax = 1024 * 100;
 

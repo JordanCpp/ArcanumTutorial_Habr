@@ -24,11 +24,10 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Pollux_LiteCpp_base_vector_hpp
-#define Pollux_LiteCpp_base_vector_hpp
+#ifndef litecpp_vector_hpp
+#define litecpp_vector_hpp
 
-#include <Pollux/LiteCpp/memory_resource.hpp>
-#include <Pollux/Common/Assert.hpp>
+#include <litecpp/base_vector.hpp>
 
 namespace std
 {
@@ -39,155 +38,173 @@ namespace std
 		{
 		public:
 			vector(memory_resource* source) :
-				_capacity(0),
-				_position(0),
-				_content(NULL),
-				_memory(source)
+				_base_vector(source)
 			{
 			}
 
 			vector() :
-				_capacity(0),
-				_position(0),
-				_content(NULL),
-				_memory(NULL)
+				_base_vector(NULL)
 			{
-			}
-
-			T* allocate(size_t count)
-			{
-				if (_memory)
-				{
-					void* ptr = _memory->allocate(count * sizeof(T));
-
-					return new (ptr) T[count];
-				}
-				else
-				{
-					return new T[count];
-				}
-			}
-
-			void deallocate(T* ptr)
-			{
-				if (_content != NULL)
-				{
-					if (_memory)
-					{
-						_memory->deallocate(_content, _capacity * sizeof(T));
-					}
-					else
-					{
-						delete[] _content;
-					}
-				}
 			}
 
 			~vector()
 			{
-				deallocate(_content);
 			}
 
 			size_t capacity() const
 			{
-				return _capacity;
+				return _base_vector.capacity();
 			}
 
 			size_t size() const
 			{
-				return _position;
+				return _base_vector.size();
 			}
 
 			const T* data() const
 			{
-				return _content;
+				return _base_vector.data();
 			}
 
 			T* data()
 			{
-				return _content;
+				return _base_vector.data();
 			}
 
 			void reserve(size_t count)
 			{
-				if (count > _capacity)
-				{
-					T* p = allocate(count);
-
-					for (size_t i = 0; i < _position; i++)
-					{
-						p[i] = _content[i];
-					}
-
-					if (_content != NULL)
-					{
-						_memory->deallocate(_content, _capacity * sizeof(T));
-					}
-
-					_content  = p;
-					_capacity = count;
-				}
+				_base_vector.reserve(count);
 			}
 
 			void resize(size_t count)
 			{
-				if (_capacity < count)
-				{
-					reserve(count);
-				}
-
-				_position = count;
+				_base_vector.resize(count);
 			}
 
 			void clear()
 			{
-				_position = 0;
+				_base_vector.clear();
 			}
 
 			void push_back(const T& element)
 			{
-				if (_capacity == 0)
-				{
-					reserve(2);
-				}
-				else if (_position + 1 >= _capacity)
-				{
-					reserve(_capacity * 2);
-				}
-
-				_content[_position] = element;
-
-				_position++;
+				_base_vector.push_back(element);
 			}
 
 			const T& at(size_t index) const
 			{
-				POLLUX_ASSERT(index <= _position);
-
-				return _content[index];
+				return _base_vector.at(index);
 			}
 
 			const T& operator[] (size_t index) const
 			{ 
-				POLLUX_ASSERT(index <= _position);
-
-				return _content[index];
+				return _base_vector[index];
 			}
 
 			T& operator[] (size_t index)
 			{
-				POLLUX_ASSERT(index <= _position);
-
-				return _content[index];
+				return _base_vector[index];
 			}
 
 		private:
-			size_t           _capacity;
-			size_t           _position;
-			T*               _content;
-			memory_resource* _memory;
+			Pollux::base_vector<T> _base_vector;
 		};
 	}
+
+	template <typename T>
+	class vector
+	{
+	public:
+		vector() :
+			_base_vector(NULL)
+		{
+		}
+
+		vector(size_t count) :
+			_base_vector(NULL)
+		{
+			resize(count);
+		}
+
+		vector(const vector& source) :
+			_base_vector(NULL)
+		{
+			reserve(source.capacity());
+			resize(source.size());
+
+			for (size_t i = 0; i < size(); i++)
+			{
+				_base_vector[i] = source[i];
+			}
+		}
+
+		~vector()
+		{
+		}
+
+		size_t capacity() const
+		{
+			return _base_vector.capacity();
+		}
+
+		size_t size() const
+		{
+			return _base_vector.size();
+		}
+
+		const T* data() const
+		{
+			return _base_vector.data();
+		}
+
+		T* data()
+		{
+			return _base_vector.data();
+		}
+
+		void reserve(size_t count)
+		{
+			_base_vector.reserve(count);
+		}
+
+		void resize(size_t count)
+		{
+			_base_vector.resize(count);
+		}
+
+		void clear()
+		{
+			_base_vector.clear();
+		}
+
+		void push_back(const T& element)
+		{
+			_base_vector.push_back(element);
+		}
+
+		const T& at(size_t index) const
+		{
+			return _base_vector.at(index);
+		}
+
+		T& at(size_t index)
+		{
+			return _base_vector.at(index);
+		}
+
+		const T& operator[] (size_t index) const
+		{
+			return _base_vector[index];
+		}
+
+		T& operator[] (size_t index)
+		{
+			return _base_vector[index];
+		}
+
+	private:
+		Pollux::base_vector<T> _base_vector;
+	};
 }
 
 #endif 

@@ -28,8 +28,7 @@ DEALINGS IN THE SOFTWARE.
 #define Pollux_Readers_MemoryReader_hpp
 
 #include <stddef.h>
-#include <vector>
-#include <Pollux/LiteCpp/LiteCpp.hpp>
+#include <litecpp/litecpp.hpp>
 
 namespace Pollux
 {

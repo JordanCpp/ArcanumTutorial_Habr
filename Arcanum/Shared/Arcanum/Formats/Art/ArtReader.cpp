@@ -31,14 +31,14 @@ using namespace Arcanum;
 using namespace Pollux;
 
 ArtReader::ArtReader() :
-	_Reader(NULL),
+	_Reader(nullptr),
 	_Frames(0)
 {
 }
 
 void ArtReader::Reset(MemoryReader* reader)
 {
-	POLLUX_ASSERT(reader != NULL);
+	POLLUX_ASSERT(reader != nullptr);
 
 	_Reader = reader;
 

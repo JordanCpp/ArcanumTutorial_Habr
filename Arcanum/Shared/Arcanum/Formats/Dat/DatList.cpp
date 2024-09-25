@@ -24,6 +24,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
+#include <litecpp/litecpp.hpp>
 #include <Arcanum/Formats/Dat/DatList.hpp>
 #include <string.h>
 
@@ -38,14 +39,14 @@ DatItem* DatList::Get(const std::string& file)
 		return &i->second;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void DatList::Add(const std::string& key, DatItem& file, const std::string& archive)
 {
 	DatItem* p = Get(key);
 
-	if (p == NULL)
+	if (p == nullptr)
 	{
 		_Files.insert(std::make_pair(key, file));
 	}

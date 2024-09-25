@@ -43,7 +43,7 @@ const std::pmr::vector<unsigned char>& DatManager::GetFile(const std::string& pa
 
 	DatItem* p = _DatList.Get(path);
 
-	if (p != NULL)
+	if (p != nullptr)
 	{
 		_File.open(p->Archive, std::ios::binary);
 

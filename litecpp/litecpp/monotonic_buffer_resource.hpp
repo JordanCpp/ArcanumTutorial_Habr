@@ -24,23 +24,29 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Pollux_LiteCpp_memory_resource_hpp
-#define Pollux_LiteCpp_memory_resource_hpp
+#ifndef litecpp_monotonic_buffer_resource_hpp
+#define litecpp_monotonic_buffer_resource_hpp
 
-#include <stddef.h>
+#include <litecpp/memory_resource.hpp>
 
 namespace std
 {
 	namespace pmr
 	{
-		class memory_resource
+		class monotonic_buffer_resource : public memory_resource
 		{
 		public:
-			virtual ~memory_resource() {};
-			virtual void* allocate(size_t bytes) = 0;
-			virtual void deallocate(void* p, size_t bytes) = 0;
-			virtual void release() = 0;
+			monotonic_buffer_resource(void* buffer, size_t buffer_size);
+			monotonic_buffer_resource(size_t initial_size, memory_resource* upstream);
+			~monotonic_buffer_resource();
+			void* allocate(size_t bytes);
+			void deallocate(void* p, size_t bytes);
+			void release();
 		private:
+			size_t           _Capacity;
+			size_t           _Position;
+			unsigned char*   _Content;
+			memory_resource* _Upstream;
 		};
 	}
 }

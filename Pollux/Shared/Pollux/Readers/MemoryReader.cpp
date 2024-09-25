@@ -32,7 +32,7 @@ using namespace Pollux;
 
 MemoryReader::MemoryReader() :
 	_Offset(0),
-	_Buffer(NULL)
+	_Buffer(nullptr)
 {
 }
 
@@ -49,7 +49,7 @@ const std::pmr::vector<unsigned char>* MemoryReader::Buffer()
 
 void MemoryReader::Read(void* dst, size_t size)
 {
-	POLLUX_ASSERT(dst != NULL);
+	POLLUX_ASSERT(dst != nullptr);
 	POLLUX_ASSERT(_Offset + size <= _Buffer->size());
 
 	memcpy(dst, &_Buffer->at(_Offset), size);

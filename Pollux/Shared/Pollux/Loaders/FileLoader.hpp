@@ -27,10 +27,9 @@ DEALINGS IN THE SOFTWARE.
 #ifndef Pollux_Loaders_FileLoader_hpp
 #define Pollux_Loaders_FileLoader_hpp
 
-#include <vector>
 #include <string>
 #include <stddef.h>
-#include <Pollux/LiteCpp/LiteCpp.hpp>
+#include <litecpp/LiteCpp.hpp>
 
 namespace Pollux
 {

@@ -27,10 +27,9 @@ DEALINGS IN THE SOFTWARE.
 #ifndef Arcanum_Managers_DatManager_hpp
 #define Arcanum_Managers_DatManager_hpp
 
-#include <vector>
 #include <Arcanum/Formats/Unpacker.hpp>
 #include <Arcanum/Formats/Dat/DatLoader.hpp>
-#include <Pollux/LiteCpp/LiteCpp.hpp>
+#include <litecpp/litecpp.hpp>
 
 namespace Arcanum
 {

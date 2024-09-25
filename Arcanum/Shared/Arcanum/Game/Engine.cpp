@@ -32,7 +32,7 @@ using namespace Pollux;
 
 Engine::Engine() :
 	_GlobalBuffer(GlobalBufferMax),
-	_GlobalResource(&_GlobalBuffer[0], _GlobalBuffer.capacity()),
+	_GlobalResource(_GlobalBuffer.data(), _GlobalBuffer.capacity()),
 	_DatBufferResource(DatBufferMax, &_GlobalResource),
 	_ResultBufferResource(ResultBufferMax, &_GlobalResource),
 	_SptiteBufferResource(SptiteBufferMax, &_GlobalResource),

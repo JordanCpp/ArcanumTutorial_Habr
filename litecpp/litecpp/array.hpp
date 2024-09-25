@@ -24,10 +24,10 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Pollux_LiteCpp_array_hpp
-#define Pollux_LiteCpp_array_hpp
+#ifndef litecpp_array_hpp
+#define litecpp_array_hpp
 
-#include <Pollux/Common/Assert.hpp>
+#include <assert.h>
 
 namespace std
 {

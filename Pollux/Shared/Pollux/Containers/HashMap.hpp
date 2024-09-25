@@ -28,7 +28,7 @@ DEALINGS IN THE SOFTWARE.
 #define Pollux_Containers_HashMap_hpp
 
 #include <string.h>
-#include <Pollux/LiteCpp/LiteCpp.hpp>
+#include <litecpp/litecpp.hpp>
 
 namespace Pollux
 {
@@ -41,8 +41,8 @@ namespace Pollux
             KeyMax = 128
         };
         HashMapNode() :
-            Next(NULL),
-            Prev(NULL)
+            Next(nullptr),
+            Prev(nullptr)
         {
             memset(Key, 0, KeyMax);
         }
@@ -57,14 +57,14 @@ namespace Pollux
     {
     public:
         HashMapList() :
-            Head(NULL),
-            Tail(NULL)
+            Head(nullptr),
+            Tail(nullptr)
         {
         }
 
         void Add(HashMapNode<T>* node)
         {
-            node->Next = NULL;
+            node->Next = nullptr;
             node->Prev = Tail;
 
             if (Tail)
@@ -74,7 +74,8 @@ namespace Pollux
 
             Tail = node;
 
-            if (Head == NULL) {
+            if (Head == nullptr) 
+            {
                 Head = node;
             }
         }
@@ -90,7 +91,7 @@ namespace Pollux
         HashMap(std::pmr::memory_resource* allocator, size_t capacity) :
             _Allocator(allocator),
             _Capacity(capacity),
-            _Table(NULL)
+            _Table(nullptr)
         {
             size_t elementSize   = sizeof(HashMapList<T>);
             size_t allocatedSize = elementSize * _Capacity;
@@ -117,7 +118,7 @@ namespace Pollux
         {
             size_t index = HashLy(key) % _Capacity;
 
-            for (HashMapNode<T>* i = _Table[index].Head; i != NULL; i = i->Next)
+            for (HashMapNode<T>* i = _Table[index].Head; i != nullptr; i = i->Next)
             {
                 if (strcmp(i->Key, key) == 0)
                 {
@@ -125,12 +126,12 @@ namespace Pollux
                 }
             }
 
-            return NULL;
+            return nullptr;
         }
 
         void Set(const char* key, const T& element)
         {
-            if (Get(key) == NULL)
+            if (Get(key) == nullptr)
             {
                 HashMapNode<T>* p = new (_Allocator->allocate(sizeof(HashMapNode<T>))) HashMapNode<T>;
 

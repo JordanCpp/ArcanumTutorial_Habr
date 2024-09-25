@@ -24,11 +24,10 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Pollux_LiteCpp_unordered_map_hpp
-#define Pollux_LiteCpp_unordered_map_hpp
+#ifndef litecpp_unordered_map_hpp
+#define litecpp_unordered_map_hpp
 
-#include <Pollux/LiteCpp/memory_resource.hpp>
-#include <Pollux/Common/Assert.hpp>
+#include <litecpp/memory_resource.hpp>
 
 #define table_max  4096
 
