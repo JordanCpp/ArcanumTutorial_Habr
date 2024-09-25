@@ -66,7 +66,7 @@ bool DirReader::Next(DirItem& item)
 	}
 	else
 	{
-		item.Path = entry->d_name;
+		item.Name = entry->d_name;
 
 		return true;
 	}

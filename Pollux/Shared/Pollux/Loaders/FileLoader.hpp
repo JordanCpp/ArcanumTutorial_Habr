@@ -29,7 +29,7 @@ DEALINGS IN THE SOFTWARE.
 
 #include <string>
 #include <stddef.h>
-#include <litecpp/LiteCpp.hpp>
+#include <litecpp/litecpp.hpp>
 
 namespace Pollux
 {
