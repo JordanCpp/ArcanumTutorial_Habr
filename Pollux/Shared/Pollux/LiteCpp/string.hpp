@@ -38,6 +38,13 @@ namespace std
 		class string
 		{
 		public:
+			string(memory_resource* resource) :
+				_Capacity(0),
+				_Position(0),
+				_Content(NULL),
+				_Memory(resource)
+			{
+			}
 		private:
 			size_t           _Capacity;
 			size_t           _Position;

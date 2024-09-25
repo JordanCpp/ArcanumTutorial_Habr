@@ -36,13 +36,6 @@ namespace std
 {
 	namespace pmr
 	{
-		template <typename K, typename T>
-		class list_node_iterator
-		{
-		public:
-		private:
-		};
-
 		template<typename K, typename T>
 		class list_node
 		{

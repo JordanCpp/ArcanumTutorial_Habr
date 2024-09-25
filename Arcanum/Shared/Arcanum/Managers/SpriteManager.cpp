@@ -32,11 +32,11 @@ using namespace Pollux;
 SpriteManager::SpriteManager(std::pmr::memory_resource* resource, Pollux::Canvas& canvas, ResourceManager& resourceManager, ArtReader& artReader, std::vector<unsigned char>& artBuffer, std::vector<unsigned char>& rgbBuffer) :
 	_Resource(resource),
 	_Canvas(canvas),
+	_Sprites(_Resource),
 	_ResourceManager(resourceManager),
 	_ArtReader(artReader),
 	_ArtBuffer(artBuffer),
-	_RgbBuffer(rgbBuffer),
-	_Sprites(_Resource)
+	_RgbBuffer(rgbBuffer)
 {
 }
 

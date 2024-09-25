@@ -28,17 +28,23 @@ DEALINGS IN THE SOFTWARE.
 #define Pollux_LiteCpp_hpp
 
 #include <vector>
+#include <string>
+
+#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201103L) || __cplusplus >= 201103L)
+    #include <array>
+#else
+    #define nullptr NULL
+    #include <Pollux/LiteCpp/array.hpp>
+#endif
 
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
     #include <memory_resource>
     #include <unordered_map>
-    #include <array>
 #else
     #include <Pollux/LiteCpp/memory_resource.hpp>
     #include <Pollux/LiteCpp/monotonic_buffer_resource.hpp>
     #include <Pollux/LiteCpp/vector.hpp>
     #include <Pollux/LiteCpp/unordered_map.hpp>
-    #include <Pollux/LiteCpp/array.hpp>
 #endif
 
 #endif 

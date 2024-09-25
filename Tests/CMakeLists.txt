@@ -1,4 +1,6 @@
 
+add_subdirectory("LiteCpp")
+
 add_executable(DatReaderTest "DatReaderTest.cpp")
 target_link_libraries(DatReaderTest Arcanum)
 

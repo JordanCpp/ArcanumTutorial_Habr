@@ -5,20 +5,12 @@
 const size_t bufferMax = 1024;
 const size_t countMax  = 16;
 
-void UnorderedMap()
+void UnorderedMapTest()
 {
-	std::array<int, 1024> arr;
-	
-	for (std::array<int, 1024>::iterator i = arr.begin(); i != arr.end(); ++i)
-	{
-	}
-
 	char buffer[bufferMax];
 
 	std::pmr::monotonic_buffer_resource pool(buffer, sizeof(buffer));
 	std::pmr::unordered_map<std::string, int> map(&pool);
-
-	std::pmr::unordered_map<std::string, int>::iterator i;
 
 	map.emplace("hello", 42);
 }
@@ -80,7 +72,7 @@ void Test2()
 
 int main()
 {
-	UnorderedMap();
+	UnorderedMapTest();
 	Test1();
 	Test2();
 	VectorTest();

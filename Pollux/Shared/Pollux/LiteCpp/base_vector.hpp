@@ -24,8 +24,8 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef Pollux_LiteCpp_vector_hpp
-#define Pollux_LiteCpp_vector_hpp
+#ifndef Pollux_LiteCpp_base_vector_hpp
+#define Pollux_LiteCpp_base_vector_hpp
 
 #include <Pollux/LiteCpp/memory_resource.hpp>
 #include <Pollux/Common/Assert.hpp>

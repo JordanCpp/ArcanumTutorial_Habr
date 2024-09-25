@@ -35,15 +35,21 @@ namespace std
 	class array
 	{
 	public:
+		typedef T           value_type;
+		typedef value_type* pointer;
+		typedef value_type& reference;
+
 		struct iterator 
 		{
-			T* _current;
-			iterator(T* ptr_ = 0) : _current(ptr_) {}
-			T& operator*() { return *_current; }
-			T* operator->() { return _current; }
-			T* operator++() { return ++_current; }
-			T* operator++(T) { return _current++; }
-			T* operator--() { return --_current; }
+		private:
+			pointer _current;
+		public:
+			iterator(pointer ptr_ = 0) : _current(ptr_) {}
+			reference operator*() { return *_current; }
+			pointer operator->() { return _current; }
+			pointer operator++() { return ++_current; }
+			pointer operator++(T) { return _current++; }
+			pointer operator--() { return --_current; }
 			bool operator==(const iterator& other) const { return _current == other._current; }
 			bool operator!=(const iterator& other) const { return !(*this == other); }
 		};
