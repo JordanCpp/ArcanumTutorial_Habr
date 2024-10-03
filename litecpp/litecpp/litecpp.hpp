@@ -27,13 +27,19 @@ DEALINGS IN THE SOFTWARE.
 #ifndef litecpp_hpp
 #define litecpp_hpp
 
+//#include <vector>
+#include <map>
 #include <string>
+#include <stdexcept>
 
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201103L) || __cplusplus >= 201103L)
     #include <array>
+    #include <string>
+    #include <stdexcept>
 #else
-    #include <litecpp/array.hpp>
     #define nullptr NULL
+    #include <litecpp/array.hpp>
+    #include <litecpp/string.hpp>
 #endif
 
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
@@ -44,6 +50,7 @@ DEALINGS IN THE SOFTWARE.
     #include <litecpp/monotonic_buffer_resource.hpp>
     #include <litecpp/vector.hpp>
     #include <litecpp/unordered_map.hpp>
+    #include <litecpp/string.hpp>
 #endif
 
 #endif 

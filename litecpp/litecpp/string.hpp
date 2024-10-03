@@ -27,29 +27,13 @@ DEALINGS IN THE SOFTWARE.
 #ifndef litecpp_string_hpp
 #define litecpp_string_hpp
 
-#include <litecpp/memory_resource.hpp>
+#include <litecpp/base_string.hpp>
 
 namespace std
 {
 	namespace pmr
 	{
-		template <typename T>
-		class string
-		{
-		public:
-			string(memory_resource* resource) :
-				_Capacity(0),
-				_Position(0),
-				_Content(NULL),
-				_Memory(resource)
-			{
-			}
-		private:
-			size_t           _Capacity;
-			size_t           _Position;
-			T*               _Content;
-			memory_resource* _Memory;
-		};
+		typedef litecpp::base_string<char> string;
 	}
 }
 

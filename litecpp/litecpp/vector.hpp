@@ -107,7 +107,7 @@ namespace std
 			}
 
 		private:
-			Pollux::base_vector<T> _base_vector;
+			litecpp::base_vector<T> _base_vector;
 		};
 	}
 
@@ -203,7 +203,7 @@ namespace std
 		}
 
 	private:
-		Pollux::base_vector<T> _base_vector;
+		litecpp::base_vector<T> _base_vector;
 	};
 }
 

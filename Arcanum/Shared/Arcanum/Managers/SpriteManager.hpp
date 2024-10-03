@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef Arcanum_Managers_SpriteManager_hpp
 #define Arcanum_Managers_SpriteManager_hpp
 
-#include <map>
+#include <litecpp/litecpp.hpp>
 #include <Pollux/Graphics/Canvas.hpp>
 #include <Arcanum/Graphics/Sprite.hpp>
 #include <Arcanum/Formats/Art/ArtReader.hpp>

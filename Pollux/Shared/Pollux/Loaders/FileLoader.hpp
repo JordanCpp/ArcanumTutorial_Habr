@@ -27,7 +27,6 @@ DEALINGS IN THE SOFTWARE.
 #ifndef Pollux_Loaders_FileLoader_hpp
 #define Pollux_Loaders_FileLoader_hpp
 
-#include <string>
 #include <stddef.h>
 #include <litecpp/litecpp.hpp>
 

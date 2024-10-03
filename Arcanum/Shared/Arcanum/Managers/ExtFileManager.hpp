@@ -28,7 +28,7 @@ DEALINGS IN THE SOFTWARE.
 #define Arcanum_Managers_ExtFileManager_hpp
 
 #include <set>
-#include <string>
+#include <litecpp/litecpp.hpp>
 
 namespace Arcanum
 {

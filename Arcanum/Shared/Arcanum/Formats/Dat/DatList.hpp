@@ -27,8 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef Arcanum_Formats_DatList_hpp
 #define Arcanum_Formats_DatList_hpp
 
-#include <string>
-#include <map>
+#include <litecpp/litecpp.hpp>
 #include <Arcanum/Formats/Dat/DatItem.hpp>
 
 namespace Arcanum

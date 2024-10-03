@@ -28,8 +28,6 @@ DEALINGS IN THE SOFTWARE.
 #include <Pollux/Graphics/Canvas.hpp>
 #include <Pollux/Graphics/Texture.hpp>
 #include <Pollux/Common/Assert.hpp>
-#include <stdexcept>
-#include <cassert>
 
 using namespace Pollux;
 

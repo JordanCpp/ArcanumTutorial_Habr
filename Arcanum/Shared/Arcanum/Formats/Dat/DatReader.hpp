@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef Arcanum_Formats_Dat_DatReader_hpp
 #define Arcanum_Formats_Dat_DatReader_hpp
 
-#include <string>
+#include <litecpp/litecpp.hpp>
 #include <fstream>
 #include <Arcanum/Formats/Dat/DatItem.hpp>
 

@@ -1,7 +1,7 @@
 #ifndef Aracnum_Common_PathNormalizer_hpp
 #define Aracnum_Common_PathNormalizer_hpp
 
-#include <string>
+#include <litecpp/litecpp.hpp>
 
 namespace Arcanum
 {

@@ -29,8 +29,6 @@ DEALINGS IN THE SOFTWARE.
 
 #include <litecpp/memory_resource.hpp>
 
-#define table_max  4096
-
 namespace std
 {
 	namespace pmr
@@ -86,18 +84,29 @@ namespace std
 		class unordered_map
 		{
 		public:
-			unordered_map(memory_resource* source) :
+			unordered_map(size_t bucket_count, memory_resource* source) :
+				_bucket_count(bucket_count),
 				_memory(source)
 			{
 				size_t list_size      = sizeof(list<K, T>);
-				size_t allocated_size = list_size * table_max;
+				size_t allocated_size = list_size * _bucket_count;
 				void* allocated_ptr   = _memory->allocate(allocated_size);
 
-				_table = new (allocated_ptr) list<K, T>[table_max];
+				_table = new (allocated_ptr) list<K, T>[_bucket_count];
 			}
 
 			~unordered_map()
 			{
+			}
+
+			size_t HashLy(const char* str)
+			{
+				unsigned int hash = 0;
+
+				for (; *str; str++)
+					hash = (hash * 1664525) + (unsigned char)(*str) + 1013904223;
+
+				return hash;
 			}
 
 			void emplace(const K& key, const T& value)
@@ -107,7 +116,9 @@ namespace std
 				node->first  = key;
 				node->second = value;
 
-				_table[0].append(node);
+				size_t index = HashLy(key.c_str()) % _bucket_count;
+
+				_table[index].append(node);
 			}
 			
 			typedef list_node<K, T>* iterator;
@@ -119,7 +130,9 @@ namespace std
 
 			list_node<K, T>* find(const K& key)
 			{
-				for (list_node<K, T>* i = _table[0].head; i != NULL; i = i->next)
+				size_t index = HashLy(key.c_str()) % _bucket_count;
+
+				for (list_node<K, T>* i = _table[index].head; i != NULL; i = i->next)
 				{
 					if (i->first == key)
 					{
@@ -130,6 +143,7 @@ namespace std
 				return NULL;
 			}
 		private:
+			size_t           _bucket_count;
 			list<K, T>*      _table;
 			memory_resource* _memory;
 		};

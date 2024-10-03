@@ -8,7 +8,7 @@ int main()
 	std::vector<char> buffer(bufferMax);
 
 	std::pmr::monotonic_buffer_resource pool(&buffer[0], buffer.size());
-	std::pmr::unordered_map<std::string, int> map(&pool);
+	std::pmr::unordered_map<std::string, int> map(45, &pool);
 		
 	std::pmr::unordered_map<std::string, int>::iterator i = map.find("hello");
 	POLLUX_TEST(i == map.end());

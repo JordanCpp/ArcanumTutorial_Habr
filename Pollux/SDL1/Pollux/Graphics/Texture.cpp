@@ -28,7 +28,6 @@ DEALINGS IN THE SOFTWARE.
 #include <Pollux/Graphics/Texture.hpp>
 #include <Pollux/Common/Assert.hpp>
 #include <Pollux/Defines.hpp>
-#include <stdexcept>
 
 using namespace Pollux;
 

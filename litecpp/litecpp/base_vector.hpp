@@ -30,25 +30,33 @@ DEALINGS IN THE SOFTWARE.
 #include <litecpp/memory_resource.hpp>
 #include <assert.h>
 
-namespace Pollux
+namespace litecpp
 {
 	template <typename T>
 	class base_vector
 	{
+	private:
+		size_t                     _capacity;
+		size_t                     _position;
+		T*                         _content;
+		std::pmr::memory_resource* _memory;
+		std::pmr::memory_resource* _resource;
+
 	public:
 		base_vector(std::pmr::memory_resource* source) :
 			_capacity(0),
 			_position(0),
-			_content(NULL),
-			_memory(source)
+			_content(nullptr),
+			_memory(source),
+			_resource(nullptr)
 		{
 		}
 
 		base_vector() :
 			_capacity(0),
 			_position(0),
-			_content(NULL),
-			_memory(NULL)
+			_content(nullptr),
+			_memory(nullptr)
 		{
 		}
 
@@ -185,12 +193,6 @@ namespace Pollux
 
 			return _content[index];
 		}
-
-	private:
-		size_t                    _capacity;
-		size_t                    _position;
-		T*                        _content;
-		std::pmr::memory_resource* _memory;
 	};
 }
 

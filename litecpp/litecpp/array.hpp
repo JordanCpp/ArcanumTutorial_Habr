@@ -27,6 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef litecpp_array_hpp
 #define litecpp_array_hpp
 
+#include <stddef.h>
 #include <assert.h>
 
 namespace std
