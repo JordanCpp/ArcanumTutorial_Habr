@@ -39,7 +39,7 @@ DatList::DatList(std::pmr::memory_resource* resource) :
 
 DatItem* DatList::Get(const std::string& file)
 {
-	container::iterator i = _Files.find(file);
+	container::iterator i = _Files.find(file.c_str());
 
 	if (i != _Files.end())
 	{
@@ -55,7 +55,7 @@ void DatList::Add(const std::string& key, DatItem& file, const std::string& arch
 
 	if (p == nullptr)
 	{
-		_Files.emplace(key, file);
+		_Files.emplace(key.c_str(), file);
 	}
 	else
 	{

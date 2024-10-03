@@ -20,7 +20,6 @@ int main()
 
 	strcpy(item.Path, path.c_str());
 
-
 	const size_t bufferMax = 1024 * 100;
 	
 	std::vector<char> buffer(bufferMax);

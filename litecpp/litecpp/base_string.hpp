@@ -109,6 +109,11 @@ namespace litecpp
 				return *this;
 			}
 
+			bool operator== (const base_string<T>& source)
+			{
+				return (strcmp(_content, source.c_str()) == 0);
+			}
+
 			base_string& operator=(const T* source)
 			{
 				size_t length = strlen(source);
@@ -133,7 +138,7 @@ namespace litecpp
 				return *this;
 			}
 
-			base_string<T>& operator=(const base_string<T> source)
+			base_string<T>& operator=(const base_string<T>& source)
 			{
 				if (&source != this)
 				{
@@ -251,7 +256,6 @@ namespace litecpp
 
 				return _content[index];
 			}
-
 		};
 }
 

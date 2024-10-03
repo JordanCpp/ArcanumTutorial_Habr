@@ -41,7 +41,7 @@ namespace Arcanum
         size_t Count();
     private:
         std::pmr::memory_resource* _Resource;
-        typedef std::pmr::unordered_map<std::string, DatItem> container;
+        typedef std::pmr::unordered_map<std::pmr::string, DatItem> container;
         container _Files;
     };
 }

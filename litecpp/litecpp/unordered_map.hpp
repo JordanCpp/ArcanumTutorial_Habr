@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef litecpp_unordered_map_hpp
 #define litecpp_unordered_map_hpp
 
-#include <litecpp/memory_resource.hpp>
+#include <litecpp/string.hpp>
 
 namespace std
 {
@@ -43,10 +43,10 @@ namespace std
 			{
 			}
 
-			list_node* next;
-			list_node* prev;
-			K          first;
-			T          second;
+			list_node*        next;
+			list_node*        prev;
+			std::pmr::string  first;
+			T                 second;
 		};
 
 		template<typename K, typename T>
@@ -114,7 +114,7 @@ namespace std
 			{
 				list_node<K, T>* node = new (_memory->allocate(sizeof(list_node<K, T>))) list_node<K, T>;
 
-				node->first  = key;
+				node->first  = std::pmr::string(key.c_str(), _memory);
 				node->second = value;
 
 				size_t index = HashLy(key.c_str()) % _bucket_count;
@@ -137,7 +137,7 @@ namespace std
 
 				for (list_node<K, T>* i = _table[index].head; i != NULL; i = i->next)
 				{
-					if (i->first == key)
+					if (strcmp(i->first.c_str(), key.c_str()) == 0)
 					{
 						return i;
 					}
