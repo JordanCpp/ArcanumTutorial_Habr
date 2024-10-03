@@ -20,7 +20,13 @@ int main()
 
 	strcpy(item.Path, path.c_str());
 
-	DatList list;
+
+	const size_t bufferMax = 1024 * 100;
+	
+	std::vector<char> buffer(bufferMax);
+	std::pmr::monotonic_buffer_resource pool(&buffer[0], buffer.size());
+
+	DatList list(&pool);
 
 	list.Add(path, item, archive);
 

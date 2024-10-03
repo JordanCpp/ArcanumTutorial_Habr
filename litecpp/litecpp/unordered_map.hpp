@@ -85,6 +85,7 @@ namespace std
 		{
 		public:
 			unordered_map(size_t bucket_count, memory_resource* source) :
+				_count(0),
 				_bucket_count(bucket_count),
 				_memory(source)
 			{
@@ -119,6 +120,8 @@ namespace std
 				size_t index = HashLy(key.c_str()) % _bucket_count;
 
 				_table[index].append(node);
+
+				_count++;
 			}
 			
 			typedef list_node<K, T>* iterator;
@@ -142,7 +145,13 @@ namespace std
 
 				return NULL;
 			}
+
+			size_t size()
+			{
+				return _count;
+			}
 		private:
+			size_t           _count;
 			size_t           _bucket_count;
 			list<K, T>*      _table;
 			memory_resource* _memory;

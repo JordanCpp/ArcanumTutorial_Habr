@@ -40,11 +40,12 @@ namespace Arcanum
 	public:
 		enum
 		{
-			Mb              = 1024 * 1024,
-			DatBufferMax    = Mb * 2,
-			ResultBufferMax = Mb * 4,
-			SptiteBufferMax = Mb * 2,
-			GlobalBufferMax = Mb * 16
+			Mb               = 1024 * 1024,
+			DatListBufferMax = Mb * 2,
+			DatBufferMax     = Mb * 2,
+			ResultBufferMax  = Mb * 4,
+			SptiteBufferMax  = Mb * 2,
+			GlobalBufferMax  = Mb * 16
 		};
 
 		Engine();
@@ -56,6 +57,7 @@ namespace Arcanum
 		std::pmr::monotonic_buffer_resource _DatBufferResource;
 		std::pmr::monotonic_buffer_resource _ResultBufferResource;
 		std::pmr::monotonic_buffer_resource _SptiteBufferResource;
+		std::pmr::monotonic_buffer_resource _DatListBufferResource;
 		std::pmr::vector<unsigned char>     _DatBuffer;
 		std::pmr::vector<unsigned char>     _ResultBuffer;
 		std::vector<unsigned char>          _ArtBuffer;

@@ -1,3 +1,4 @@
+#include "DatList.hpp"
 /*
 Boost Software License - Version 1.0 - August 17th, 2003
 
@@ -30,6 +31,12 @@ DEALINGS IN THE SOFTWARE.
 
 using namespace Arcanum;
 
+DatList::DatList(std::pmr::memory_resource* resource) :
+	_Resource(resource),
+	_Files(1024, _Resource)
+{
+}
+
 DatItem* DatList::Get(const std::string& file)
 {
 	container::iterator i = _Files.find(file);
@@ -48,7 +55,7 @@ void DatList::Add(const std::string& key, DatItem& file, const std::string& arch
 
 	if (p == nullptr)
 	{
-		_Files.insert(std::make_pair(key, file));
+		_Files.emplace(key, file);
 	}
 	else
 	{

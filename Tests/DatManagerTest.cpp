@@ -10,10 +10,11 @@ int main()
 {
 	std::pmr::monotonic_buffer_resource bufferResource(new unsigned char[bytesMax], bytesMax);
 	std::pmr::monotonic_buffer_resource resultResource(new unsigned char[bytesMax], bytesMax);
+	std::pmr::monotonic_buffer_resource datListResource(new unsigned char[bytesMax], bytesMax);
 	std::pmr::vector<unsigned char> buffer(&bufferResource);
 	std::pmr::vector<unsigned char> result(&resultResource);
 
-	DatList        datList;
+	DatList        datList(&datListResource);
 	DatReader      datReader;
 	ExtFileManager extFileManager;
 	PathNormalizer pathNormalizer;

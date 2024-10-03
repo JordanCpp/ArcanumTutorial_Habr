@@ -5,7 +5,12 @@ using namespace Arcanum;
 
 int main()
 {
-	DatList        datList;
+	const size_t bufferMax = 1024 * 100;
+
+	std::vector<char> buffer(bufferMax);
+	std::pmr::monotonic_buffer_resource pool(&buffer[0], buffer.size());
+
+	DatList        datList(&pool);
 	DatReader      datReader;
 	ExtFileManager extFileManager;
 	PathNormalizer pathNormalizer;
