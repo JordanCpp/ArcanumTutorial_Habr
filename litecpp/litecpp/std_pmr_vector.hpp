@@ -24,10 +24,92 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef litecpp_vector_hpp
-#define litecpp_vector_hpp
+#ifndef litecpp_std_pmr_vector_hpp
+#define litecpp_std_pmr_vector_hpp
 
-#include <litecpp/std_vector.hpp>
-#include <litecpp/std_pmr_vector.hpp>
+#include <litecpp/base_vector.hpp>
+
+namespace std
+{
+	namespace pmr
+	{
+		template <typename T>
+		class vector
+		{
+		public:
+			vector(memory_resource* source) :
+				_base_vector(source)
+			{
+			}
+
+			vector() :
+				_base_vector(NULL)
+			{
+			}
+
+			~vector()
+			{
+			}
+
+			size_t capacity() const
+			{
+				return _base_vector.capacity();
+			}
+
+			size_t size() const
+			{
+				return _base_vector.size();
+			}
+
+			const T* data() const
+			{
+				return _base_vector.data();
+			}
+
+			T* data()
+			{
+				return _base_vector.data();
+			}
+
+			void reserve(size_t count)
+			{
+				_base_vector.reserve(count);
+			}
+
+			void resize(size_t count)
+			{
+				_base_vector.resize(count);
+			}
+
+			void clear()
+			{
+				_base_vector.clear();
+			}
+
+			void push_back(const T& element)
+			{
+				_base_vector.push_back(element);
+			}
+
+			const T& at(size_t index) const
+			{
+				return _base_vector.at(index);
+			}
+
+			const T& operator[] (size_t index) const
+			{ 
+				return _base_vector[index];
+			}
+
+			T& operator[] (size_t index)
+			{
+				return _base_vector[index];
+			}
+
+		private:
+			litecpp::base_vector<T> _base_vector;
+		};
+	}
+}
 
 #endif 

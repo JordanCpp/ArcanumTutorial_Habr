@@ -27,15 +27,11 @@ DEALINGS IN THE SOFTWARE.
 #ifndef litecpp_hpp
 #define litecpp_hpp
 
-//#include <vector>
-#include <map>
 #include <string>
 #include <stdexcept>
 
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201103L) || __cplusplus >= 201103L)
     #include <array>
-    #include <string>
-    #include <stdexcept>
 #else
     #define nullptr NULL
     #include <litecpp/array.hpp>

@@ -38,8 +38,8 @@ namespace std
 		{
 		public:
 			list_node() :
-				next(NULL),
-				prev(NULL)
+				next(nullptr),
+				prev(nullptr)
 			{
 			}
 
@@ -54,14 +54,14 @@ namespace std
 		{
 		public:
 			list() :
-				head(NULL),
-				tail(NULL)
+				head(nullptr),
+				tail(nullptr)
 			{
 			}
 
 			void append(list_node<K, T>* node)
 			{
-				node->next = NULL;
+				node->next = nullptr;
 				node->prev = tail;
 
 				if (tail)
@@ -71,7 +71,8 @@ namespace std
 
 				tail = node;
 
-				if (head == NULL) {
+				if (head == nullptr) 
+				{
 					head = node;
 				}
 			}
@@ -83,6 +84,12 @@ namespace std
 		template <typename K, typename T>
 		class unordered_map
 		{
+		private:
+			size_t           _count;
+			size_t           _bucket_count;
+			list<K, T>*      _table;
+			memory_resource* _memory;
+
 		public:
 			unordered_map(size_t bucket_count, memory_resource* source) :
 				_count(0),
@@ -128,7 +135,7 @@ namespace std
 
 			list_node<K, T>* end()
 			{
-				return NULL;
+				return nullptr;
 			}
 
 			list_node<K, T>* find(const K& key)
@@ -143,18 +150,13 @@ namespace std
 					}
 				}
 
-				return NULL;
+				return nullptr;
 			}
 
 			size_t size()
 			{
 				return _count;
 			}
-		private:
-			size_t           _count;
-			size_t           _bucket_count;
-			list<K, T>*      _table;
-			memory_resource* _memory;
 		};
 	}
 }
