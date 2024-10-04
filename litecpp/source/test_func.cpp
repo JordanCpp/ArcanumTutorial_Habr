@@ -24,31 +24,13 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef litecpp_hpp
-#define litecpp_hpp
-
-#include <string>
-#include <stdexcept>
-
-#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201103L) || __cplusplus >= 201103L)
-    #include <array>
-#else
-    #define nullptr NULL
-    #include <litecpp/array.hpp>
-    #include <litecpp/string.hpp>
-#endif
-
-#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
-    #include <memory_resource>
-    #include <unordered_map>
-#else
-    #include <litecpp/memory_resource.hpp>
-    #include <litecpp/monotonic_buffer_resource.hpp>
-    #include <litecpp/vector.hpp>
-    #include <litecpp/unordered_map.hpp>
-    #include <litecpp/string.hpp>
-#endif
-
 #include <litecpp/test_func.hpp>
+#include <iostream>
 
-#endif 
+void litecpp_test_func(bool condition, const char* description, const char* file, int line)
+{
+	if (!condition)
+	{
+		std::cout << "Test fail: " << description << " File: " << file << " Line: " << line << '\n';
+	}
+}
