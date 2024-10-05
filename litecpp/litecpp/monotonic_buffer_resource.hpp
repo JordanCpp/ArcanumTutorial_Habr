@@ -43,10 +43,10 @@ namespace std
 			void deallocate(void* p, size_t bytes);
 			void release();
 		private:
-			size_t           _Capacity;
-			size_t           _Position;
-			unsigned char*   _Content;
-			memory_resource* _Upstream;
+			size_t           _capacity;
+			size_t           _position;
+			unsigned char*   _content;
+			memory_resource* _upstream;
 		};
 	}
 }

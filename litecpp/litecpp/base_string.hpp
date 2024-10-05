@@ -41,22 +41,22 @@ namespace litecpp
 			size_t                     _capacity;
 			size_t                     _position;
 			T*                         _content;
-			std::pmr::memory_resource* _memory;
+			std::pmr::memory_resource* _resource;
 
 		public:
 			base_string() :
 				_capacity(0),
 				_position(0),
-				_content(NULL),
-				_memory(NULL)
+				_content(nullptr),
+				_resource(nullptr)
 			{
 			}
 
 			base_string(const T* source) :
 				_capacity(0),
 				_position(0),
-				_content(NULL),
-				_memory(NULL)
+				_content(nullptr),
+				_resource(nullptr)
 			{
 				size_t length = strlen(source);
 
@@ -71,16 +71,16 @@ namespace litecpp
 			base_string(std::pmr::memory_resource* resource) :
 				_capacity(0),
 				_position(0),
-				_content(NULL),
-				_memory(resource)
+				_content(nullptr),
+				_resource(resource)
 			{
 			}
 
 			base_string(const T* source, std::pmr::memory_resource* resource) :
 				_capacity(0),
 				_position(0),
-				_content(NULL),
-				_memory(resource)
+				_content(nullptr),
+				_resource(resource)
 			{
 				size_t length = strlen(source);
 
@@ -172,9 +172,9 @@ namespace litecpp
 
 			T* allocate(size_t count)
 			{
-				if (_memory)
+				if (_resource)
 				{
-					void* ptr = _memory->allocate(count * sizeof(T));
+					void* ptr = _resource->allocate(count * sizeof(T));
 				
 					return new (ptr) T[count];
 				}

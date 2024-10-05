@@ -24,54 +24,12 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
-#include <litecpp/defines.hpp>
-#include <litecpp/monotonic_buffer_resource.hpp>
-#include <assert.h>
+#ifndef litecpp_defines_hpp
+#define litecpp_defines_hpp
 
-using namespace std;
-using namespace pmr;
+#if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201103L) || __cplusplus >= 201103L)
+#else
+    #define nullptr 0
+#endif
 
-monotonic_buffer_resource::monotonic_buffer_resource(void* buffer, size_t buffer_size) :
-	_capacity(buffer_size),
-	_position(0),
-	_content((unsigned char*)buffer),
-	_upstream(nullptr)
-{
-}
-
-monotonic_buffer_resource::monotonic_buffer_resource(size_t initial_size, memory_resource* upstream) :
-	_capacity(initial_size),
-	_position(0),
-	_content(nullptr),
-	_upstream(upstream)
-{
-	_content = (unsigned char*)_upstream->allocate(_capacity);
-}
-
-monotonic_buffer_resource::~monotonic_buffer_resource()
-{
-	release();
-}
-
-void* monotonic_buffer_resource::allocate(size_t bytes)
-{
-	assert(bytes > 0);
-	assert(_position + bytes <= _capacity);
-
-	void* result = _content + _position;
-
-	_position += bytes;
-
-	return result;
-}
-
-void monotonic_buffer_resource::deallocate(void* p, size_t bytes)
-{
-	assert(p != nullptr);
-	assert(bytes > 0);
-}
-
-void monotonic_buffer_resource::release()
-{
-	_position = 0;
-}
+#endif

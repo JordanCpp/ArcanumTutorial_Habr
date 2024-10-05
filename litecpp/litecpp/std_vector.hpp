@@ -36,18 +36,18 @@ namespace std
 	{
 	public:
 		vector() :
-			_base_vector(NULL)
+			_base_vector(nullptr)
 		{
 		}
 
 		vector(size_t count) :
-			_base_vector(NULL)
+			_base_vector(nullptr)
 		{
 			resize(count);
 		}
 
 		vector(const vector& source) :
-			_base_vector(NULL)
+			_base_vector(nullptr)
 		{
 			reserve(source.capacity());
 			resize(source.size());

@@ -88,17 +88,17 @@ namespace std
 			size_t           _count;
 			size_t           _bucket_count;
 			list<K, T>*      _table;
-			memory_resource* _memory;
+			memory_resource* _resource;
 
 		public:
-			unordered_map(size_t bucket_count, memory_resource* source) :
+			unordered_map(size_t bucket_count, memory_resource* resource) :
 				_count(0),
 				_bucket_count(bucket_count),
-				_memory(source)
+				_resource(resource)
 			{
 				size_t list_size      = sizeof(list<K, T>);
 				size_t allocated_size = list_size * _bucket_count;
-				void* allocated_ptr   = _memory->allocate(allocated_size);
+				void* allocated_ptr   = _resource->allocate(allocated_size);
 
 				_table = new (allocated_ptr) list<K, T>[_bucket_count];
 			}
@@ -119,9 +119,9 @@ namespace std
 
 			void emplace(const K& key, const T& value)
 			{
-				list_node<K, T>* node = new (_memory->allocate(sizeof(list_node<K, T>))) list_node<K, T>;
+				list_node<K, T>* node = new (_resource->allocate(sizeof(list_node<K, T>))) list_node<K, T>;
 
-				node->first  = std::pmr::string(key.c_str(), _memory);
+				node->first  = std::pmr::string(key.c_str(), _resource);
 				node->second = value;
 
 				size_t index = HashLy(key.c_str()) % _bucket_count;
@@ -142,7 +142,7 @@ namespace std
 			{
 				size_t index = HashLy(key.c_str()) % _bucket_count;
 
-				for (list_node<K, T>* i = _table[index].head; i != NULL; i = i->next)
+				for (list_node<K, T>* i = _table[index].head; i != nullptr; i = i->next)
 				{
 					if (strcmp(i->first.c_str(), key.c_str()) == 0)
 					{

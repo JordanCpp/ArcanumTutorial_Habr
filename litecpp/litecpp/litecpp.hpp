@@ -30,10 +30,11 @@ DEALINGS IN THE SOFTWARE.
 #include <string>
 #include <stdexcept>
 
+#include <litecpp/defines.hpp>
+
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201103L) || __cplusplus >= 201103L)
     #include <array>
 #else
-    #define nullptr NULL
     #include <litecpp/array.hpp>
     #include <litecpp/string.hpp>
 #endif

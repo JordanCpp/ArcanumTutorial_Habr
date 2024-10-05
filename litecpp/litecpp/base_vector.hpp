@@ -39,7 +39,6 @@ namespace litecpp
 		size_t                     _capacity;
 		size_t                     _position;
 		T*                         _content;
-		std::pmr::memory_resource* _memory;
 		std::pmr::memory_resource* _resource;
 
 	public:
@@ -47,8 +46,7 @@ namespace litecpp
 			_capacity(0),
 			_position(0),
 			_content(nullptr),
-			_memory(source),
-			_resource(nullptr)
+			_resource(source)
 		{
 		}
 
@@ -56,15 +54,15 @@ namespace litecpp
 			_capacity(0),
 			_position(0),
 			_content(nullptr),
-			_memory(nullptr)
+			_resource(nullptr)
 		{
 		}
 
 		T* allocate(size_t count)
 		{
-			if (_memory)
+			if (_resource)
 			{
-				void* ptr = _memory->allocate(count * sizeof(T));
+				void* ptr = _resource->allocate(count * sizeof(T));
 
 				return new (ptr) T[count];
 			}
@@ -76,11 +74,11 @@ namespace litecpp
 
 		void deallocate(T* ptr)
 		{
-			if (_content != NULL)
+			if (_content != nullptr)
 			{
-				if (_memory)
+				if (_resource)
 				{
-					_memory->deallocate(ptr, _capacity * sizeof(T));
+					_resource->deallocate(ptr, _capacity * sizeof(T));
 				}
 				else
 				{

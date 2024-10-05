@@ -15,11 +15,11 @@ int main()
 
 	HashMap<int> map(&pool, 128);
 
-	POLLUX_TEST(map.Get(key) == NULL);
+	POLLUX_TEST(map.Get(key) == nullptr);
 
 	map.Set(key, 42);
 
-	POLLUX_TEST(map.Get(key) != NULL);
+	POLLUX_TEST(map.Get(key) != nullptr);
 
 	return 0;
 }

@@ -30,8 +30,8 @@ int main()
 
 	MemoryReader* data = resourceManager.GetData("art/item/", "P_tesla_gun.ART");
 
-	POLLUX_TEST(data                   != NULL);
-	POLLUX_TEST(data->Buffer()         != NULL);
+	POLLUX_TEST(data                   != nullptr);
+	POLLUX_TEST(data->Buffer()         != nullptr);
 	POLLUX_TEST(data->Buffer()->size() == 6195);
 
 	return 0;

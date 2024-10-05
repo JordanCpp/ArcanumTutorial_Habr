@@ -37,13 +37,13 @@ namespace std
 		class vector
 		{
 		public:
-			vector(memory_resource* source) :
-				_base_vector(source)
+			vector(memory_resource* resource) :
+				_base_vector(resource)
 			{
 			}
 
 			vector() :
-				_base_vector(NULL)
+				_base_vector(nullptr)
 			{
 			}
 

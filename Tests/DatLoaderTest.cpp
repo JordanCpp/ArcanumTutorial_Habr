@@ -21,7 +21,7 @@ int main()
 
 	DatItem* item = datList.Get("art/item/g_helmet.ART");
 
-	POLLUX_TEST(item             != NULL);
+	POLLUX_TEST(item             != nullptr);
 	POLLUX_TEST(item->PathSize   == 22);
 	POLLUX_TEST(item->Unknown1   == 7798800);
 	POLLUX_TEST(item->Type       == 2);

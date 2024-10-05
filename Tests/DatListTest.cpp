@@ -31,7 +31,7 @@ int main()
 
 	DatItem* p = list.Get(path);
 
-	POLLUX_TEST(p             != NULL);
+	POLLUX_TEST(p             != nullptr);
 	POLLUX_TEST(p->PathSize   == 1);
 	POLLUX_TEST(p->Unknown1   == 2);
 	POLLUX_TEST(p->Type       == 3);
