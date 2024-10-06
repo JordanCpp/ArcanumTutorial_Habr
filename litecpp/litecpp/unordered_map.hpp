@@ -92,6 +92,8 @@ namespace std
 			memory_resource* _resource;
 
 		public:
+			typedef list_node<K, T>* iterator;
+
 			unordered_map(size_t bucket_count, memory_resource* resource) :
 				_count(0),
 				_bucket_count(bucket_count),
@@ -120,22 +122,25 @@ namespace std
 
 			void emplace(const K& key, const T& value)
 			{
-				void* ptr = _resource->allocate(sizeof(list_node<K, T>));
+				iterator i = find(key);
 
-				list_node<K, T>* node = new (ptr) list_node<K, T>(_resource);
+				if (i == end())
+				{
+					void* ptr = _resource->allocate(sizeof(list_node<K, T>));
 
-				node->first  = key.c_str();
-				node->second = value;
+					list_node<K, T>* node = new (ptr) list_node<K, T>(_resource);
 
-				size_t index = HashLy(key.c_str()) % _bucket_count;
+					node->first = key.c_str();
+					node->second = value;
 
-				_table[index].append(node);
+					size_t index = HashLy(key.c_str()) % _bucket_count;
 
-				_count++;
+					_table[index].append(node);
+
+					_count++;
+				}
 			}
 			
-			typedef list_node<K, T>* iterator;
-
 			list_node<K, T>* end()
 			{
 				return nullptr;
