@@ -37,9 +37,10 @@ namespace std
 		class list_node
 		{
 		public:
-			list_node() :
+			list_node(memory_resource* resource) :
 				next(nullptr),
-				prev(nullptr)
+				prev(nullptr),
+				first(resource)
 			{
 			}
 
@@ -119,9 +120,11 @@ namespace std
 
 			void emplace(const K& key, const T& value)
 			{
-				list_node<K, T>* node = new (_resource->allocate(sizeof(list_node<K, T>))) list_node<K, T>;
+				void* ptr = _resource->allocate(sizeof(list_node<K, T>));
 
-				node->first  = std::pmr::string(key.c_str(), _resource);
+				list_node<K, T>* node = new (ptr) list_node<K, T>(_resource);
+
+				node->first  = key.c_str();
 				node->second = value;
 
 				size_t index = HashLy(key.c_str()) % _bucket_count;
@@ -144,7 +147,7 @@ namespace std
 
 				for (list_node<K, T>* i = _table[index].head; i != nullptr; i = i->next)
 				{
-					if (strcmp(i->first.c_str(), key.c_str()) == 0)
+					if (i->first == key.c_str())
 					{
 						return i;
 					}
