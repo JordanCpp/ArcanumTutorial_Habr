@@ -27,8 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef Arcanum_Formats_DatList_hpp
 #define Arcanum_Formats_DatList_hpp
 
-#include <string>
-#include <map>
+#include <litecpp/litecpp.hpp>
 #include <Arcanum/Formats/Dat/DatItem.hpp>
 
 namespace Arcanum
@@ -36,11 +35,13 @@ namespace Arcanum
     class DatList
     {
     public:
+        DatList(std::pmr::memory_resource* resource);
         DatItem* Get(const std::string& file);
         void Add(const std::string& key, DatItem& file, const std::string& archive);
         size_t Count();
     private:
-        typedef std::map<std::string, DatItem> container;
+        std::pmr::memory_resource* _Resource;
+        typedef std::pmr::unordered_map<std::pmr::string, DatItem> container;
         container _Files;
     };
 }

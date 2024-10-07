@@ -28,6 +28,8 @@ DEALINGS IN THE SOFTWARE.
 #define Arcanum_Formats_Dat_DatLoader_hpp
 
 #include <Arcanum/Formats/Dat/DatReader.hpp>
+#include <Arcanum/Managers/ExtFileManager.hpp>
+#include <Arcanum/Common/PathNormalizer.hpp>
 #include <Arcanum/Formats/Dat/DatList.hpp>
 
 namespace Arcanum
@@ -35,10 +37,12 @@ namespace Arcanum
     class DatLoader
     {
     public:
-        DatLoader(DatReader& datReader);
+        DatLoader(DatReader& datReader, ExtFileManager& extFileManager, PathNormalizer& pathNormalizer);
         bool Load(const std::string& path, DatList& datList);
     private:
-        DatReader& _DatReader;
+        DatReader&      _DatReader;
+        ExtFileManager& _ExtFileManager;
+        PathNormalizer& _PathNormalizer;
     };
 }
 

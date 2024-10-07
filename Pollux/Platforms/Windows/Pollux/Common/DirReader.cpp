@@ -29,7 +29,7 @@ DEALINGS IN THE SOFTWARE.
 using namespace Pollux;
 
 DirReader::DirReader() :
-	_File(NULL),
+	_File(nullptr),
 	_All("*.*")
 {
 	memset(&_Data, 0, sizeof(WIN32_FIND_DATAA));
@@ -56,7 +56,7 @@ bool DirReader::Reset(const std::string& path)
 
 void DirReader::Close()
 {
-	if (_File != NULL)
+	if (_File != nullptr)
 	{
 		FindClose(_File);
 	}

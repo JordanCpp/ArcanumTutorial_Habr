@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.
 #ifndef Arcanum_Managers_PathManager_hpp
 #define Arcanum_Managers_PathManager_hpp
 
-#include <string>
+#include <litecpp/litecpp.hpp>
 
 namespace Arcanum
 {

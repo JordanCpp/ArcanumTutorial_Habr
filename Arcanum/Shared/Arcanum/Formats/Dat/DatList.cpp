@@ -1,3 +1,4 @@
+#include "DatList.hpp"
 /*
 Boost Software License - Version 1.0 - August 17th, 2003
 
@@ -24,30 +25,37 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 */
 
+#include <litecpp/litecpp.hpp>
 #include <Arcanum/Formats/Dat/DatList.hpp>
 #include <string.h>
 
 using namespace Arcanum;
 
+DatList::DatList(std::pmr::memory_resource* resource) :
+	_Resource(resource),
+	_Files(1024, _Resource)
+{
+}
+
 DatItem* DatList::Get(const std::string& file)
 {
-	container::iterator i = _Files.find(file);
+	container::iterator i = _Files.find(file.c_str());
 
 	if (i != _Files.end())
 	{
 		return &i->second;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void DatList::Add(const std::string& key, DatItem& file, const std::string& archive)
 {
 	DatItem* p = Get(key);
 
-	if (p == NULL)
+	if (p == nullptr)
 	{
-		_Files.insert(std::make_pair(key, file));
+		_Files.emplace(key.c_str(), file);
 	}
 	else
 	{

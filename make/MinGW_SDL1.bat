@@ -1,11 +1,13 @@
 
 "C:\Downloads\codeblocks-8.02mingw-setup\MinGW\bin\g++" -Wall -Wextra -std=c++98 -O2 -static -s -o MinGW_SDL1 ^
+-I..\litecpp ^
 -I..\Arcanum\Shared ^
 -I..\Pollux\Shared  ^
 -I..\Pollux\SDL1  ^
 -I..\Pollux\Platforms\Windows ^
 -I..\dependencies\SDL-1.2.15\include ^
 -L..\dependencies\SDL-1.2.15\lib\x86 ^
+..\litecpp\source\*.cpp  ^
 ..\Pollux\Platforms\Windows\Pollux\Common\*.cpp ^
 ..\Pollux\SDL1\Pollux\Events\*.cpp ^
 ..\Pollux\SDL1\Pollux\Graphics\*.cpp  ^
@@ -14,6 +16,8 @@
 ..\Pollux\Shared\Pollux\Loaders\*.cpp  ^
 ..\Pollux\Shared\Pollux\Readers\*.cpp  ^
 ..\main.cpp ^
+..\Arcanum\Shared\Arcanum\Common\*.cpp ^
+..\Arcanum\Shared\Arcanum\Graphics\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Formats\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Formats\Art\*.cpp ^
 ..\Arcanum\Shared\Arcanum\Formats\Dat\*.cpp ^

@@ -37,9 +37,9 @@ ResourceManager::ResourceManager(PathManager& pathManager, DatManager& datManage
 {
 }
 
-const std::vector<unsigned char>& ResourceManager::GetFile(const std::string& dir, const std::string& file)
+const std::pmr::vector<unsigned char>& ResourceManager::GetFile(const std::string& dir, const std::string& file)
 {
-	const std::vector<unsigned char>& fromDir = _FileManager.GetFile(_PathManager.GetFileFromDir(dir, file));
+	const std::pmr::vector<unsigned char>& fromDir = _FileManager.GetFile(_PathManager.GetFileFromDir(dir, file));
 
 	if (fromDir.size() > 0)
 	{
@@ -47,7 +47,7 @@ const std::vector<unsigned char>& ResourceManager::GetFile(const std::string& di
 	}
 	else
 	{
-		const std::vector<unsigned char>& fromModule = _FileManager.GetFile(_PathManager.GetFileFromModuleDir(dir, file));
+		const std::pmr::vector<unsigned char>& fromModule = _FileManager.GetFile(_PathManager.GetFileFromModuleDir(dir, file));
 
 		if (fromModule.size() > 0)
 		{
@@ -55,7 +55,7 @@ const std::vector<unsigned char>& ResourceManager::GetFile(const std::string& di
 		}
 		else
 		{
-			const std::vector<unsigned char>& fromDat = _DatManager.GetFile(_PathManager.GetFileFromDat(dir, file));
+			const std::pmr::vector<unsigned char>& fromDat = _DatManager.GetFile(_PathManager.GetFileFromDat(dir, file));
 
 			if (fromDat.size() == 0)
 			{
@@ -69,7 +69,7 @@ const std::vector<unsigned char>& ResourceManager::GetFile(const std::string& di
 
 MemoryReader* ResourceManager::GetData(const std::string& dir, const std::string& file)
 {
-	const std::vector<unsigned char>& result = GetFile(dir, file);
+	const std::pmr::vector<unsigned char>& result = GetFile(dir, file);
 
 	_MemoryReader.Reset(&result);
 

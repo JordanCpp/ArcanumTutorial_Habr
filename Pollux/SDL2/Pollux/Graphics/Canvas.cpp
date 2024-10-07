@@ -33,8 +33,8 @@ DEALINGS IN THE SOFTWARE.
 using namespace Pollux;
 
 Canvas::Canvas(const Point& size) :
-	_Window(NULL),
-	_Render(NULL),
+	_Window(nullptr),
+	_Render(nullptr),
 	_Size(size)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
@@ -75,7 +75,7 @@ SDL_Renderer* Canvas::GetRenderImpl()
 
 void Canvas::Draw(const Texture* texture, const Point& dstPos, const Point& dstSize, const Point& srcPos, const Point& srcSize)
 {
-	POLLUX_ASSERT(texture != NULL);
+	POLLUX_ASSERT(texture != nullptr);
 	POLLUX_ASSERT(dstPos.x >= 0);
 	POLLUX_ASSERT(dstPos.y >= 0);
 	POLLUX_ASSERT(dstSize.x > 0);

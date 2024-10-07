@@ -29,7 +29,7 @@ DEALINGS IN THE SOFTWARE.
 using namespace Pollux;
 
 DirReader::DirReader() :
-	_Directory(NULL),
+	_Directory(nullptr),
 	_All("./")
 {
 }
@@ -45,12 +45,12 @@ bool DirReader::Reset(const std::string& path)
 
 	_Directory = opendir(path.c_str());
 
-	return _Directory != NULL;
+	return _Directory != nullptr;
 }
 
 void DirReader::Close()
 {
-	if (_Directory != NULL)
+	if (_Directory != nullptr)
 	{
 		closedir(_Directory);
 	}
@@ -60,13 +60,13 @@ bool DirReader::Next(DirItem& item)
 {
 	dirent* entry = readdir(_Directory);
 
-	if (entry == NULL)
+	if (entry == nullptr)
 	{
 		return false;
 	}
 	else
 	{
-		item.Path = entry->d_name;
+		item.Name = entry->d_name;
 
 		return true;
 	}

@@ -31,16 +31,23 @@ using namespace Arcanum;
 using namespace Pollux;
 
 Engine::Engine() :
-	_DatBuffer(DatBufferMax),
-	_ResultBuffer(ResultBufferMax),
+	_GlobalBuffer(GlobalBufferMax),
+	_GlobalResource(_GlobalBuffer.data(), _GlobalBuffer.capacity()),
+	_DatBufferResource(DatBufferMax, &_GlobalResource),
+	_ResultBufferResource(ResultBufferMax, &_GlobalResource),
+	_SptiteBufferResource(SptiteBufferMax, &_GlobalResource),
+	_DatListBufferResource(DatListBufferMax, &_GlobalResource),
+	_DatBuffer(&_DatBufferResource),
+	_ResultBuffer(&_ResultBufferResource),
 	_PathManager("", "data/", "modules/", "Arcanum"),
 	_Canvas(Point(800, 600)),
-	_DatLoader(_DatReader),
+	_DatList(&_DatListBufferResource),
+	_DatLoader(_DatReader, _ExtFileManager, _PathNormalizer),
 	_FileLoader(_DatBuffer),
 	_DatManager(_DatBuffer, _ResultBuffer, _DatList),
 	_FileManager(_FileLoader),
 	_ResourceManager(_PathManager, _DatManager, _FileManager),
-	_Texture(NULL)
+	_SpriteManager(&_SptiteBufferResource, _Canvas, _ResourceManager, _ArtReader, _ArtBuffer, _RgbBuffer)
 {
 	DirItem   dirItem;
 	DirReader dirReader;
@@ -66,30 +73,10 @@ Engine::Engine() :
 			}
 		}
 	}
-
-	MemoryReader* mem = _ResourceManager.GetData("art/scenery/", "engine.ART");
-
-	ArtReader artReader;
-
-	artReader.Reset(mem);
-
-	if (artReader.Frames() > 0)
-	{
-		std::vector<unsigned char> artBuffer;
-		std::vector<unsigned char> rgbBuffer;
-
-		artReader.Frame(0, artBuffer, rgbBuffer);
-
-		int w = artReader.Width(0);
-		int h = artReader.Height(0);
-
-		_Texture = new Texture(_Canvas, Point(w, h), 4, &rgbBuffer[0]);
-	}
 }
 
 Engine::~Engine()
 {
-	delete _Texture;
 }
 
 void Engine::Run()
@@ -103,7 +90,8 @@ void Engine::Run()
 			_EventHandler.StopEvent();
 		}
 
-		_Canvas.Draw(_Texture, Point(150, 150));
+		_Canvas.Draw(_SpriteManager.GetSprite("art/item/", "P_tesla_gun.ART")->GetImage(0)->GetTexture(), Point(50, 50));
+		_Canvas.Draw(_SpriteManager.GetSprite("art/scenery/", "engine.ART")->GetImage(0)->GetTexture(), Point(250, 250));
 
 		_Canvas.Present();
 	}

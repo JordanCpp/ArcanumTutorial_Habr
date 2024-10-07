@@ -27,22 +27,22 @@ DEALINGS IN THE SOFTWARE.
 #ifndef Arcanum_Managers_DatManager_hpp
 #define Arcanum_Managers_DatManager_hpp
 
-#include <vector>
 #include <Arcanum/Formats/Unpacker.hpp>
 #include <Arcanum/Formats/Dat/DatLoader.hpp>
+#include <litecpp/litecpp.hpp>
 
 namespace Arcanum
 {
     class DatManager
     {
     public:
-        DatManager(std::vector<unsigned char>& buffer, std::vector<unsigned char>& result, DatList& datList);
-        const std::vector<unsigned char>& GetFile(const std::string& path);
+        DatManager(std::pmr::vector<unsigned char>& buffer, std::pmr::vector<unsigned char>& result, DatList& datList);
+        const std::pmr::vector<unsigned char>& GetFile(const std::string& path);
     private:
         Unpacker                    _Unpacker;
         DatList&                    _DatList;
-        std::vector<unsigned char>& _Buffer;
-        std::vector<unsigned char>& _Result;
+        std::pmr::vector<unsigned char>& _Buffer;
+        std::pmr::vector<unsigned char>& _Result;
         std::ifstream               _File;
     };
 }

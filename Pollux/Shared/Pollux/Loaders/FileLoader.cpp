@@ -30,7 +30,7 @@ DEALINGS IN THE SOFTWARE.
 
 using namespace Pollux;
 
-FileLoader::FileLoader(std::vector<unsigned char>& buffer) :
+FileLoader::FileLoader(std::pmr::vector<unsigned char>& buffer) :
 	_Buffer(buffer)
 {
 }
@@ -55,7 +55,7 @@ bool FileLoader::Reset(const std::string& path)
 	return true;
 }
 
-const std::vector<unsigned char>& FileLoader::Content()
+const std::pmr::vector<unsigned char>& FileLoader::Content()
 {
 	return _Buffer;
 }
